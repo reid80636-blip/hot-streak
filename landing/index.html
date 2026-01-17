@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HotStreak - Virtual Sports Predictions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0D0D0F;
+            --bg-secondary: #1A1A1F;
+            --bg-card: #242429;
+            --accent-gold: #FFD700;
+            --accent-green: #00FF7F;
+            --accent-red: #FF3B30;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0A5;
+            --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, var(--bg-primary), transparent);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .cta-button {
+            background: var(--gradient-gold);
+            color: var(--bg-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient-gold);
+            color: var(--bg-primary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid var(--bg-card);
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-gold);
+            background: var(--bg-card);
+        }
+
+        /* iPhone Mockup */
+        .hero-phone {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .iphone-container {
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .iphone {
+            width: 280px;
+            height: 580px;
+            background: #1C1C1E;
+            border-radius: 50px;
+            padding: 12px;
+            box-shadow:
+                0 50px 100px rgba(0, 0, 0, 0.5),
+                0 0 0 2px #2C2C2E,
+                inset 0 0 0 2px #3C3C3E;
+            position: relative;
+        }
+
+        .iphone::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 28px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screen-content {
+            height: 100%;
+            padding: 50px 16px 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .screen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .screen-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .screen-coins {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-secondary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        .game-cards {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow: hidden;
+        }
+
+        .game-card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 16px;
+            animation: slideIn 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .game-card:nth-child(1) { animation-delay: 0.2s; }
+        .game-card:nth-child(2) { animation-delay: 0.4s; }
+        .game-card:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .game-league {
+            font-size: 11px;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .game-teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .team-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .team-name {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .vs {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .game-odds {
+            display: flex;
+            gap: 8px;
+        }
+
+        .odd-btn {
+            flex: 1;
+            background: var(--bg-card);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .odd-btn.selected {
+            background: var(--accent-gold);
+        }
+
+        .odd-btn.selected .odd-value {
+            color: var(--bg-primary);
+        }
+
+        .odd-btn.selected .odd-label {
+            color: var(--bg-primary);
+        }
+
+        .odd-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            display: block;
+        }
+
+        .odd-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .screen-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-top: 1px solid var(--bg-card);
+            margin-top: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        .nav-item.active {
+            color: var(--accent-gold);
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Glow effects */
+        .phone-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid var(--bg-card);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Sports Section */
+        .sports {
+            padding: 6rem 5%;
+            background: var(--bg-secondary);
+        }
+
+        .sports-logos {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .sport-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sport-logo {
+            width: 72px;
+            height: 72px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            transition: transform 0.3s;
+        }
+
+        .sport-item:hover .sport-logo {
+            transform: scale(1.1);
+        }
+
+        .sport-logo.nfl { background: linear-gradient(135deg, #013369, #D50A0A); }
+        .sport-logo.nba { background: linear-gradient(135deg, #1D428A, #C8102E); }
+        .sport-logo.mlb { background: linear-gradient(135deg, #002D72, #D50032); }
+        .sport-logo.cfb { background: linear-gradient(135deg, #4B2E83, #E8D9A8); }
+        .sport-logo.soccer { background: linear-gradient(135deg, #38003C, #00FF85); }
+
+        .sport-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 6rem 5%;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 5%;
+            text-align: center;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+            border-radius: 32px;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+        }
+
+        .cta-box h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .cta-box p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .app-stores {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .store-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--bg-primary);
+            padding: 0.875rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            border: 1px solid var(--bg-card);
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .store-btn:hover {
+            border-color: var(--accent-gold);
+            background: var(--bg-secondary);
+        }
+
+        .store-icon {
+            font-size: 1.5rem;
+        }
+
+        .store-text {
+            text-align: left;
+        }
+
+        .store-text span {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            display: block;
+        }
+
+        .store-text strong {
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            border-top: 1px solid var(--bg-card);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 6rem;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+
+            .hero p {
+                margin: 0 auto 2rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-phone {
+                margin-top: 3rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .iphone {
+                width: 240px;
+                height: 500px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="logo">
+            <div class="logo-icon">HS</div>
+            HotStreak
+        </a>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#sports">Sports</a></li>
+            <li><a href="#download">Download</a></li>
+        </ul>
+        <a href="#download" class="cta-button">Get the App</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Now Available</div>
+            <h1>Make Predictions.<br>Climb the <span>Leaderboard</span>.</h1>
+            <p>The ultimate virtual sports prediction app. Pick winners, build parlays, and compete against friends with virtual coins. No real money, all the excitement.</p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                    </svg>
+                    Download Free
+                </a>
+                <a href="#features" class="btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    See How It Works
+                </a>
+            </div>
+        </div>
+        <div class="hero-phone">
+            <div class="phone-glow"></div>
+            <div class="iphone-container">
+                <div class="iphone">
+                    <div class="iphone-screen">
+                        <div class="screen-content">
+                            <div class="screen-header">
+                                <div class="screen-title">Games</div>
+                                <div class="screen-coins">10,000</div>
+                            </div>
+                            <div class="game-cards">
+                                <div class="game-card">
+                                    <div class="game-league">NFL</div>
+                                    <div class="game-teams">
+                                        <div class="team">
+                                            <div class="team-logo" style="background: #002244; color: #fff;">KC</div>
+                                            <div class="team-name">Chiefs</div>
+                                        </div>
+                                        <div class="vs">VS</div>
+                                        <div class="team">
+                                            <div class="team-logo" style="background: #A71930; color: #fff;">SF</div>
+                                            <div class="team-name">49ers</div>
+                                        </div>
+                                    </div>
+                                    <div class="game-odds">
+                                        <button class="odd-btn selected">
+                                            <span class="odd-label">KC</span>
+                                            <span class="odd-value">-110</span>
+                                        </button>
+                                        <button class="odd-btn">
+                                            <span class="odd-label">SF</span>
+                                            <span class="odd-value">+105</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="game-card">
+                                    <div class="game-league">NBA</div>
+                                    <div class="game-teams">
+                                        <div class="team">
+                                            <div class="team-logo" style="background: #552583; color: #FDB927;">LA</div>
+                                            <div class="team-name">Lakers</div>
+                                        </div>
+                                        <div class="vs">VS</div>
+                                        <div class="team">
+                                            <div class="team-logo" style="background: #006BB6; color: #fff;">NY</div>
+                                            <div class="team-name">Knicks</div>
+                                        </div>
+                                    </div>
+                                    <div class="game-odds">
+                                        <button class="odd-btn">
+                                            <span class="odd-label">LAL</span>
+                                            <span class="odd-value">-125</span>
+                                        </button>
+                                        <button class="odd-btn">
+                                            <span class="odd-label">NYK</span>
+                                            <span class="odd-value">+115</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="game-card">
+                                    <div class="game-league">MLB</div>
+                                    <div class="game-teams">
+                                        <div class="team">
+                                            <div class="team-logo" style="background: #003087; color: #fff;">LA</div>
+                                            <div class="team-name">Dodgers</div>
+                                        </div>
+                                        <div class="vs">VS</div>
+                                        <div class="team">
+                                            <div class="team-logo" style="background: #0C2340; color: #C4CED4;">NY</div>
+                                            <div class="team-name">Yankees</div>
+                                        </div>
+                                    </div>
+                                    <div class="game-odds">
+                                        <button class="odd-btn">
+                                            <span class="odd-label">LAD</span>
+                                            <span class="odd-value">-140</span>
+                                        </button>
+                                        <button class="odd-btn">
+                                            <span class="odd-label">NYY</span>
+                                            <span class="odd-value">+120</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="screen-nav">
+                                <div class="nav-item active">
+                                    <div class="nav-icon">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                                    </div>
+                                    Home
+                                </div>
+                                <div class="nav-item">
+                                    <div class="nav-icon">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2v-4H8v-2h4V7h2v4h4v2h-4v4z"/></svg>
+                                    </div>
+                                    Picks
+                                </div>
+                                <div class="nav-item">
+                                    <div class="nav-icon">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 21H2V9h5.5v12zm7.25-18h-5.5v18h5.5V3zM22 11h-5.5v10H22V11z"/></svg>
+                                    </div>
+                                    Ranks
+                                </div>
+                                <div class="nav-item">
+                                    <div class="nav-icon">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                                    </div>
+                                    Profile
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>Everything You Need to Win</h2>
+            <p>Powerful features designed to make sports predictions fun, competitive, and rewarding</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Multiple Bet Types</h3>
+                <p>Moneyline, spread, totals, player props, and parlays. Build your strategy across every major bet type.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>Global Leaderboards</h3>
+                <p>Compete against players worldwide. Daily, weekly, and all-time rankings showcase the best predictors.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎰</div>
+                <h3>Daily Bonus Spin</h3>
+                <p>Spin the wheel daily for free coins. Win anywhere from 50 to 5,000 coins, with jackpot potential.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Live Scores</h3>
+                <p>Real-time updates on all your games. Watch your predictions play out as the action unfolds.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏅</div>
+                <h3>Collectibles & Achievements</h3>
+                <p>Earn badges, unlock collectibles, and build your trophy case. From common to legendary rarities.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Virtual Currency</h3>
+                <p>Start with 10,000 coins. No real money involved. Pure prediction skill and entertainment.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="sports" id="sports">
+        <div class="section-header">
+            <h2>All Your Favorite Sports</h2>
+            <p>Make predictions across the biggest leagues in professional and college sports</p>
+        </div>
+        <div class="sports-logos">
+            <div class="sport-item">
+                <div class="sport-logo nfl">NFL</div>
+                <div class="sport-name">Football</div>
+            </div>
+            <div class="sport-item">
+                <div class="sport-logo nba">NBA</div>
+                <div class="sport-name">Basketball</div>
+            </div>
+            <div class="sport-item">
+                <div class="sport-logo mlb">MLB</div>
+                <div class="sport-name">Baseball</div>
+            </div>
+            <div class="sport-item">
+                <div class="sport-logo cfb">CFB</div>
+                <div class="sport-name">College Football</div>
+            </div>
+            <div class="sport-item">
+                <div class="sport-logo soccer">EPL</div>
+                <div class="sport-name">Soccer</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">6+</div>
+                <div class="stat-label">Sports Leagues</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label">Games Weekly</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Bet Types</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">Free</div>
+                <div class="stat-label">To Play</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="download">
+        <div class="cta-box">
+            <h2>Ready to Start Your Streak?</h2>
+            <p>Download HotStreak now and get 10,000 free coins to start making predictions</p>
+            <div class="app-stores">
+                <a href="#" class="store-btn">
+                    <div class="store-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                        </svg>
+                    </div>
+                    <div class="store-text">
+                        <span>Download on the</span>
+                        <strong>App Store</strong>
+                    </div>
+                </a>
+                <a href="#" class="store-btn">
+                    <div class="store-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/>
+                        </svg>
+                    </div>
+                    <div class="store-text">
+                        <span>Get it on</span>
+                        <strong>Google Play</strong>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Support</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="copyright">&copy; 2025 HotStreak. All rights reserved. No real money gambling.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .sport-item, .stat-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Parallax effect for phone
+        document.addEventListener('mousemove', (e) => {
+            const phone = document.querySelector('.iphone-container');
+            if (phone && window.innerWidth > 968) {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+                phone.style.transform = `translateY(${-20 + yAxis}px) rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
+            }
+        });
+    </script>
+</body>
+</html>
