@@ -1985,9 +1985,10 @@
 
         /* Testimonials Section */
         .testimonials {
-            padding: 6rem 5%;
+            padding: 6rem 0;
             position: relative;
             background: var(--bg-secondary);
+            overflow: hidden;
         }
 
         .testimonials::before {
@@ -2000,13 +2001,36 @@
             background: radial-gradient(ellipse at center, rgba(240, 197, 79, 0.03) 0%, transparent 70%);
         }
 
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+        .testimonials .section-header {
+            padding: 0 5%;
+        }
+
+        .testimonials-wrapper {
             position: relative;
+            width: 100%;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .testimonials-track {
+            display: flex;
+            gap: 1.5rem;
+            animation: scrollTestimonials 40s linear infinite;
+            width: max-content;
+        }
+
+        .testimonials-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollTestimonials {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         .testimonial-card {
@@ -2015,18 +2039,24 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 24px;
-            padding: 2rem;
+            padding: 1.75rem;
             position: relative;
             transition: all 0.4s ease;
             box-shadow:
                 0 4px 6px rgba(0, 0, 0, 0.1),
                 0 10px 20px rgba(0, 0, 0, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            flex: 0 0 360px;
+            min-height: 220px;
         }
 
         .testimonial-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-4px) scale(1.02);
             border-color: rgba(240, 197, 79, 0.2);
+            box-shadow:
+                0 8px 16px rgba(0, 0, 0, 0.15),
+                0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 30px rgba(240, 197, 79, 0.05);
         }
 
         .testimonial-quote-mark {
@@ -3327,10 +3357,14 @@
         <div class="sports-logos">
             <div class="sport-item">
                 <div class="sport-logo nfl">
-                    <svg viewBox="0 0 24 24" fill="white">
-                        <path d="M20.5 3.5C12.4 3.5 3.5 12.4 3.5 20.5c0 0 .5-1.5 2-3s4.5-3 7-3.5c2.5-.5 5.5 0 7.5-1s3.5-3.5 3.5-3.5c0-2.5-1-4-3-6zM9.5 14.5c-1.5 1.5-3 4-3 4 4.5-4.5 9-6.5 13-8.5-1 1.5-2.5 3-4.5 4s-4 1-5.5.5z"/>
-                        <ellipse cx="12" cy="12" rx="9" ry="6" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-30 12 12)"/>
-                        <path d="M7 10l10 4M9 7l6 10" stroke="white" stroke-width="1" fill="none"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Football shape -->
+                        <ellipse cx="32" cy="32" rx="26" ry="16" fill="white" transform="rotate(-30 32 32)"/>
+                        <!-- Laces -->
+                        <path d="M28 24l8 16" stroke="#013369" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M25 28l4 0M27 32l4 0M29 36l4 0M31 40l4 0" stroke="#013369" stroke-width="2" stroke-linecap="round"/>
+                        <!-- End stitches -->
+                        <path d="M15 22c2-1 3-2 4-4M49 42c-2 1-3 2-4 4" stroke="#013369" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                 </div>
                 <div class="sport-name">Football</div>
@@ -3338,10 +3372,15 @@
             </div>
             <div class="sport-item">
                 <div class="sport-logo nba">
-                    <svg viewBox="0 0 24 24" fill="white">
-                        <circle cx="12" cy="12" r="9" fill="none" stroke="white" stroke-width="1.5"/>
-                        <path d="M12 3v18M3 12h18" stroke="white" stroke-width="1.5"/>
-                        <path d="M5.5 5.5c3 3 3 10 0 13M18.5 5.5c-3 3-3 10 0 13" stroke="white" stroke-width="1.5" fill="none"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Basketball -->
+                        <circle cx="32" cy="32" r="26" fill="#FF6B35" stroke="white" stroke-width="2"/>
+                        <!-- Lines -->
+                        <path d="M32 6v52" stroke="#1a1a1a" stroke-width="2.5"/>
+                        <path d="M6 32h52" stroke="#1a1a1a" stroke-width="2.5"/>
+                        <!-- Curved seams -->
+                        <path d="M14 14c10 8 10 28 0 36" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+                        <path d="M50 14c-10 8-10 28 0 36" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
                     </svg>
                 </div>
                 <div class="sport-name">Basketball</div>
@@ -3349,9 +3388,15 @@
             </div>
             <div class="sport-item">
                 <div class="sport-logo mlb">
-                    <svg viewBox="0 0 24 24" fill="white">
-                        <circle cx="12" cy="12" r="9" fill="none" stroke="white" stroke-width="1.5"/>
-                        <path d="M5 8c2 1 4 1 6 0s4-1 6 0M5 12c2 1 4 1 6 0s4-1 6 0M5 16c2 1 4 1 6 0s4-1 6 0" stroke="white" stroke-width="1" fill="none"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Baseball -->
+                        <circle cx="32" cy="32" r="26" fill="white" stroke="#ccc" stroke-width="1"/>
+                        <!-- Red stitching left -->
+                        <path d="M14 18c3 4 3 10 0 14c-3 4-3 10 0 14" stroke="#D50032" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                        <path d="M11 20l4 2M10 26l5 0M11 32l4-2M11 38l4 2M10 44l5 0M11 50l4-2" stroke="#D50032" stroke-width="1.5" stroke-linecap="round"/>
+                        <!-- Red stitching right -->
+                        <path d="M50 18c-3 4-3 10 0 14c3 4 3 10 0 14" stroke="#D50032" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                        <path d="M53 20l-4 2M54 26l-5 0M53 32l-4-2M53 38l-4 2M54 44l-5 0M53 50l-4-2" stroke="#D50032" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                 </div>
                 <div class="sport-name">Baseball</div>
@@ -3359,10 +3404,15 @@
             </div>
             <div class="sport-item">
                 <div class="sport-logo cfb">
-                    <svg viewBox="0 0 24 24" fill="white">
-                        <ellipse cx="12" cy="12" rx="9" ry="6" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-30 12 12)"/>
-                        <path d="M7 10l10 4M9 7l6 10" stroke="white" stroke-width="1.2" fill="none"/>
-                        <path d="M6 18l2-2M18 6l-2 2" stroke="#f0c54f" stroke-width="2"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Helmet shape -->
+                        <path d="M16 32c0-12 8-20 18-20s16 8 16 20c0 8-4 14-10 16l-4 6h-8l-4-6c-6-2-8-8-8-16z" fill="white"/>
+                        <!-- Face mask -->
+                        <path d="M24 36c0 4 4 8 8 8s8-4 8-8" stroke="#f0c54f" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <path d="M24 32h16" stroke="#f0c54f" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M26 28h12" stroke="#f0c54f" stroke-width="2" stroke-linecap="round"/>
+                        <!-- Stripe -->
+                        <path d="M32 12v20" stroke="#1a1a2e" stroke-width="4" stroke-linecap="round"/>
                     </svg>
                 </div>
                 <div class="sport-name">College Football</div>
@@ -3370,10 +3420,17 @@
             </div>
             <div class="sport-item">
                 <div class="sport-logo soccer">
-                    <svg viewBox="0 0 24 24" fill="white">
-                        <circle cx="12" cy="12" r="9" fill="none" stroke="white" stroke-width="1.5"/>
-                        <polygon points="12,6 15,10 14,14 10,14 9,10" fill="white"/>
-                        <path d="M12 6l3-3M15 10l4 0M14 14l2 4M10 14l-2 4M9 10l-4 0M12 6l-3-3" stroke="white" stroke-width="1"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Soccer ball -->
+                        <circle cx="32" cy="32" r="26" fill="white" stroke="#333" stroke-width="1"/>
+                        <!-- Pentagon patterns -->
+                        <polygon points="32,14 38,22 36,30 28,30 26,22" fill="#1a1a1a"/>
+                        <polygon points="18,26 24,22 26,30 22,36 14,34" fill="#1a1a1a"/>
+                        <polygon points="46,26 40,22 38,30 42,36 50,34" fill="#1a1a1a"/>
+                        <polygon points="22,44 22,36 28,34 34,38 32,46" fill="#1a1a1a"/>
+                        <polygon points="42,44 42,36 36,34 30,38 32,46" fill="#1a1a1a"/>
+                        <!-- Connecting lines -->
+                        <path d="M32 14l-8 8M32 14l8 8M18 26l8-4M46 26l-8-4M14 34l8 2M50 34l-8 2M22 44l0-8M42 44l0-8M32 46l-10-2M32 46l10-2" stroke="#333" stroke-width="1.5"/>
                     </svg>
                 </div>
                 <div class="sport-name">Soccer</div>
@@ -3381,10 +3438,17 @@
             </div>
             <div class="sport-item">
                 <div class="sport-logo nhl">
-                    <svg viewBox="0 0 24 24" fill="white">
-                        <ellipse cx="12" cy="12" rx="9" ry="5" fill="none" stroke="white" stroke-width="1.5"/>
-                        <rect x="11" y="4" width="2" height="16" rx="1" fill="white"/>
-                        <rect x="6" y="11" width="12" height="2" rx="1" fill="white"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Crossed hockey sticks -->
+                        <path d="M14 50l28-36" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M50 50l-28-36" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <!-- Stick blades -->
+                        <path d="M14 50l-4 2c-2 1-2 3 0 4l6-2z" fill="white"/>
+                        <path d="M50 50l4 2c2 1 2 3 0 4l-6-2z" fill="white"/>
+                        <!-- Puck -->
+                        <ellipse cx="32" cy="42" rx="10" ry="4" fill="#111"/>
+                        <ellipse cx="32" cy="40" rx="10" ry="4" fill="#333"/>
+                        <ellipse cx="32" cy="40" rx="8" ry="3" fill="#111" opacity="0.5"/>
                     </svg>
                 </div>
                 <div class="sport-name">Hockey</div>
@@ -3393,9 +3457,16 @@
             </div>
             <div class="sport-item">
                 <div class="sport-logo ufc">
-                    <svg viewBox="0 0 24 24" fill="white">
-                        <path d="M12 4c-2 0-4 1-5 3l-2 4c-1 2 0 4 1 5l3 3c1 1 3 2 5 2s4-1 5-2l3-3c1-1 2-3 1-5l-2-4c-1-2-3-3-5-3h-4z" fill="none" stroke="white" stroke-width="1.5"/>
-                        <path d="M9 10l3 6 3-6" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Octagon -->
+                        <polygon points="24,8 40,8 54,18 54,46 40,56 24,56 10,46 10,18" fill="none" stroke="white" stroke-width="3"/>
+                        <!-- Inner octagon -->
+                        <polygon points="26,14 38,14 48,22 48,42 38,50 26,50 16,42 16,22" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="1.5"/>
+                        <!-- Fist silhouette -->
+                        <path d="M28 38v-10c0-2 1-3 3-3h2c2 0 3 1 3 3v10" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                        <path d="M25 36v-6c0-1.5 1-2.5 2.5-2.5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M39 36v-6c0-1.5-1-2.5-2.5-2.5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M25 38h14" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
                     </svg>
                 </div>
                 <div class="sport-name">MMA</div>
@@ -3404,11 +3475,22 @@
             </div>
             <div class="sport-item">
                 <div class="sport-logo golf">
-                    <svg viewBox="0 0 24 24" fill="white">
-                        <circle cx="12" cy="8" r="3" fill="none" stroke="white" stroke-width="1.5"/>
-                        <path d="M12 11v9" stroke="white" stroke-width="2"/>
-                        <path d="M8 20h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M15 6l3-2" stroke="white" stroke-width="1.5"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Flag pole -->
+                        <path d="M32 52V16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <!-- Flag -->
+                        <path d="M32 16l16 6-16 6z" fill="#FFD700" stroke="#DAA520" stroke-width="1"/>
+                        <!-- Golf ball with dimples -->
+                        <circle cx="24" cy="50" r="8" fill="white"/>
+                        <circle cx="21" cy="48" r="1.2" fill="#ddd"/>
+                        <circle cx="25" cy="47" r="1.2" fill="#ddd"/>
+                        <circle cx="28" cy="49" r="1.2" fill="#ddd"/>
+                        <circle cx="22" cy="52" r="1.2" fill="#ddd"/>
+                        <circle cx="26" cy="52" r="1.2" fill="#ddd"/>
+                        <circle cx="24" cy="55" r="1.2" fill="#ddd"/>
+                        <!-- Hole -->
+                        <ellipse cx="44" cy="52" rx="8" ry="3" fill="#1a3d1a" stroke="#0d260d" stroke-width="1"/>
+                        <ellipse cx="44" cy="51" rx="4" ry="1.5" fill="#0a1a0a"/>
                     </svg>
                 </div>
                 <div class="sport-name">Golf</div>
@@ -3426,50 +3508,262 @@
             <h2>What Players Are Saying</h2>
             <p>Join thousands of sports fans who've found their new favorite prediction app</p>
         </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-quote-mark">"</div>
-                <div class="testimonial-content">
-                    <p class="testimonial-text">Finally an app that lets me compete with my friends on sports predictions without any real money. The leaderboard competition is addicting!</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">MJ</div>
-                        <div class="testimonial-info">
-                            <h4>MikeJordan23</h4>
-                            <div class="testimonial-stats">
-                                <span class="testimonial-winrate">72% win rate</span>
-                                <span class="testimonial-stars">★★★★★</span>
+        <div class="testimonials-wrapper">
+            <div class="testimonials-track">
+                <!-- First set of testimonials -->
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Finally an app that lets me compete with my friends on sports predictions without any real money. The leaderboard competition is addicting!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">MJ</div>
+                            <div class="testimonial-info">
+                                <h4>MikeJordan23</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">72% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-quote-mark">"</div>
-                <div class="testimonial-content">
-                    <p class="testimonial-text">The daily bonus wheel keeps me coming back every day. I've built up over 50K coins just from consistent play. Love the parlay options too!</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">SK</div>
-                        <div class="testimonial-info">
-                            <h4>SarahKicks</h4>
-                            <div class="testimonial-stats">
-                                <span class="testimonial-winrate">65% win rate</span>
-                                <span class="testimonial-stars">★★★★★</span>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">The daily bonus wheel keeps me coming back every day. I've built up over 50K coins just from consistent play. Love the parlay options!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">SK</div>
+                            <div class="testimonial-info">
+                                <h4>SarahKicks</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">65% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-quote-mark">"</div>
-                <div class="testimonial-content">
-                    <p class="testimonial-text">Best sports prediction app I've used. Clean interface, real-time updates, and no annoying ads. The achievement system keeps things interesting.</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">TC</div>
-                        <div class="testimonial-info">
-                            <h4>TomChamp</h4>
-                            <div class="testimonial-stats">
-                                <span class="testimonial-winrate">68% win rate</span>
-                                <span class="testimonial-stars">★★★★★</span>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Best sports prediction app I've used. Clean interface, real-time updates, and no annoying ads. The achievement system keeps things interesting.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">TC</div>
+                            <div class="testimonial-info">
+                                <h4>TomChamp</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">68% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Hit a 5-leg parlay last week and went from 5K to 40K coins! The rush is real. Way better than risking actual money.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">JB</div>
+                            <div class="testimonial-info">
+                                <h4>JakeBets</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">61% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Love tracking my stats and seeing my win rate improve over time. The profile page is super detailed. Great for learning about betting!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">AL</div>
+                            <div class="testimonial-info">
+                                <h4>AlexLucky</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">59% win rate</span>
+                                    <span class="testimonial-stars">★★★★☆</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">My whole fantasy football league uses this now. We compare picks every week and talk trash on the leaderboard. So much fun!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">DW</div>
+                            <div class="testimonial-info">
+                                <h4>DaveWinner</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">71% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">The achievement badges are addicting to collect. Already got the legendary Hot Streak badge for 10 wins in a row!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">RM</div>
+                            <div class="testimonial-info">
+                                <h4>RachelMVP</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">74% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Perfect for NFL Sundays. I make all my picks in the morning and track them through the day. The live updates are clutch.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">CP</div>
+                            <div class="testimonial-info">
+                                <h4>ChrisPicks</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">63% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Duplicate set for infinite scroll -->
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Finally an app that lets me compete with my friends on sports predictions without any real money. The leaderboard competition is addicting!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">MJ</div>
+                            <div class="testimonial-info">
+                                <h4>MikeJordan23</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">72% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">The daily bonus wheel keeps me coming back every day. I've built up over 50K coins just from consistent play. Love the parlay options!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">SK</div>
+                            <div class="testimonial-info">
+                                <h4>SarahKicks</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">65% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Best sports prediction app I've used. Clean interface, real-time updates, and no annoying ads. The achievement system keeps things interesting.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">TC</div>
+                            <div class="testimonial-info">
+                                <h4>TomChamp</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">68% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Hit a 5-leg parlay last week and went from 5K to 40K coins! The rush is real. Way better than risking actual money.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">JB</div>
+                            <div class="testimonial-info">
+                                <h4>JakeBets</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">61% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Love tracking my stats and seeing my win rate improve over time. The profile page is super detailed. Great for learning about betting!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">AL</div>
+                            <div class="testimonial-info">
+                                <h4>AlexLucky</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">59% win rate</span>
+                                    <span class="testimonial-stars">★★★★☆</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">My whole fantasy football league uses this now. We compare picks every week and talk trash on the leaderboard. So much fun!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">DW</div>
+                            <div class="testimonial-info">
+                                <h4>DaveWinner</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">71% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">The achievement badges are addicting to collect. Already got the legendary Hot Streak badge for 10 wins in a row!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">RM</div>
+                            <div class="testimonial-info">
+                                <h4>RachelMVP</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">74% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">"</div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Perfect for NFL Sundays. I make all my picks in the morning and track them through the day. The live updates are clutch.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">CP</div>
+                            <div class="testimonial-info">
+                                <h4>ChrisPicks</h4>
+                                <div class="testimonial-stats">
+                                    <span class="testimonial-winrate">63% win rate</span>
+                                    <span class="testimonial-stars">★★★★★</span>
+                                </div>
                             </div>
                         </div>
                     </div>
