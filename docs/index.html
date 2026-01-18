@@ -15,18 +15,26 @@
         }
 
         :root {
-            --bg-primary: #0D0D0F;
-            --bg-secondary: #1A1A1F;
-            --bg-card: #242429;
-            --accent-gold: #FFD700;
-            --accent-orange: #FFA500;
+            --bg-primary: #08090c;
+            --bg-secondary: #0f1117;
+            --bg-card: #181b23;
+            --bg-elevated: #1e222d;
+            --accent-gold: #f0c54f;
+            --accent-gold-light: #f5d980;
+            --accent-orange: #e09422;
             --accent-green: #00FF7F;
             --accent-red: #FF3B30;
-            --accent-blue: #007AFF;
+            --accent-blue: #4a7dff;
+            --accent-purple: #8b5cf6;
             --text-primary: #FFFFFF;
-            --text-secondary: #A0A0A5;
-            --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            --text-secondary: #8a8f9e;
+            --text-muted: #5a5f6e;
+            --gradient-gold: linear-gradient(135deg, #f5d980 0%, #e09422 100%);
+            --gradient-gold-subtle: linear-gradient(135deg, rgba(240, 197, 79, 0.15) 0%, rgba(224, 148, 34, 0.05) 100%);
             --titanium-frame: linear-gradient(135deg, #3A3A3C 0%, #1C1C1E 50%, #3A3A3C 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
         body {
@@ -37,18 +45,70 @@
             line-height: 1.6;
         }
 
+        /* Noise Texture Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.015;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Glassmorphism Base Classes */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow:
+                0 4px 6px rgba(0, 0, 0, 0.1),
+                0 10px 20px rgba(0, 0, 0, 0.15),
+                0 20px 40px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        /* Premium Section Divider */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(240, 197, 79, 0.3), transparent);
+            margin: 0;
+        }
+
         /* Navigation */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            padding: 1.5rem 5%;
+            padding: 1.25rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: linear-gradient(to bottom, var(--bg-primary), transparent);
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(8, 9, 12, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 5%;
         }
 
         .logo {
@@ -216,13 +276,16 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: var(--bg-secondary);
-            padding: 0.5rem 1rem;
+            background: rgba(240, 197, 79, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 0.5rem 1.25rem;
             border-radius: 50px;
             font-size: 0.875rem;
             color: var(--accent-gold);
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(240, 197, 79, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .hero-badge::before {
@@ -262,10 +325,12 @@
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(3rem, 6vw, 4.5rem);
             font-weight: 800;
-            line-height: 1.1;
+            line-height: 1.05;
             margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
         .hero h1 span {
@@ -273,6 +338,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: none;
+            filter: drop-shadow(0 2px 10px rgba(240, 197, 79, 0.3));
         }
 
         .hero p {
@@ -1226,13 +1293,19 @@
         }
 
         .feature-card {
-            background: var(--bg-secondary);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 2rem;
-            border: 1px solid var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            box-shadow:
+                0 4px 6px rgba(0, 0, 0, 0.1),
+                0 10px 20px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .feature-card::before {
@@ -1242,15 +1315,18 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at top left, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+            background: radial-gradient(circle at top left, rgba(240, 197, 79, 0.08) 0%, transparent 50%);
             opacity: 0;
             transition: opacity 0.4s;
         }
 
         .feature-card:hover {
             transform: translateY(-8px);
-            border-color: rgba(255, 215, 0, 0.4);
-            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.15);
+            border-color: rgba(240, 197, 79, 0.3);
+            box-shadow:
+                0 8px 16px rgba(0, 0, 0, 0.15),
+                0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 60px rgba(240, 197, 79, 0.1);
         }
 
         .feature-card:hover::before {
@@ -1663,6 +1739,415 @@
             font-size: 0.875rem;
         }
 
+        /* Screenshots Gallery Section */
+        .screenshots {
+            padding: 6rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screenshots-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .screenshots-track {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            padding: 2rem 0;
+            -ms-overflow-style: none;
+        }
+
+        .screenshots-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .screenshot-item {
+            flex: 0 0 280px;
+            position: relative;
+        }
+
+        .screenshot-frame {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .screenshot-item:hover .screenshot-frame {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(240, 197, 79, 0.3);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(240, 197, 79, 0.1);
+        }
+
+        .screenshot-image {
+            width: 100%;
+            height: 500px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .screenshot-label {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .screenshots-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .screenshot-arrow {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .screenshot-arrow:hover {
+            background: rgba(240, 197, 79, 0.1);
+            border-color: rgba(240, 197, 79, 0.3);
+            color: var(--accent-gold);
+        }
+
+        .screenshot-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .screenshot-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .screenshot-dot.active {
+            background: var(--accent-gold);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 5%;
+            position: relative;
+            background: var(--bg-secondary);
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(240, 197, 79, 0.03) 0%, transparent 70%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow:
+                0 4px 6px rgba(0, 0, 0, 0.1),
+                0 10px 20px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(240, 197, 79, 0.2);
+        }
+
+        .testimonial-quote-mark {
+            font-size: 4rem;
+            line-height: 1;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.3;
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--bg-primary);
+        }
+
+        .testimonial-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-stats {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .testimonial-winrate {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        .testimonial-stars {
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow:
+                0 2px 4px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .faq-item:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-item.active {
+            border-color: rgba(240, 197, 79, 0.2);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .faq-question h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .faq-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .faq-icon svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-icon {
+            background: rgba(240, 197, 79, 0.1);
+            color: var(--accent-gold);
+        }
+
+        .faq-item.active .faq-icon svg {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .step-item {
+            flex: 1;
+            min-width: 200px;
+            max-width: 280px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(240, 197, 79, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .step-number::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            background: var(--gradient-gold);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .step-item h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .step-connector {
+            position: absolute;
+            top: 32px;
+            left: calc(50% + 40px);
+            width: calc(100% - 80px);
+            height: 2px;
+            background: linear-gradient(90deg, rgba(240, 197, 79, 0.3), rgba(240, 197, 79, 0.1));
+        }
+
+        .step-item:last-child .step-connector {
+            display: none;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 968px) {
             .hero {
@@ -1735,6 +2220,26 @@
                 height: 64px;
                 font-size: 1.2rem;
             }
+
+            .screenshot-item {
+                flex: 0 0 260px;
+            }
+
+            .screenshot-image {
+                height: 450px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-question h3 {
+                font-size: 0.95rem;
+            }
+
+            .step-connector {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -1745,9 +2250,10 @@
             HotStreak
         </a>
         <ul class="nav-links">
+            <li><a href="#screenshots">Preview</a></li>
             <li><a href="#features">Features</a></li>
-            <li><a href="#sports">Sports</a></li>
-            <li><a href="#download">Download</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#faq">FAQ</a></li>
         </ul>
         <a href="#download" class="cta-button">Get the App</a>
     </nav>
@@ -2102,6 +2608,201 @@
         </div>
     </section>
 
+    <!-- Screenshots Gallery Section -->
+    <section class="screenshots" id="screenshots">
+        <div class="section-header">
+            <h2>See HotStreak in Action</h2>
+            <p>Experience the thrill of sports predictions with our intuitive, feature-rich interface</p>
+        </div>
+        <div class="screenshots-container">
+            <div class="screenshots-track" id="screenshotsTrack">
+                <div class="screenshot-item">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 20px;">🔥</span>
+                                    <span style="font-weight: 700; font-size: 18px;">Games</span>
+                                </div>
+                                <div style="background: rgba(240, 197, 79, 0.15); padding: 6px 12px; border-radius: 20px; font-size: 13px; color: #f0c54f;">🪙 10,500</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, #f0c54f, #e09422); border-radius: 12px; padding: 14px; margin-bottom: 16px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="color: #000; font-weight: 700; font-size: 13px;">Daily Bonus Ready!</div>
+                                        <div style="color: rgba(0,0,0,0.6); font-size: 11px;">Spin to win up to 5,000</div>
+                                    </div>
+                                    <div style="background: #000; color: #f0c54f; padding: 6px 14px; border-radius: 16px; font-size: 11px; font-weight: 700;">SPIN</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                                <span style="background: #f0c54f; color: #000; padding: 6px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">All</span>
+                                <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 11px;">NFL</span>
+                                <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 11px;">NBA</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); border-radius: 14px; padding: 14px; border: 1px solid rgba(255,255,255,0.06);">
+                                <div style="color: #f0c54f; font-size: 10px; font-weight: 600; margin-bottom: 8px;">NFL • TONIGHT 8:15 PM</div>
+                                <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 12px;">
+                                    <div style="text-align: center;">
+                                        <div style="width: 36px; height: 36px; background: #002244; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-size: 11px; font-weight: 700;">KC</div>
+                                        <div style="font-size: 11px; font-weight: 600;">Chiefs</div>
+                                    </div>
+                                    <span style="color: #5a5f6e; font-size: 11px;">VS</span>
+                                    <div style="text-align: center;">
+                                        <div style="width: 36px; height: 36px; background: #A71930; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-size: 11px; font-weight: 700;">SF</div>
+                                        <div style="font-size: 11px; font-weight: 600;">49ers</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screenshot-label">Live Games Feed</div>
+                </div>
+                <div class="screenshot-item">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                                <span style="font-size: 18px;">📋</span>
+                                <span style="font-weight: 700; font-size: 18px;">My Picks</span>
+                                <span style="background: linear-gradient(135deg, #00FF7F, #00CC66); color: #000; padding: 4px 10px; border-radius: 10px; font-size: 10px; font-weight: 700; margin-left: auto;">67% Win</span>
+                            </div>
+                            <div style="display: flex; background: rgba(255,255,255,0.03); border-radius: 10px; padding: 4px; margin-bottom: 16px;">
+                                <div style="flex: 1; text-align: center; background: rgba(255,255,255,0.05); border-radius: 8px; padding: 8px; font-size: 11px; font-weight: 600;">Pending</div>
+                                <div style="flex: 1; text-align: center; padding: 8px; font-size: 11px; color: #8a8f9e;">Settled</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.06);">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="font-size: 12px; font-weight: 600;">Chiefs vs 49ers</span>
+                                    <span style="background: rgba(240, 197, 79, 0.2); color: #f0c54f; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">Pending</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 10px; color: #8a8f9e;">
+                                    <span>KC -110 • 500 coins</span>
+                                    <span style="color: #00FF7F;">To win: 455</span>
+                                </div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px; border: 1px solid rgba(255,255,255,0.06);">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="font-size: 12px; font-weight: 600;">Lakers vs Celtics</span>
+                                    <span style="background: rgba(0, 255, 127, 0.2); color: #00FF7F; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">Won</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 10px; color: #8a8f9e;">
+                                    <span>LAL +140 • 300 coins</span>
+                                    <span style="color: #00FF7F;">+420</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screenshot-label">Track Your Picks</div>
+                </div>
+                <div class="screenshot-item">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                                <span style="font-size: 18px;">🏆</span>
+                                <span style="font-weight: 700; font-size: 18px;">Leaderboard</span>
+                            </div>
+                            <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+                                <span style="background: #f0c54f; color: #000; padding: 6px 12px; border-radius: 12px; font-size: 10px; font-weight: 600;">Daily</span>
+                                <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 10px;">Weekly</span>
+                                <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 10px;">All Time</span>
+                            </div>
+                            <div style="display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin-bottom: 20px;">
+                                <div style="text-align: center;">
+                                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #C0C0C0, #A0A0A0); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 14px; font-weight: 700;">JM</div>
+                                    <div style="font-size: 10px; font-weight: 600;">JakeMVP</div>
+                                    <div style="font-size: 9px; color: #f0c54f;">52.4K</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="width: 52px; height: 52px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 16px; font-weight: 700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);">SK</div>
+                                    <div style="font-size: 10px; font-weight: 600;">SportsKing</div>
+                                    <div style="font-size: 9px; color: #f0c54f;">78.2K</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #CD7F32, #8B4513); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 14px; font-weight: 700;">LP</div>
+                                    <div style="font-size: 10px; font-weight: 600;">LuckyPick</div>
+                                    <div style="font-size: 9px; color: #f0c54f;">41.8K</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screenshot-label">Compete Globally</div>
+                </div>
+                <div class="screenshot-item">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
+                            <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+                                <div style="width: 72px; height: 72px; background: linear-gradient(135deg, #f0c54f, #e09422); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; margin-bottom: 10px; box-shadow: 0 0 30px rgba(240, 197, 79, 0.3);">RC</div>
+                                <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">ReidColeman</div>
+                                <div style="background: rgba(240, 197, 79, 0.15); padding: 4px 12px; border-radius: 12px; font-size: 11px; color: #f0c54f;">⭐ Level 24</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); border-radius: 14px; padding: 16px; margin-bottom: 16px;">
+                                <div style="display: flex; justify-content: space-around; text-align: center;">
+                                    <div>
+                                        <div style="font-size: 20px; font-weight: 700;">847</div>
+                                        <div style="font-size: 9px; color: #8a8f9e;">Predictions</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 20px; font-weight: 700; color: #00FF7F;">67%</div>
+                                        <div style="font-size: 9px; color: #8a8f9e;">Win Rate</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 20px; font-weight: 700;">567</div>
+                                        <div style="font-size: 9px; color: #8a8f9e;">Wins</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px solid rgba(240, 197, 79, 0.2); border-radius: 14px; padding: 16px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <span style="font-size: 11px; color: #8a8f9e;">Wallet Balance</span>
+                                    <span style="font-size: 16px;">🪙</span>
+                                </div>
+                                <div style="font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #f5d980, #e09422); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">10,500</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screenshot-label">Your Profile</div>
+                </div>
+                <div class="screenshot-item">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <div style="font-size: 16px; font-weight: 700; margin-bottom: 20px;">Daily Bonus Wheel</div>
+                            <div style="width: 180px; height: 180px; border-radius: 50%; background: conic-gradient(from 0deg, #f0c54f 0deg 45deg, #e09422 45deg 90deg, #f0c54f 90deg 135deg, #e09422 135deg 180deg, #f0c54f 180deg 225deg, #e09422 225deg 270deg, #f0c54f 270deg 315deg, #e09422 315deg 360deg); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 0 40px rgba(240, 197, 79, 0.3);">
+                                <div style="width: 60px; height: 60px; background: #0f1117; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">🎯</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, #f0c54f, #e09422); color: #000; padding: 12px 32px; border-radius: 20px; font-weight: 700; font-size: 14px;">SPIN NOW</div>
+                            <div style="margin-top: 16px; text-align: center;">
+                                <div style="font-size: 11px; color: #8a8f9e;">Win up to</div>
+                                <div style="font-size: 24px; font-weight: 800; color: #f0c54f;">5,000 🪙</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screenshot-label">Daily Bonus</div>
+                </div>
+            </div>
+            <div class="screenshots-nav">
+                <button class="screenshot-arrow" id="prevScreenshot">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <div class="screenshot-dots">
+                    <div class="screenshot-dot active" data-index="0"></div>
+                    <div class="screenshot-dot" data-index="1"></div>
+                    <div class="screenshot-dot" data-index="2"></div>
+                    <div class="screenshot-dot" data-index="3"></div>
+                    <div class="screenshot-dot" data-index="4"></div>
+                </div>
+                <button class="screenshot-arrow" id="nextScreenshot">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
     <section class="features" id="features">
         <div class="section-header">
             <h2>Everything You Need to Win</h2>
@@ -2175,6 +2876,66 @@
         </div>
     </section>
 
+    <div class="section-divider"></div>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <h2>What Players Are Saying</h2>
+            <p>Join thousands of sports fans who've found their new favorite prediction app</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-quote-mark">"</div>
+                <div class="testimonial-content">
+                    <p class="testimonial-text">Finally an app that lets me compete with my friends on sports predictions without any real money. The leaderboard competition is addicting!</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MJ</div>
+                        <div class="testimonial-info">
+                            <h4>MikeJordan23</h4>
+                            <div class="testimonial-stats">
+                                <span class="testimonial-winrate">72% win rate</span>
+                                <span class="testimonial-stars">★★★★★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote-mark">"</div>
+                <div class="testimonial-content">
+                    <p class="testimonial-text">The daily bonus wheel keeps me coming back every day. I've built up over 50K coins just from consistent play. Love the parlay options too!</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SK</div>
+                        <div class="testimonial-info">
+                            <h4>SarahKicks</h4>
+                            <div class="testimonial-stats">
+                                <span class="testimonial-winrate">65% win rate</span>
+                                <span class="testimonial-stars">★★★★★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote-mark">"</div>
+                <div class="testimonial-content">
+                    <p class="testimonial-text">Best sports prediction app I've used. Clean interface, real-time updates, and no annoying ads. The achievement system keeps things interesting.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">TC</div>
+                        <div class="testimonial-info">
+                            <h4>TomChamp</h4>
+                            <div class="testimonial-stats">
+                                <span class="testimonial-winrate">68% win rate</span>
+                                <span class="testimonial-stars">★★★★★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="stats">
         <div class="stats-grid">
             <div class="stat-item">
@@ -2192,6 +2953,96 @@
             <div class="stat-item">
                 <div class="stat-number no-count">Free</div>
                 <div class="stat-label">To Play</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="section-header">
+            <h2>Frequently Asked Questions</h2>
+            <p>Everything you need to know about HotStreak</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>How do I earn coins?</h3>
+                    <div class="faq-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>You earn coins by making correct predictions! Win your bets and watch your coin balance grow. You also get coins from the daily bonus wheel, leveling up, completing achievements, and referring friends. New users start with 10,000 free coins.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Is real money involved?</h3>
+                    <div class="faq-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>No! HotStreak is completely free to play and uses only virtual coins. There's no real money gambling involved. It's pure sports prediction entertainment designed for fun and friendly competition.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>How does the leaderboard work?</h3>
+                    <div class="faq-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>Leaderboards rank players by total coin balance. We have daily, weekly, and all-time leaderboards. Climb the ranks by making smart predictions and growing your virtual bankroll. Top players earn special badges and bragging rights!</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>What sports are available?</h3>
+                    <div class="faq-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>We currently support NFL, NBA, MLB, College Football, and Premier League Soccer. NHL is coming soon! Each sport offers full game coverage with moneyline, spread, and totals betting options.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>How do odds work?</h3>
+                    <div class="faq-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>We use American odds format. Negative odds (like -110) show how much you need to bet to win 100 coins. Positive odds (like +150) show how much you win on a 100 coin bet. Our odds mirror real sportsbooks for an authentic experience.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Can I play with friends?</h3>
+                    <div class="faq-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely! You can follow friends, compare picks, and see how you stack up on the leaderboard. Create friendly competitions and see who has the best sports instincts. Share your big wins directly from the app!</p>
+                </div>
             </div>
         </div>
     </section>
@@ -2249,10 +3100,105 @@
             <a href="#">Support</a>
             <a href="#">Contact</a>
         </div>
-        <p class="copyright">&copy; 2025 HotStreak. All rights reserved. No real money gambling.</p>
+        <p class="copyright">&copy; 2026 HotStreak. All rights reserved. No real money gambling.</p>
     </footer>
 
     <script>
+        // Nav scroll effect
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Screenshot Carousel
+        const screenshotsTrack = document.getElementById('screenshotsTrack');
+        const prevBtn = document.getElementById('prevScreenshot');
+        const nextBtn = document.getElementById('nextScreenshot');
+        const dots = document.querySelectorAll('.screenshot-dot');
+        let currentSlide = 0;
+        const slideWidth = 312; // 280px + 32px gap
+        let screenshotInterval;
+
+        function updateCarousel() {
+            screenshotsTrack.scrollTo({
+                left: currentSlide * slideWidth,
+                behavior: 'smooth'
+            });
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % 5;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + 5) % 5;
+            updateCarousel();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetInterval();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetInterval();
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateCarousel();
+                resetInterval();
+            });
+        });
+
+        function startCarouselInterval() {
+            screenshotInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetInterval() {
+            clearInterval(screenshotInterval);
+            startCarouselInterval();
+        }
+
+        // Pause carousel on hover
+        screenshotsTrack.addEventListener('mouseenter', () => {
+            clearInterval(screenshotInterval);
+        });
+
+        screenshotsTrack.addEventListener('mouseleave', () => {
+            startCarouselInterval();
+        });
+
+        startCarouselInterval();
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const wasActive = faqItem.classList.contains('active');
+
+                // Close all FAQs
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Open clicked one if it wasn't active
+                if (!wasActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
         // Tab Cycling Animation
         const tabs = ['home', 'picks', 'leaderboard', 'profile'];
         let currentTabIndex = 0;
@@ -2374,10 +3320,10 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.feature-card, .sport-item, .stat-item').forEach((el, index) => {
+        document.querySelectorAll('.feature-card, .sport-item, .stat-item, .testimonial-card, .faq-item, .screenshot-item').forEach((el, index) => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
-            el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            el.style.transition = `opacity 0.6s ease ${(index % 6) * 0.1}s, transform 0.6s ease ${(index % 6) * 0.1}s`;
             observer.observe(el);
         });
 
