@@ -1417,9 +1417,8 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        .sport-logo svg {
-            width: 56px;
-            height: 56px;
+        .sport-logo .emoji {
+            font-size: 3rem;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
             transition: transform 0.4s ease;
         }
@@ -1431,8 +1430,8 @@
                 0 0 30px rgba(255, 255, 255, 0.1);
         }
 
-        .sport-item:hover .sport-logo svg {
-            transform: scale(1.1);
+        .sport-item:hover .sport-logo .emoji {
+            transform: scale(1.15);
         }
 
         .sport-logo::before {
@@ -1816,35 +1815,35 @@
         .showcase-phone {
             flex: 0 0 280px;
             opacity: 0;
-            transform: translateX(-60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateX(-80px) scale(0.95);
+            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .showcase-item.reverse .showcase-phone {
-            transform: translateX(60px);
+            transform: translateX(80px) scale(0.95);
         }
 
         .showcase-item.visible .showcase-phone {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(0) scale(1);
         }
 
         .showcase-content {
             flex: 1;
             max-width: 450px;
             opacity: 0;
-            transform: translateX(60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            transition-delay: 0.15s;
+            transform: translateX(80px) translateY(20px);
+            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition-delay: 0.3s;
         }
 
         .showcase-item.reverse .showcase-content {
-            transform: translateX(-60px);
+            transform: translateX(-80px) translateY(20px);
         }
 
         .showcase-item.visible .showcase-content {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(0) translateY(0);
         }
 
         .showcase-badge {
@@ -1948,24 +1947,24 @@
             }
 
             .showcase-phone {
-                transform: translateY(40px);
+                transform: translateY(60px) scale(0.95);
             }
 
             .showcase-item.reverse .showcase-phone {
-                transform: translateY(40px);
+                transform: translateY(60px) scale(0.95);
             }
 
             .showcase-content {
-                transform: translateY(40px);
+                transform: translateY(50px);
             }
 
             .showcase-item.reverse .showcase-content {
-                transform: translateY(40px);
+                transform: translateY(50px);
             }
 
             .showcase-item.visible .showcase-phone,
             .showcase-item.visible .showcase-content {
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
 
             .showcase-features {
@@ -2809,16 +2808,30 @@
                             <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 11px;">NBA</span>
                         </div>
                         <div style="background: rgba(255,255,255,0.03); border-radius: 14px; padding: 14px; border: 1px solid rgba(255,255,255,0.06);">
-                            <div style="color: #f0c54f; font-size: 10px; font-weight: 600; margin-bottom: 8px;">NFL • TONIGHT 8:15 PM</div>
-                            <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 12px;">
+                            <div style="color: #f0c54f; font-size: 10px; font-weight: 600; margin-bottom: 10px; letter-spacing: 0.5px;">NFL • TONIGHT 8:15 PM</div>
+                            <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 14px;">
                                 <div style="text-align: center;">
-                                    <div style="width: 36px; height: 36px; background: #002244; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-size: 11px; font-weight: 700;">KC</div>
-                                    <div style="font-size: 11px; font-weight: 600;">Chiefs</div>
+                                    <div style="width: 40px; height: 40px; background: linear-gradient(145deg, #E31837, #FFB612); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 12px; font-weight: 800; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">KC</div>
+                                    <div style="font-size: 12px; font-weight: 600;">Chiefs</div>
+                                    <div style="font-size: 9px; color: #8a8f9e;">11-3</div>
                                 </div>
-                                <span style="color: #5a5f6e; font-size: 11px;">VS</span>
                                 <div style="text-align: center;">
-                                    <div style="width: 36px; height: 36px; background: #A71930; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-size: 11px; font-weight: 700;">SF</div>
-                                    <div style="font-size: 11px; font-weight: 600;">49ers</div>
+                                    <span style="color: #5a5f6e; font-size: 10px; font-weight: 600;">VS</span>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="width: 40px; height: 40px; background: linear-gradient(145deg, #AA0000, #B3995D); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 12px; font-weight: 800; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">SF</div>
+                                    <div style="font-size: 12px; font-weight: 600;">49ers</div>
+                                    <div style="font-size: 9px; color: #8a8f9e;">10-4</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <div style="flex: 1; background: rgba(240, 197, 79, 0.1); border: 1px solid rgba(240, 197, 79, 0.3); border-radius: 10px; padding: 10px 8px; text-align: center; cursor: pointer;">
+                                    <div style="font-size: 10px; color: #8a8f9e; margin-bottom: 2px;">KC</div>
+                                    <div style="font-size: 13px; font-weight: 700; color: #f0c54f;">-3.5</div>
+                                </div>
+                                <div style="flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 8px; text-align: center; cursor: pointer;">
+                                    <div style="font-size: 10px; color: #8a8f9e; margin-bottom: 2px;">SF</div>
+                                    <div style="font-size: 13px; font-weight: 700;">+3.5</div>
                                 </div>
                             </div>
                         </div>
@@ -2860,34 +2873,43 @@
                             <div style="flex: 1; text-align: center; background: rgba(255,255,255,0.05); border-radius: 8px; padding: 8px; font-size: 11px; font-weight: 600;">Pending</div>
                             <div style="flex: 1; text-align: center; padding: 8px; font-size: 11px; color: #8a8f9e;">Settled</div>
                         </div>
-                        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.06);">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                <span style="font-size: 12px; font-weight: 600;">Chiefs vs 49ers</span>
-                                <span style="background: rgba(240, 197, 79, 0.2); color: #f0c54f; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">Pending</span>
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1px solid rgba(240, 197, 79, 0.15);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <div>
+                                    <span style="font-size: 12px; font-weight: 600;">Chiefs vs 49ers</span>
+                                    <div style="font-size: 9px; color: #5a5f6e; margin-top: 2px;">NFL • Spread</div>
+                                </div>
+                                <span style="background: rgba(240, 197, 79, 0.2); color: #f0c54f; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">⏳ Pending</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; font-size: 10px; color: #8a8f9e;">
-                                <span>KC -110 • 500 coins</span>
-                                <span style="color: #00FF7F;">To win: 455</span>
-                            </div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.06);">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                <span style="font-size: 12px; font-weight: 600;">Lakers vs Celtics</span>
-                                <span style="background: rgba(0, 255, 127, 0.2); color: #00FF7F; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">Won</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; font-size: 10px; color: #8a8f9e;">
-                                <span>LAL +140 • 300 coins</span>
-                                <span style="color: #00FF7F;">+420</span>
+                            <div style="display: flex; justify-content: space-between; font-size: 11px; color: #8a8f9e;">
+                                <span>KC -3.5 (-110) • 🪙 500</span>
+                                <span style="color: #f0c54f; font-weight: 600;">Win: +455</span>
                             </div>
                         </div>
-                        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px; border: 1px solid rgba(255,255,255,0.06);">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                <span style="font-size: 12px; font-weight: 600;">Bills vs Dolphins</span>
-                                <span style="background: rgba(0, 255, 127, 0.2); color: #00FF7F; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">Won</span>
+                        <div style="background: rgba(0, 255, 127, 0.03); border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1px solid rgba(0, 255, 127, 0.15);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <div>
+                                    <span style="font-size: 12px; font-weight: 600;">Lakers vs Celtics</span>
+                                    <div style="font-size: 9px; color: #5a5f6e; margin-top: 2px;">NBA • Moneyline</div>
+                                </div>
+                                <span style="background: rgba(0, 255, 127, 0.2); color: #00FF7F; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">✓ Won</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; font-size: 10px; color: #8a8f9e;">
-                                <span>BUF -130 • 650 coins</span>
-                                <span style="color: #00FF7F;">+500</span>
+                            <div style="display: flex; justify-content: space-between; font-size: 11px; color: #8a8f9e;">
+                                <span>LAL +140 • 🪙 300</span>
+                                <span style="color: #00FF7F; font-weight: 600;">+420 🪙</span>
+                            </div>
+                        </div>
+                        <div style="background: rgba(0, 255, 127, 0.03); border-radius: 12px; padding: 14px; border: 1px solid rgba(0, 255, 127, 0.15);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <div>
+                                    <span style="font-size: 12px; font-weight: 600;">Bills vs Dolphins</span>
+                                    <div style="font-size: 9px; color: #5a5f6e; margin-top: 2px;">NFL • Spread</div>
+                                </div>
+                                <span style="background: rgba(0, 255, 127, 0.2); color: #00FF7F; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;">✓ Won</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 11px; color: #8a8f9e;">
+                                <span>BUF -4.5 (-130) • 🪙 650</span>
+                                <span style="color: #00FF7F; font-weight: 600;">+500 🪙</span>
                             </div>
                         </div>
                     </div>
@@ -2929,20 +2951,26 @@
                             <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 10px;">All Time</span>
                         </div>
                         <div style="display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin-bottom: 20px;">
-                            <div style="text-align: center;">
-                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #C0C0C0, #A0A0A0); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 14px; font-weight: 700;">JM</div>
+                            <div style="text-align: center; position: relative;">
+                                <div style="position: absolute; top: -8px; left: 50%; transform: translateX(-50%); background: #C0C0C0; color: #000; font-size: 8px; font-weight: 800; padding: 2px 6px; border-radius: 6px;">2nd</div>
+                                <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #C0C0C0, #808080); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 14px; font-weight: 700; border: 2px solid rgba(255,255,255,0.3);">JM</div>
                                 <div style="font-size: 10px; font-weight: 600;">JakeMVP</div>
-                                <div style="font-size: 9px; color: #f0c54f;">52.4K</div>
+                                <div style="font-size: 9px; color: #f0c54f;">🪙 52.4K</div>
+                                <div style="font-size: 8px; color: #8a8f9e;">68% win</div>
                             </div>
-                            <div style="text-align: center;">
-                                <div style="width: 52px; height: 52px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 16px; font-weight: 700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);">SK</div>
-                                <div style="font-size: 10px; font-weight: 600;">SportsKing</div>
-                                <div style="font-size: 9px; color: #f0c54f;">78.2K</div>
+                            <div style="text-align: center; position: relative;">
+                                <div style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); font-size: 16px;">👑</div>
+                                <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 18px; font-weight: 700; box-shadow: 0 0 25px rgba(255, 215, 0, 0.5); border: 3px solid rgba(255,255,255,0.4);">SK</div>
+                                <div style="font-size: 11px; font-weight: 700;">SportsKing</div>
+                                <div style="font-size: 10px; color: #f0c54f; font-weight: 600;">🪙 78.2K</div>
+                                <div style="font-size: 8px; color: #8a8f9e;">72% win</div>
                             </div>
-                            <div style="text-align: center;">
-                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #CD7F32, #8B4513); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 14px; font-weight: 700;">LP</div>
+                            <div style="text-align: center; position: relative;">
+                                <div style="position: absolute; top: -8px; left: 50%; transform: translateX(-50%); background: #CD7F32; color: #000; font-size: 8px; font-weight: 800; padding: 2px 6px; border-radius: 6px;">3rd</div>
+                                <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #CD7F32, #8B4513); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 14px; font-weight: 700; border: 2px solid rgba(255,255,255,0.3);">LP</div>
                                 <div style="font-size: 10px; font-weight: 600;">LuckyPick</div>
-                                <div style="font-size: 9px; color: #f0c54f;">41.8K</div>
+                                <div style="font-size: 9px; color: #f0c54f;">🪙 41.8K</div>
+                                <div style="font-size: 8px; color: #8a8f9e;">65% win</div>
                             </div>
                         </div>
                         <div style="background: rgba(255,255,255,0.03); border-radius: 10px; padding: 10px;">
@@ -3369,111 +3397,42 @@
         <div class="sports-logos">
             <div class="sport-item">
                 <div class="sport-logo nfl">
-                    <svg viewBox="0 0 64 64" fill="none">
-                        <!-- NFL Shield shape -->
-                        <path d="M32 4L8 16v20c0 14 10 20 24 24c14-4 24-10 24-24V16L32 4z" fill="#013369" stroke="#fff" stroke-width="2"/>
-                        <!-- Stars -->
-                        <circle cx="20" cy="22" r="2" fill="#fff"/>
-                        <circle cx="32" cy="18" r="2" fill="#fff"/>
-                        <circle cx="44" cy="22" r="2" fill="#fff"/>
-                        <circle cx="20" cy="32" r="2" fill="#fff"/>
-                        <circle cx="32" cy="28" r="2" fill="#fff"/>
-                        <circle cx="44" cy="32" r="2" fill="#fff"/>
-                        <circle cx="26" cy="38" r="2" fill="#fff"/>
-                        <circle cx="38" cy="38" r="2" fill="#fff"/>
-                        <!-- Football -->
-                        <ellipse cx="32" cy="48" rx="10" ry="6" fill="#824A02" stroke="#fff" stroke-width="1"/>
-                        <path d="M29 46l6 4M32 45v6" stroke="#fff" stroke-width="1"/>
-                    </svg>
+                    <span class="emoji">🏈</span>
                 </div>
                 <div class="sport-name">Football</div>
                 <div class="sport-league">NFL</div>
             </div>
             <div class="sport-item">
                 <div class="sport-logo nba">
-                    <svg viewBox="0 0 64 64" fill="none">
-                        <!-- NBA-style silhouette background -->
-                        <rect x="6" y="6" width="52" height="52" rx="4" fill="#1D428A"/>
-                        <!-- Red side panel -->
-                        <path d="M6 10c0-2.2 1.8-4 4-4h8v52h-8c-2.2 0-4-1.8-4-4V10z" fill="#C8102E"/>
-                        <!-- Player silhouette (dribbling) -->
-                        <path d="M30 14c2.5 0 4.5 2 4.5 4.5s-2 4.5-4.5 4.5-4.5-2-4.5-4.5 2-4.5 4.5-4.5z" fill="#fff"/>
-                        <path d="M28 24l-2 10 6 4v14h-4v-12l-6-6 4-14h8l2 4-4 1z" fill="#fff"/>
-                        <path d="M36 28l4 4-2 8-6-4z" fill="#fff"/>
-                        <!-- Basketball -->
-                        <circle cx="46" cy="36" r="6" fill="#FF6B00" stroke="#000" stroke-width="0.5"/>
-                        <path d="M46 30v12M40 36h12" stroke="#000" stroke-width="0.5"/>
-                    </svg>
+                    <span class="emoji">🏀</span>
                 </div>
                 <div class="sport-name">Basketball</div>
                 <div class="sport-league">NBA</div>
             </div>
             <div class="sport-item">
                 <div class="sport-logo mlb">
-                    <svg viewBox="0 0 64 64" fill="none">
-                        <!-- MLB-style silhouette -->
-                        <rect x="6" y="6" width="52" height="52" rx="4" fill="#002D72"/>
-                        <!-- Batter silhouette -->
-                        <path d="M26 12c2.5 0 4.5 2 4.5 4.5s-2 4.5-4.5 4.5-4.5-2-4.5-4.5 2-4.5 4.5-4.5z" fill="#fff"/>
-                        <path d="M22 22l-2 8 4 4v18h4v-16l8-8-4-8z" fill="#fff"/>
-                        <!-- Bat -->
-                        <path d="M32 20l18-10" stroke="#C8102E" stroke-width="3" stroke-linecap="round"/>
-                        <path d="M32 20l2-1" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                        <!-- Baseball -->
-                        <circle cx="48" cy="46" r="8" fill="#fff" stroke="#ccc" stroke-width="0.5"/>
-                        <path d="M43 42c2 2 2 6 0 8" stroke="#C8102E" stroke-width="1.5" fill="none"/>
-                        <path d="M53 42c-2 2-2 6 0 8" stroke="#C8102E" stroke-width="1.5" fill="none"/>
-                    </svg>
+                    <span class="emoji">⚾</span>
                 </div>
                 <div class="sport-name">Baseball</div>
                 <div class="sport-league">MLB</div>
             </div>
             <div class="sport-item">
                 <div class="sport-logo cfb">
-                    <svg viewBox="0 0 64 64" fill="none">
-                        <!-- NCAA-style shield -->
-                        <path d="M32 4L8 12v28c0 12 10 16 24 20c14-4 24-8 24-20V12L32 4z" fill="#1a1a2e" stroke="#f0c54f" stroke-width="2"/>
-                        <!-- NCAA text area -->
-                        <rect x="16" y="20" width="32" height="12" fill="#f0c54f" rx="2"/>
-                        <text x="32" y="29" text-anchor="middle" fill="#1a1a2e" font-size="8" font-weight="bold" font-family="Arial">NCAA</text>
-                        <!-- Football -->
-                        <ellipse cx="32" cy="46" rx="12" ry="7" fill="#824A02" stroke="#f0c54f" stroke-width="1.5"/>
-                        <path d="M28 44l8 4M32 42v8" stroke="#fff" stroke-width="1"/>
-                    </svg>
+                    <span class="emoji">🏟️</span>
                 </div>
                 <div class="sport-name">College Football</div>
                 <div class="sport-league">NCAA</div>
             </div>
             <div class="sport-item">
                 <div class="sport-logo soccer">
-                    <svg viewBox="0 0 64 64" fill="none">
-                        <!-- Premier League style lion crest -->
-                        <circle cx="32" cy="32" r="26" fill="#38003C" stroke="#00FF85" stroke-width="2"/>
-                        <!-- Lion silhouette -->
-                        <path d="M24 44l-4-8 4-6 2 2 4-8 4 8 2-2 4 6-4 8z" fill="#fff"/>
-                        <circle cx="32" cy="22" r="6" fill="#fff"/>
-                        <!-- Crown -->
-                        <path d="M26 16l2-4 4 2 4-2 2 4z" fill="#FFD700" stroke="#DAA520" stroke-width="0.5"/>
-                        <!-- Soccer ball at bottom -->
-                        <circle cx="32" cy="52" r="5" fill="#fff" stroke="#333" stroke-width="0.5"/>
-                        <path d="M32 48l-2 2 0 3 4 0 0-3z" fill="#333"/>
-                    </svg>
+                    <span class="emoji">⚽</span>
                 </div>
                 <div class="sport-name">Soccer</div>
                 <div class="sport-league">EPL & MLS</div>
             </div>
             <div class="sport-item">
                 <div class="sport-logo nhl">
-                    <svg viewBox="0 0 64 64" fill="none">
-                        <!-- NHL Shield -->
-                        <path d="M32 4L8 14v24c0 14 10 18 24 22c14-4 24-8 24-22V14L32 4z" fill="#111" stroke="#FCB514" stroke-width="2"/>
-                        <!-- NHL text -->
-                        <text x="32" y="26" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="Arial">NHL</text>
-                        <!-- Hockey sticks crossed -->
-                        <path d="M20 32l24 18M44 32l-24 18" stroke="#FCB514" stroke-width="3" stroke-linecap="round"/>
-                        <!-- Puck -->
-                        <ellipse cx="32" cy="42" rx="6" ry="2.5" fill="#fff"/>
-                    </svg>
+                    <span class="emoji">🏒</span>
                 </div>
                 <div class="sport-name">Hockey</div>
                 <div class="sport-league">NHL</div>
@@ -3481,16 +3440,7 @@
             </div>
             <div class="sport-item">
                 <div class="sport-logo ufc">
-                    <svg viewBox="0 0 64 64" fill="none">
-                        <!-- UFC Octagon -->
-                        <polygon points="22,6 42,6 58,20 58,44 42,58 22,58 6,44 6,20" fill="#000" stroke="#D20A0A" stroke-width="3"/>
-                        <!-- UFC text -->
-                        <text x="32" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="Arial">UFC</text>
-                        <!-- Fighter silhouette -->
-                        <path d="M26 48l6-12 6 12" stroke="#D20A0A" stroke-width="3" fill="none" stroke-linecap="round"/>
-                        <path d="M28 36l4-4 4 4" stroke="#D20A0A" stroke-width="2" fill="none" stroke-linecap="round"/>
-                        <circle cx="32" cy="40" r="3" fill="#D20A0A"/>
-                    </svg>
+                    <span class="emoji">🥊</span>
                 </div>
                 <div class="sport-name">MMA</div>
                 <div class="sport-league">UFC</div>
@@ -3498,21 +3448,7 @@
             </div>
             <div class="sport-item">
                 <div class="sport-logo golf">
-                    <svg viewBox="0 0 64 64" fill="none">
-                        <!-- PGA Tour style circle -->
-                        <circle cx="32" cy="32" r="26" fill="#006747" stroke="#FFD700" stroke-width="2"/>
-                        <!-- Golfer silhouette (follow through) -->
-                        <path d="M30 16c2 0 3.5 1.5 3.5 3.5S32 23 30 23s-3.5-1.5-3.5-3.5S28 16 30 16z" fill="#fff"/>
-                        <path d="M26 24l-4 12 6 4v12h4V38l4-4-2-10z" fill="#fff"/>
-                        <!-- Golf club -->
-                        <path d="M34 24l14-10" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M48 14l2-2" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
-                        <!-- Golf ball -->
-                        <circle cx="48" cy="50" r="6" fill="#fff"/>
-                        <circle cx="46" cy="48" r="1" fill="#ddd"/>
-                        <circle cx="50" cy="49" r="1" fill="#ddd"/>
-                        <circle cx="48" cy="52" r="1" fill="#ddd"/>
-                    </svg>
+                    <span class="emoji">⛳</span>
                 </div>
                 <div class="sport-name">Golf</div>
                 <div class="sport-league">PGA</div>
@@ -4069,8 +4005,9 @@
 
         document.querySelectorAll('.feature-card, .sport-item, .stat-item, .faq-item').forEach((el, index) => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = `opacity 0.6s ease ${(index % 6) * 0.1}s, transform 0.6s ease ${(index % 6) * 0.1}s`;
+            el.style.transform = 'translateY(60px)';
+            const delay = (index % 6) * 0.15;
+            el.style.transition = `opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}s, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}s`;
             observer.observe(el);
         });
 
