@@ -2008,55 +2008,67 @@
         .testimonials-wrapper {
             position: relative;
             width: 100%;
-            overflow: hidden;
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
         }
 
         .testimonials-track {
-            display: flex;
-            gap: 1.5rem;
-            animation: scrollTestimonials 40s linear infinite;
-            width: max-content;
-        }
-
-        .testimonials-track:hover {
-            animation-play-state: paused;
-        }
-
-        @keyframes scrollTestimonials {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+            position: relative;
+            min-height: 280px;
         }
 
         .testimonial-card {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 24px;
-            padding: 1.75rem;
-            position: relative;
-            transition: all 0.4s ease;
+            padding: 2.5rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
             box-shadow:
                 0 4px 6px rgba(0, 0, 0, 0.1),
                 0 10px 20px rgba(0, 0, 0, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            flex: 0 0 360px;
-            min-height: 220px;
+            min-height: 200px;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            pointer-events: none;
         }
 
-        .testimonial-card:hover {
-            transform: translateY(-4px) scale(1.02);
-            border-color: rgba(240, 197, 79, 0.2);
-            box-shadow:
-                0 8px 16px rgba(0, 0, 0, 0.15),
-                0 20px 40px rgba(0, 0, 0, 0.2),
-                0 0 30px rgba(240, 197, 79, 0.05);
+        .testimonial-card.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .testimonials-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .testimonials-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .testimonials-dot.active {
+            background: var(--accent-gold);
+            transform: scale(1.2);
+        }
+
+        .testimonials-dot:hover {
+            background: rgba(240, 197, 79, 0.5);
         }
 
         .testimonial-quote-mark {
@@ -3358,13 +3370,20 @@
             <div class="sport-item">
                 <div class="sport-logo nfl">
                     <svg viewBox="0 0 64 64" fill="none">
-                        <!-- Football shape -->
-                        <ellipse cx="32" cy="32" rx="26" ry="16" fill="white" transform="rotate(-30 32 32)"/>
-                        <!-- Laces -->
-                        <path d="M28 24l8 16" stroke="#013369" stroke-width="2.5" stroke-linecap="round"/>
-                        <path d="M25 28l4 0M27 32l4 0M29 36l4 0M31 40l4 0" stroke="#013369" stroke-width="2" stroke-linecap="round"/>
-                        <!-- End stitches -->
-                        <path d="M15 22c2-1 3-2 4-4M49 42c-2 1-3 2-4 4" stroke="#013369" stroke-width="1.5" stroke-linecap="round"/>
+                        <!-- NFL Shield shape -->
+                        <path d="M32 4L8 16v20c0 14 10 20 24 24c14-4 24-10 24-24V16L32 4z" fill="#013369" stroke="#fff" stroke-width="2"/>
+                        <!-- Stars -->
+                        <circle cx="20" cy="22" r="2" fill="#fff"/>
+                        <circle cx="32" cy="18" r="2" fill="#fff"/>
+                        <circle cx="44" cy="22" r="2" fill="#fff"/>
+                        <circle cx="20" cy="32" r="2" fill="#fff"/>
+                        <circle cx="32" cy="28" r="2" fill="#fff"/>
+                        <circle cx="44" cy="32" r="2" fill="#fff"/>
+                        <circle cx="26" cy="38" r="2" fill="#fff"/>
+                        <circle cx="38" cy="38" r="2" fill="#fff"/>
+                        <!-- Football -->
+                        <ellipse cx="32" cy="48" rx="10" ry="6" fill="#824A02" stroke="#fff" stroke-width="1"/>
+                        <path d="M29 46l6 4M32 45v6" stroke="#fff" stroke-width="1"/>
                     </svg>
                 </div>
                 <div class="sport-name">Football</div>
@@ -3373,14 +3392,17 @@
             <div class="sport-item">
                 <div class="sport-logo nba">
                     <svg viewBox="0 0 64 64" fill="none">
+                        <!-- NBA-style silhouette background -->
+                        <rect x="6" y="6" width="52" height="52" rx="4" fill="#1D428A"/>
+                        <!-- Red side panel -->
+                        <path d="M6 10c0-2.2 1.8-4 4-4h8v52h-8c-2.2 0-4-1.8-4-4V10z" fill="#C8102E"/>
+                        <!-- Player silhouette (dribbling) -->
+                        <path d="M30 14c2.5 0 4.5 2 4.5 4.5s-2 4.5-4.5 4.5-4.5-2-4.5-4.5 2-4.5 4.5-4.5z" fill="#fff"/>
+                        <path d="M28 24l-2 10 6 4v14h-4v-12l-6-6 4-14h8l2 4-4 1z" fill="#fff"/>
+                        <path d="M36 28l4 4-2 8-6-4z" fill="#fff"/>
                         <!-- Basketball -->
-                        <circle cx="32" cy="32" r="26" fill="#FF6B35" stroke="white" stroke-width="2"/>
-                        <!-- Lines -->
-                        <path d="M32 6v52" stroke="#1a1a1a" stroke-width="2.5"/>
-                        <path d="M6 32h52" stroke="#1a1a1a" stroke-width="2.5"/>
-                        <!-- Curved seams -->
-                        <path d="M14 14c10 8 10 28 0 36" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
-                        <path d="M50 14c-10 8-10 28 0 36" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+                        <circle cx="46" cy="36" r="6" fill="#FF6B00" stroke="#000" stroke-width="0.5"/>
+                        <path d="M46 30v12M40 36h12" stroke="#000" stroke-width="0.5"/>
                     </svg>
                 </div>
                 <div class="sport-name">Basketball</div>
@@ -3389,14 +3411,18 @@
             <div class="sport-item">
                 <div class="sport-logo mlb">
                     <svg viewBox="0 0 64 64" fill="none">
+                        <!-- MLB-style silhouette -->
+                        <rect x="6" y="6" width="52" height="52" rx="4" fill="#002D72"/>
+                        <!-- Batter silhouette -->
+                        <path d="M26 12c2.5 0 4.5 2 4.5 4.5s-2 4.5-4.5 4.5-4.5-2-4.5-4.5 2-4.5 4.5-4.5z" fill="#fff"/>
+                        <path d="M22 22l-2 8 4 4v18h4v-16l8-8-4-8z" fill="#fff"/>
+                        <!-- Bat -->
+                        <path d="M32 20l18-10" stroke="#C8102E" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M32 20l2-1" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
                         <!-- Baseball -->
-                        <circle cx="32" cy="32" r="26" fill="white" stroke="#ccc" stroke-width="1"/>
-                        <!-- Red stitching left -->
-                        <path d="M14 18c3 4 3 10 0 14c-3 4-3 10 0 14" stroke="#D50032" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                        <path d="M11 20l4 2M10 26l5 0M11 32l4-2M11 38l4 2M10 44l5 0M11 50l4-2" stroke="#D50032" stroke-width="1.5" stroke-linecap="round"/>
-                        <!-- Red stitching right -->
-                        <path d="M50 18c-3 4-3 10 0 14c3 4 3 10 0 14" stroke="#D50032" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                        <path d="M53 20l-4 2M54 26l-5 0M53 32l-4-2M53 38l-4 2M54 44l-5 0M53 50l-4-2" stroke="#D50032" stroke-width="1.5" stroke-linecap="round"/>
+                        <circle cx="48" cy="46" r="8" fill="#fff" stroke="#ccc" stroke-width="0.5"/>
+                        <path d="M43 42c2 2 2 6 0 8" stroke="#C8102E" stroke-width="1.5" fill="none"/>
+                        <path d="M53 42c-2 2-2 6 0 8" stroke="#C8102E" stroke-width="1.5" fill="none"/>
                     </svg>
                 </div>
                 <div class="sport-name">Baseball</div>
@@ -3405,14 +3431,14 @@
             <div class="sport-item">
                 <div class="sport-logo cfb">
                     <svg viewBox="0 0 64 64" fill="none">
-                        <!-- Helmet shape -->
-                        <path d="M16 32c0-12 8-20 18-20s16 8 16 20c0 8-4 14-10 16l-4 6h-8l-4-6c-6-2-8-8-8-16z" fill="white"/>
-                        <!-- Face mask -->
-                        <path d="M24 36c0 4 4 8 8 8s8-4 8-8" stroke="#f0c54f" stroke-width="3" fill="none" stroke-linecap="round"/>
-                        <path d="M24 32h16" stroke="#f0c54f" stroke-width="2.5" stroke-linecap="round"/>
-                        <path d="M26 28h12" stroke="#f0c54f" stroke-width="2" stroke-linecap="round"/>
-                        <!-- Stripe -->
-                        <path d="M32 12v20" stroke="#1a1a2e" stroke-width="4" stroke-linecap="round"/>
+                        <!-- NCAA-style shield -->
+                        <path d="M32 4L8 12v28c0 12 10 16 24 20c14-4 24-8 24-20V12L32 4z" fill="#1a1a2e" stroke="#f0c54f" stroke-width="2"/>
+                        <!-- NCAA text area -->
+                        <rect x="16" y="20" width="32" height="12" fill="#f0c54f" rx="2"/>
+                        <text x="32" y="29" text-anchor="middle" fill="#1a1a2e" font-size="8" font-weight="bold" font-family="Arial">NCAA</text>
+                        <!-- Football -->
+                        <ellipse cx="32" cy="46" rx="12" ry="7" fill="#824A02" stroke="#f0c54f" stroke-width="1.5"/>
+                        <path d="M28 44l8 4M32 42v8" stroke="#fff" stroke-width="1"/>
                     </svg>
                 </div>
                 <div class="sport-name">College Football</div>
@@ -3421,16 +3447,16 @@
             <div class="sport-item">
                 <div class="sport-logo soccer">
                     <svg viewBox="0 0 64 64" fill="none">
-                        <!-- Soccer ball -->
-                        <circle cx="32" cy="32" r="26" fill="white" stroke="#333" stroke-width="1"/>
-                        <!-- Pentagon patterns -->
-                        <polygon points="32,14 38,22 36,30 28,30 26,22" fill="#1a1a1a"/>
-                        <polygon points="18,26 24,22 26,30 22,36 14,34" fill="#1a1a1a"/>
-                        <polygon points="46,26 40,22 38,30 42,36 50,34" fill="#1a1a1a"/>
-                        <polygon points="22,44 22,36 28,34 34,38 32,46" fill="#1a1a1a"/>
-                        <polygon points="42,44 42,36 36,34 30,38 32,46" fill="#1a1a1a"/>
-                        <!-- Connecting lines -->
-                        <path d="M32 14l-8 8M32 14l8 8M18 26l8-4M46 26l-8-4M14 34l8 2M50 34l-8 2M22 44l0-8M42 44l0-8M32 46l-10-2M32 46l10-2" stroke="#333" stroke-width="1.5"/>
+                        <!-- Premier League style lion crest -->
+                        <circle cx="32" cy="32" r="26" fill="#38003C" stroke="#00FF85" stroke-width="2"/>
+                        <!-- Lion silhouette -->
+                        <path d="M24 44l-4-8 4-6 2 2 4-8 4 8 2-2 4 6-4 8z" fill="#fff"/>
+                        <circle cx="32" cy="22" r="6" fill="#fff"/>
+                        <!-- Crown -->
+                        <path d="M26 16l2-4 4 2 4-2 2 4z" fill="#FFD700" stroke="#DAA520" stroke-width="0.5"/>
+                        <!-- Soccer ball at bottom -->
+                        <circle cx="32" cy="52" r="5" fill="#fff" stroke="#333" stroke-width="0.5"/>
+                        <path d="M32 48l-2 2 0 3 4 0 0-3z" fill="#333"/>
                     </svg>
                 </div>
                 <div class="sport-name">Soccer</div>
@@ -3439,16 +3465,14 @@
             <div class="sport-item">
                 <div class="sport-logo nhl">
                     <svg viewBox="0 0 64 64" fill="none">
-                        <!-- Crossed hockey sticks -->
-                        <path d="M14 50l28-36" stroke="white" stroke-width="4" stroke-linecap="round"/>
-                        <path d="M50 50l-28-36" stroke="white" stroke-width="4" stroke-linecap="round"/>
-                        <!-- Stick blades -->
-                        <path d="M14 50l-4 2c-2 1-2 3 0 4l6-2z" fill="white"/>
-                        <path d="M50 50l4 2c2 1 2 3 0 4l-6-2z" fill="white"/>
+                        <!-- NHL Shield -->
+                        <path d="M32 4L8 14v24c0 14 10 18 24 22c14-4 24-8 24-22V14L32 4z" fill="#111" stroke="#FCB514" stroke-width="2"/>
+                        <!-- NHL text -->
+                        <text x="32" y="26" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="Arial">NHL</text>
+                        <!-- Hockey sticks crossed -->
+                        <path d="M20 32l24 18M44 32l-24 18" stroke="#FCB514" stroke-width="3" stroke-linecap="round"/>
                         <!-- Puck -->
-                        <ellipse cx="32" cy="42" rx="10" ry="4" fill="#111"/>
-                        <ellipse cx="32" cy="40" rx="10" ry="4" fill="#333"/>
-                        <ellipse cx="32" cy="40" rx="8" ry="3" fill="#111" opacity="0.5"/>
+                        <ellipse cx="32" cy="42" rx="6" ry="2.5" fill="#fff"/>
                     </svg>
                 </div>
                 <div class="sport-name">Hockey</div>
@@ -3458,15 +3482,14 @@
             <div class="sport-item">
                 <div class="sport-logo ufc">
                     <svg viewBox="0 0 64 64" fill="none">
-                        <!-- Octagon -->
-                        <polygon points="24,8 40,8 54,18 54,46 40,56 24,56 10,46 10,18" fill="none" stroke="white" stroke-width="3"/>
-                        <!-- Inner octagon -->
-                        <polygon points="26,14 38,14 48,22 48,42 38,50 26,50 16,42 16,22" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="1.5"/>
-                        <!-- Fist silhouette -->
-                        <path d="M28 38v-10c0-2 1-3 3-3h2c2 0 3 1 3 3v10" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                        <path d="M25 36v-6c0-1.5 1-2.5 2.5-2.5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
-                        <path d="M39 36v-6c0-1.5-1-2.5-2.5-2.5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
-                        <path d="M25 38h14" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <!-- UFC Octagon -->
+                        <polygon points="22,6 42,6 58,20 58,44 42,58 22,58 6,44 6,20" fill="#000" stroke="#D20A0A" stroke-width="3"/>
+                        <!-- UFC text -->
+                        <text x="32" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="Arial">UFC</text>
+                        <!-- Fighter silhouette -->
+                        <path d="M26 48l6-12 6 12" stroke="#D20A0A" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <path d="M28 36l4-4 4 4" stroke="#D20A0A" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <circle cx="32" cy="40" r="3" fill="#D20A0A"/>
                     </svg>
                 </div>
                 <div class="sport-name">MMA</div>
@@ -3476,21 +3499,19 @@
             <div class="sport-item">
                 <div class="sport-logo golf">
                     <svg viewBox="0 0 64 64" fill="none">
-                        <!-- Flag pole -->
-                        <path d="M32 52V16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                        <!-- Flag -->
-                        <path d="M32 16l16 6-16 6z" fill="#FFD700" stroke="#DAA520" stroke-width="1"/>
-                        <!-- Golf ball with dimples -->
-                        <circle cx="24" cy="50" r="8" fill="white"/>
-                        <circle cx="21" cy="48" r="1.2" fill="#ddd"/>
-                        <circle cx="25" cy="47" r="1.2" fill="#ddd"/>
-                        <circle cx="28" cy="49" r="1.2" fill="#ddd"/>
-                        <circle cx="22" cy="52" r="1.2" fill="#ddd"/>
-                        <circle cx="26" cy="52" r="1.2" fill="#ddd"/>
-                        <circle cx="24" cy="55" r="1.2" fill="#ddd"/>
-                        <!-- Hole -->
-                        <ellipse cx="44" cy="52" rx="8" ry="3" fill="#1a3d1a" stroke="#0d260d" stroke-width="1"/>
-                        <ellipse cx="44" cy="51" rx="4" ry="1.5" fill="#0a1a0a"/>
+                        <!-- PGA Tour style circle -->
+                        <circle cx="32" cy="32" r="26" fill="#006747" stroke="#FFD700" stroke-width="2"/>
+                        <!-- Golfer silhouette (follow through) -->
+                        <path d="M30 16c2 0 3.5 1.5 3.5 3.5S32 23 30 23s-3.5-1.5-3.5-3.5S28 16 30 16z" fill="#fff"/>
+                        <path d="M26 24l-4 12 6 4v12h4V38l4-4-2-10z" fill="#fff"/>
+                        <!-- Golf club -->
+                        <path d="M34 24l14-10" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M48 14l2-2" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+                        <!-- Golf ball -->
+                        <circle cx="48" cy="50" r="6" fill="#fff"/>
+                        <circle cx="46" cy="48" r="1" fill="#ddd"/>
+                        <circle cx="50" cy="49" r="1" fill="#ddd"/>
+                        <circle cx="48" cy="52" r="1" fill="#ddd"/>
                     </svg>
                 </div>
                 <div class="sport-name">Golf</div>
@@ -3510,8 +3531,7 @@
         </div>
         <div class="testimonials-wrapper">
             <div class="testimonials-track">
-                <!-- First set of testimonials -->
-                <div class="testimonial-card">
+                <div class="testimonial-card active">
                     <div class="testimonial-quote-mark">"</div>
                     <div class="testimonial-content">
                         <p class="testimonial-text">Finally an app that lets me compete with my friends on sports predictions without any real money. The leaderboard competition is addicting!</p>
@@ -3639,135 +3659,16 @@
                         </div>
                     </div>
                 </div>
-                <!-- Duplicate set for infinite scroll -->
-                <div class="testimonial-card">
-                    <div class="testimonial-quote-mark">"</div>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">Finally an app that lets me compete with my friends on sports predictions without any real money. The leaderboard competition is addicting!</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar">MJ</div>
-                            <div class="testimonial-info">
-                                <h4>MikeJordan23</h4>
-                                <div class="testimonial-stats">
-                                    <span class="testimonial-winrate">72% win rate</span>
-                                    <span class="testimonial-stars">★★★★★</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote-mark">"</div>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">The daily bonus wheel keeps me coming back every day. I've built up over 50K coins just from consistent play. Love the parlay options!</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar">SK</div>
-                            <div class="testimonial-info">
-                                <h4>SarahKicks</h4>
-                                <div class="testimonial-stats">
-                                    <span class="testimonial-winrate">65% win rate</span>
-                                    <span class="testimonial-stars">★★★★★</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote-mark">"</div>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">Best sports prediction app I've used. Clean interface, real-time updates, and no annoying ads. The achievement system keeps things interesting.</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar">TC</div>
-                            <div class="testimonial-info">
-                                <h4>TomChamp</h4>
-                                <div class="testimonial-stats">
-                                    <span class="testimonial-winrate">68% win rate</span>
-                                    <span class="testimonial-stars">★★★★★</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote-mark">"</div>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">Hit a 5-leg parlay last week and went from 5K to 40K coins! The rush is real. Way better than risking actual money.</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar">JB</div>
-                            <div class="testimonial-info">
-                                <h4>JakeBets</h4>
-                                <div class="testimonial-stats">
-                                    <span class="testimonial-winrate">61% win rate</span>
-                                    <span class="testimonial-stars">★★★★★</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote-mark">"</div>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">Love tracking my stats and seeing my win rate improve over time. The profile page is super detailed. Great for learning about betting!</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar">AL</div>
-                            <div class="testimonial-info">
-                                <h4>AlexLucky</h4>
-                                <div class="testimonial-stats">
-                                    <span class="testimonial-winrate">59% win rate</span>
-                                    <span class="testimonial-stars">★★★★☆</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote-mark">"</div>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">My whole fantasy football league uses this now. We compare picks every week and talk trash on the leaderboard. So much fun!</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar">DW</div>
-                            <div class="testimonial-info">
-                                <h4>DaveWinner</h4>
-                                <div class="testimonial-stats">
-                                    <span class="testimonial-winrate">71% win rate</span>
-                                    <span class="testimonial-stars">★★★★★</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote-mark">"</div>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">The achievement badges are addicting to collect. Already got the legendary Hot Streak badge for 10 wins in a row!</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar">RM</div>
-                            <div class="testimonial-info">
-                                <h4>RachelMVP</h4>
-                                <div class="testimonial-stats">
-                                    <span class="testimonial-winrate">74% win rate</span>
-                                    <span class="testimonial-stars">★★★★★</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote-mark">"</div>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">Perfect for NFL Sundays. I make all my picks in the morning and track them through the day. The live updates are clutch.</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar">CP</div>
-                            <div class="testimonial-info">
-                                <h4>ChrisPicks</h4>
-                                <div class="testimonial-stats">
-                                    <span class="testimonial-winrate">63% win rate</span>
-                                    <span class="testimonial-stars">★★★★★</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            <div class="testimonials-dots">
+                <div class="testimonials-dot active" data-index="0"></div>
+                <div class="testimonials-dot" data-index="1"></div>
+                <div class="testimonials-dot" data-index="2"></div>
+                <div class="testimonials-dot" data-index="3"></div>
+                <div class="testimonials-dot" data-index="4"></div>
+                <div class="testimonials-dot" data-index="5"></div>
+                <div class="testimonials-dot" data-index="6"></div>
+                <div class="testimonials-dot" data-index="7"></div>
             </div>
         </div>
     </section>
@@ -3966,6 +3867,67 @@
             showcaseObserver.observe(item);
         });
 
+        // Testimonials Carousel
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        const testimonialDots = document.querySelectorAll('.testimonials-dot');
+        let currentTestimonial = 0;
+        let testimonialInterval;
+
+        function showTestimonial(index) {
+            testimonialCards.forEach((card, i) => {
+                card.classList.remove('active');
+                if (i === index) {
+                    card.classList.add('active');
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateX(0)';
+                    card.style.pointerEvents = 'auto';
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateX(30px)';
+                    card.style.pointerEvents = 'none';
+                }
+            });
+            testimonialDots.forEach((dot, i) => {
+                dot.classList.remove('active');
+                if (i === index) {
+                    dot.classList.add('active');
+                }
+            });
+            currentTestimonial = index;
+        }
+
+        function nextTestimonial() {
+            const next = (currentTestimonial + 1) % testimonialCards.length;
+            showTestimonial(next);
+        }
+
+        // Auto-rotate every 4 seconds (2 seconds pause + transition time)
+        function startTestimonialRotation() {
+            testimonialInterval = setInterval(nextTestimonial, 4000);
+        }
+
+        // Click on dots to navigate
+        testimonialDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                clearInterval(testimonialInterval);
+                showTestimonial(parseInt(dot.dataset.index));
+                startTestimonialRotation();
+            });
+        });
+
+        // Pause on hover
+        const testimonialsWrapper = document.querySelector('.testimonials-wrapper');
+        testimonialsWrapper.addEventListener('mouseenter', () => {
+            clearInterval(testimonialInterval);
+        });
+        testimonialsWrapper.addEventListener('mouseleave', () => {
+            startTestimonialRotation();
+        });
+
+        // Initialize and start rotation
+        showTestimonial(0);
+        startTestimonialRotation();
+
         // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
@@ -4105,7 +4067,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.feature-card, .sport-item, .stat-item, .testimonial-card, .faq-item').forEach((el, index) => {
+        document.querySelectorAll('.feature-card, .sport-item, .stat-item, .faq-item').forEach((el, index) => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = `opacity 0.6s ease ${(index % 6) * 0.1}s, transform 0.6s ease ${(index % 6) * 0.1}s`;
