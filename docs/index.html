@@ -19,11 +19,14 @@
             --bg-secondary: #1A1A1F;
             --bg-card: #242429;
             --accent-gold: #FFD700;
+            --accent-orange: #FFA500;
             --accent-green: #00FF7F;
             --accent-red: #FF3B30;
+            --accent-blue: #007AFF;
             --text-primary: #FFFFFF;
             --text-secondary: #A0A0A5;
             --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            --titanium-frame: linear-gradient(135deg, #3A3A3C 0%, #1C1C1E 50%, #3A3A3C 100%);
         }
 
         body {
@@ -97,8 +100,8 @@
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
         }
 
         /* Hero Section */
@@ -111,15 +114,96 @@
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
+        /* Animated Gradient Orbs */
+        .hero-orb {
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 80%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 60%);
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
             pointer-events: none;
+        }
+
+        .hero-orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+            top: -10%;
+            right: 10%;
+            animation: orbFloat1 8s ease-in-out infinite;
+        }
+
+        .hero-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 165, 0, 0.2) 0%, transparent 70%);
+            bottom: 10%;
+            left: -5%;
+            animation: orbFloat2 10s ease-in-out infinite;
+        }
+
+        .hero-orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+            top: 40%;
+            right: 30%;
+            animation: orbFloat3 12s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -20px) scale(1.1); }
+            66% { transform: translate(-20px, 30px) scale(0.95); }
+        }
+
+        @keyframes orbFloat2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, -30px) scale(1.15); }
+        }
+
+        @keyframes orbFloat3 {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(-40px, 20px); }
+            66% { transform: translate(20px, -40px); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 15s infinite linear;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 20s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 18s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; animation-duration: 22s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 1s; animation-duration: 17s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 3s; animation-duration: 19s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; animation-duration: 21s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; animation-duration: 16s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 4.5s; animation-duration: 23s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 1.5s; animation-duration: 18s; }
+        .particle:nth-child(10) { left: 15%; animation-delay: 3.5s; animation-duration: 20s; }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
         }
 
         .hero-content {
@@ -150,9 +234,31 @@
             animation: pulse 2s infinite;
         }
 
+        /* App Rating Badge */
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            margin-left: 0.75rem;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .rating-stars {
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+        }
+
+        .rating-text {
+            color: var(--text-secondary);
+        }
+
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.9); }
         }
 
         .hero h1 {
@@ -194,11 +300,28 @@
             align-items: center;
             gap: 0.5rem;
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.4);
         }
 
         .btn-secondary {
@@ -213,15 +336,17 @@
             align-items: center;
             gap: 0.5rem;
             border: 1px solid var(--bg-card);
-            transition: border-color 0.3s, background 0.3s;
+            transition: all 0.3s;
         }
 
         .btn-secondary:hover {
             border-color: var(--accent-gold);
             background: var(--bg-card);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        /* iPhone Mockup */
+        /* iPhone 15 Pro Mockup */
         .hero-phone {
             flex: 1;
             display: flex;
@@ -233,6 +358,7 @@
         .iphone-container {
             position: relative;
             animation: float 6s ease-in-out infinite;
+            perspective: 1000px;
         }
 
         @keyframes float {
@@ -243,102 +369,290 @@
         .iphone {
             width: 280px;
             height: 580px;
-            background: #1C1C1E;
-            border-radius: 50px;
-            padding: 12px;
+            background: var(--titanium-frame);
+            border-radius: 52px;
+            padding: 10px;
+            position: relative;
             box-shadow:
                 0 50px 100px rgba(0, 0, 0, 0.5),
-                0 0 0 2px #2C2C2E,
-                inset 0 0 0 2px #3C3C3E;
-            position: relative;
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
         }
 
-        .iphone::before {
-            content: '';
+        /* Side Buttons */
+        .iphone-button {
             position: absolute;
-            top: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 28px;
-            background: #000;
-            border-radius: 20px;
-            z-index: 10;
+            background: linear-gradient(135deg, #4A4A4C 0%, #2C2C2E 100%);
+            border-radius: 2px;
+        }
+
+        .iphone-button.power {
+            right: -3px;
+            top: 140px;
+            width: 3px;
+            height: 80px;
+        }
+
+        .iphone-button.volume-up {
+            left: -3px;
+            top: 120px;
+            width: 3px;
+            height: 35px;
+        }
+
+        .iphone-button.volume-down {
+            left: -3px;
+            top: 165px;
+            width: 3px;
+            height: 35px;
+        }
+
+        .iphone-button.silent {
+            left: -3px;
+            top: 85px;
+            width: 3px;
+            height: 20px;
         }
 
         .iphone-screen {
             width: 100%;
             height: 100%;
             background: var(--bg-primary);
-            border-radius: 40px;
+            border-radius: 44px;
             overflow: hidden;
             position: relative;
         }
 
-        .screen-content {
-            height: 100%;
-            padding: 50px 16px 16px;
-            display: flex;
-            flex-direction: column;
+        /* Screen Gloss Effect */
+        .iphone-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 50%,
+                transparent 100%
+            );
+            pointer-events: none;
+            z-index: 100;
+            border-radius: 44px;
         }
 
+        /* Dynamic Island */
+        .dynamic-island {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 34px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .dynamic-island::before {
+            content: '';
+            position: absolute;
+            right: 12px;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #1a1a1a 30%, #0a0a0a 100%);
+            border-radius: 50%;
+            box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Tab Screen Content */
+        .screen-content {
+            height: 100%;
+            padding: 56px 14px 14px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .tab-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tab-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            pointer-events: none;
+        }
+
+        .tab-screen.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        /* Home Screen */
         .screen-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 14px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-fire {
+            font-size: 20px;
         }
 
         .screen-title {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
         }
 
         .screen-coins {
             display: flex;
             align-items: center;
-            gap: 6px;
-            background: var(--bg-secondary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 14px;
+            gap: 5px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 165, 0, 0.1) 100%);
+            padding: 5px 10px;
+            border-radius: 16px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--accent-gold);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .coin-icon {
+            font-size: 12px;
+        }
+
+        /* Daily Bonus Card */
+        .daily-bonus {
+            background: linear-gradient(135deg, #FFD700 0%, #FF8C00 50%, #FF6B00 100%);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .daily-bonus::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .bonus-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bonus-left h4 {
+            color: #000;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .bonus-left p {
+            color: rgba(0,0,0,0.6);
+            font-size: 10px;
+        }
+
+        .bonus-btn {
+            background: #000;
+            color: #FFD700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Sport Filter Chips */
+        .sport-chips {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .sport-chips::-webkit-scrollbar {
+            display: none;
+        }
+
+        .sport-chip {
+            padding: 5px 10px;
+            border-radius: 16px;
+            font-size: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--bg-card);
+        }
+
+        .sport-chip.active {
+            background: var(--accent-gold);
+            color: #000;
+            border-color: var(--accent-gold);
         }
 
         .game-cards {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             overflow: hidden;
         }
 
         .game-card {
             background: var(--bg-secondary);
-            border-radius: 16px;
-            padding: 16px;
-            animation: slideIn 0.5s ease-out forwards;
-            opacity: 0;
-            transform: translateX(20px);
-        }
-
-        .game-card:nth-child(1) { animation-delay: 0.2s; }
-        .game-card:nth-child(2) { animation-delay: 0.4s; }
-        .game-card:nth-child(3) { animation-delay: 0.6s; }
-
-        @keyframes slideIn {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            border-radius: 14px;
+            padding: 12px;
+            border: 1px solid var(--bg-card);
         }
 
         .game-league {
-            font-size: 11px;
+            font-size: 9px;
             color: var(--accent-gold);
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -347,40 +661,40 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .team {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .team-logo {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 11px;
             font-weight: 700;
         }
 
         .team-name {
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 600;
         }
 
         .vs {
-            font-size: 12px;
+            font-size: 10px;
             color: var(--text-secondary);
         }
 
         .game-odds {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
 
         .odd-btn {
@@ -388,7 +702,7 @@
             background: var(--bg-card);
             border: none;
             border-radius: 8px;
-            padding: 10px 8px;
+            padding: 8px 6px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
@@ -398,66 +712,485 @@
             background: var(--accent-gold);
         }
 
-        .odd-btn.selected .odd-value {
-            color: var(--bg-primary);
-        }
-
+        .odd-btn.selected .odd-value,
         .odd-btn.selected .odd-label {
             color: var(--bg-primary);
         }
 
         .odd-label {
-            font-size: 10px;
+            font-size: 8px;
             color: var(--text-secondary);
             display: block;
         }
 
         .odd-value {
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--text-primary);
         }
 
+        /* My Picks Screen */
+        .picks-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .win-rate-badge {
+            background: linear-gradient(135deg, var(--accent-green), #00CC66);
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .picks-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 12px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 3px;
+        }
+
+        .picks-tab {
+            flex: 1;
+            padding: 6px 0;
+            text-align: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .picks-tab.active {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .pick-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border: 1px solid var(--bg-card);
+        }
+
+        .pick-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .pick-teams {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .pick-status {
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .pick-status.won {
+            background: rgba(0, 255, 127, 0.2);
+            color: var(--accent-green);
+        }
+
+        .pick-status.lost {
+            background: rgba(255, 59, 48, 0.2);
+            color: var(--accent-red);
+        }
+
+        .pick-status.pending {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--accent-gold);
+        }
+
+        .pick-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            color: var(--text-secondary);
+        }
+
+        .pick-payout {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        /* Leaderboard Screen */
+        .leaderboard-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .trophy-icon {
+            font-size: 20px;
+        }
+
+        .leaderboard-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .lb-tab {
+            padding: 5px 10px;
+            border-radius: 14px;
+            font-size: 9px;
+            font-weight: 600;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+        }
+
+        .lb-tab.active {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        .top-three {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 8px;
+            margin-bottom: 14px;
+            padding: 10px 0;
+        }
+
+        .podium-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .podium-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .podium-item.first .podium-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .podium-item.second .podium-avatar {
+            background: linear-gradient(135deg, #C0C0C0, #A0A0A0);
+        }
+
+        .podium-item.third .podium-avatar {
+            background: linear-gradient(135deg, #CD7F32, #8B4513);
+        }
+
+        .podium-rank {
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            width: 16px;
+            height: 16px;
+            background: var(--bg-primary);
+            border-radius: 50%;
+            font-size: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid;
+        }
+
+        .podium-item.first .podium-rank { border-color: #FFD700; color: #FFD700; }
+        .podium-item.second .podium-rank { border-color: #C0C0C0; color: #C0C0C0; }
+        .podium-item.third .podium-rank { border-color: #CD7F32; color: #CD7F32; }
+
+        .podium-name {
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .podium-coins {
+            font-size: 8px;
+            color: var(--accent-gold);
+        }
+
+        .rank-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .rank-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-secondary);
+            padding: 8px 10px;
+            border-radius: 10px;
+        }
+
+        .rank-num {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            width: 16px;
+        }
+
+        .rank-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .rank-info {
+            flex: 1;
+        }
+
+        .rank-name {
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .rank-stats {
+            font-size: 8px;
+            color: var(--text-secondary);
+        }
+
+        .rank-coins {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        /* Profile Screen */
+        .profile-avatar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .profile-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .avatar-ring {
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 50%;
+            animation: avatarPulse 2s ease-in-out infinite;
+        }
+
+        .avatar-ring:nth-child(2) {
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            animation-delay: 0.5s;
+            opacity: 0.5;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.2; }
+        }
+
+        .profile-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .profile-level {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1));
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        .xp-bar-container {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        .xp-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .xp-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-card);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .xp-fill {
+            width: 65%;
+            height: 100%;
+            background: var(--gradient-gold);
+            border-radius: 3px;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-value {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .profile-stat-value.green { color: var(--accent-green); }
+
+        .profile-stat-label {
+            font-size: 8px;
+            color: var(--text-secondary);
+        }
+
+        .wallet-card {
+            background: linear-gradient(135deg, #1a1a1f 0%, #2a2a2f 100%);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .wallet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .wallet-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        .wallet-icon {
+            font-size: 16px;
+        }
+
+        .wallet-balance {
+            font-size: 24px;
+            font-weight: 800;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Bottom Navigation */
         .screen-nav {
             display: flex;
             justify-content: space-around;
-            padding: 12px 0;
+            padding: 10px 0;
             border-top: 1px solid var(--bg-card);
             margin-top: auto;
+            background: var(--bg-primary);
         }
 
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
-            font-size: 10px;
+            gap: 3px;
+            font-size: 9px;
             color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
         .nav-item.active {
             color: var(--accent-gold);
         }
 
+        .nav-item.active .nav-icon svg {
+            transform: scale(1.1);
+        }
+
         .nav-icon {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
+        .nav-icon svg {
+            transition: transform 0.3s;
+        }
+
         /* Glow effects */
         .phone-glow {
             position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, rgba(255, 165, 0, 0.1) 30%, transparent 70%);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: -1;
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.1); }
         }
 
         /* Features Section */
@@ -497,41 +1230,81 @@
             border-radius: 24px;
             padding: 2rem;
             border: 1px solid var(--bg-card);
-            transition: transform 0.3s, border-color 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top left, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 215, 0, 0.3);
+            transform: translateY(-8px);
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.15);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
         }
 
         .feature-icon {
-            width: 56px;
-            height: 56px;
-            background: var(--bg-card);
-            border-radius: 16px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 165, 0, 0.1) 100%);
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             margin-bottom: 1.5rem;
+            position: relative;
+            transition: all 0.4s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
         }
 
         .feature-card h3 {
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.75rem;
+            position: relative;
         }
 
         .feature-card p {
             color: var(--text-secondary);
             font-size: 0.95rem;
+            position: relative;
         }
 
         /* Sports Section */
         .sports {
             padding: 6rem 5%;
             background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sports::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.03) 0%, transparent 70%);
         }
 
         .sports-logos {
@@ -540,6 +1313,7 @@
             gap: 3rem;
             flex-wrap: wrap;
             margin-top: 3rem;
+            position: relative;
         }
 
         .sport-item {
@@ -547,39 +1321,99 @@
             flex-direction: column;
             align-items: center;
             gap: 0.75rem;
+            position: relative;
         }
 
         .sport-logo {
-            width: 72px;
-            height: 72px;
-            border-radius: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            transition: transform 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
 
         .sport-item:hover .sport-logo {
-            transform: scale(1.1);
+            transform: scale(1.15) rotateY(10deg) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .sport-logo::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 26px;
+            background: inherit;
+            filter: blur(15px);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s;
+        }
+
+        .sport-item:hover .sport-logo::after {
+            opacity: 0.5;
+            animation: logoGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
         }
 
         .sport-logo.nfl { background: linear-gradient(135deg, #013369, #D50A0A); }
         .sport-logo.nba { background: linear-gradient(135deg, #1D428A, #C8102E); }
         .sport-logo.mlb { background: linear-gradient(135deg, #002D72, #D50032); }
-        .sport-logo.cfb { background: linear-gradient(135deg, #4B2E83, #E8D9A8); }
+        .sport-logo.cfb { background: linear-gradient(135deg, #4B2E83, #E8D9A8); color: #4B2E83; }
         .sport-logo.soccer { background: linear-gradient(135deg, #38003C, #00FF85); }
+        .sport-logo.nhl { background: linear-gradient(135deg, #000000, #FCB514); }
 
         .sport-name {
             font-size: 0.875rem;
             font-weight: 600;
             color: var(--text-secondary);
+            transition: color 0.3s;
+        }
+
+        .sport-item:hover .sport-name {
+            color: var(--text-primary);
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+            color: #000;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 3px 6px;
+            border-radius: 6px;
+            text-transform: uppercase;
         }
 
         /* Stats Section */
         .stats {
             padding: 6rem 5%;
+            position: relative;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.03) 0%, transparent 30%),
+                radial-gradient(circle at 80% 50%, rgba(255, 165, 0, 0.03) 0%, transparent 30%);
         }
 
         .stats-grid {
@@ -588,10 +1422,20 @@
             gap: 2rem;
             max-width: 1000px;
             margin: 0 auto;
+            position: relative;
         }
 
         .stat-item {
             text-align: center;
+            padding: 2rem 1rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.4s;
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 215, 0, 0.05);
+            transform: translateY(-5px);
         }
 
         .stat-number {
@@ -613,6 +1457,44 @@
         .cta-section {
             padding: 6rem 5%;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Confetti Particles */
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0.6;
+        }
+
+        .confetti:nth-child(1) { left: 10%; background: #FFD700; animation: confettiFall 8s linear infinite; animation-delay: 0s; }
+        .confetti:nth-child(2) { left: 20%; background: #FF6B6B; animation: confettiFall 9s linear infinite; animation-delay: 1s; }
+        .confetti:nth-child(3) { left: 30%; background: #4ECDC4; animation: confettiFall 7s linear infinite; animation-delay: 2s; }
+        .confetti:nth-child(4) { left: 40%; background: #FFD700; animation: confettiFall 10s linear infinite; animation-delay: 0.5s; }
+        .confetti:nth-child(5) { left: 50%; background: #FF6B6B; animation: confettiFall 8s linear infinite; animation-delay: 1.5s; }
+        .confetti:nth-child(6) { left: 60%; background: #4ECDC4; animation: confettiFall 9s linear infinite; animation-delay: 2.5s; }
+        .confetti:nth-child(7) { left: 70%; background: #FFD700; animation: confettiFall 7s linear infinite; animation-delay: 3s; }
+        .confetti:nth-child(8) { left: 80%; background: #FF6B6B; animation: confettiFall 10s linear infinite; animation-delay: 0.8s; }
+        .confetti:nth-child(9) { left: 90%; background: #4ECDC4; animation: confettiFall 8s linear infinite; animation-delay: 1.8s; }
+        .confetti:nth-child(10) { left: 15%; background: #FFD700; animation: confettiFall 9s linear infinite; animation-delay: 2.8s; }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
 
         .cta-box {
@@ -621,20 +1503,52 @@
             padding: 4rem 2rem;
             max-width: 800px;
             margin: 0 auto;
-            border: 1px solid rgba(255, 215, 0, 0.2);
             position: relative;
             overflow: hidden;
         }
 
+        /* Animated Gradient Border */
         .cta-box::before {
             content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FF6B00, #FFD700);
+            background-size: 400% 400%;
+            border-radius: 34px;
+            z-index: -1;
+            animation: gradientBorder 4s ease infinite;
+        }
+
+        .cta-box::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+            border-radius: 30px;
+            z-index: -1;
+        }
+
+        @keyframes gradientBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .cta-glow {
             position: absolute;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .cta-box h2 {
@@ -656,6 +1570,7 @@
             justify-content: center;
             gap: 1rem;
             flex-wrap: wrap;
+            position: relative;
         }
 
         .store-btn {
@@ -664,24 +1579,47 @@
             gap: 0.75rem;
             background: var(--bg-primary);
             padding: 0.875rem 1.5rem;
-            border-radius: 12px;
+            border-radius: 14px;
             text-decoration: none;
             color: var(--text-primary);
             border: 1px solid var(--bg-card);
-            transition: border-color 0.3s, background 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .store-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .store-btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .store-btn:hover {
             border-color: var(--accent-gold);
-            background: var(--bg-secondary);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
         }
 
         .store-icon {
             font-size: 1.5rem;
+            position: relative;
         }
 
         .store-text {
             text-align: left;
+            position: relative;
         }
 
         .store-text span {
@@ -717,7 +1655,7 @@
         }
 
         .footer-links a:hover {
-            color: var(--text-primary);
+            color: var(--accent-gold);
         }
 
         .copyright {
@@ -752,12 +1690,29 @@
             .nav-links {
                 display: none;
             }
+
+            .rating-badge {
+                display: none;
+            }
+
+            .hero-orb-1, .hero-orb-2, .hero-orb-3 {
+                opacity: 0.3;
+            }
         }
 
         @media (max-width: 480px) {
             .iphone {
                 width: 240px;
                 height: 500px;
+            }
+
+            .iphone-screen {
+                border-radius: 38px;
+            }
+
+            .dynamic-island {
+                width: 100px;
+                height: 28px;
             }
 
             .hero-buttons {
@@ -769,6 +1724,16 @@
                 width: 100%;
                 max-width: 280px;
                 justify-content: center;
+            }
+
+            .sports-logos {
+                gap: 1.5rem;
+            }
+
+            .sport-logo {
+                width: 64px;
+                height: 64px;
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -788,8 +1753,31 @@
     </nav>
 
     <section class="hero">
+        <!-- Animated Gradient Orbs -->
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+
+        <!-- Floating Particles -->
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+
         <div class="hero-content">
             <div class="hero-badge">Now Available</div>
+            <span class="rating-badge">
+                <span class="rating-stars">★★★★★</span>
+                <span class="rating-text">4.9</span>
+            </span>
             <h1>Make Predictions.<br>Climb the <span>Leaderboard</span>.</h1>
             <p>The ultimate virtual sports prediction app. Pick winners, build parlays, and compete against friends with virtual coins. No real money, all the excitement.</p>
             <div class="hero-buttons">
@@ -809,108 +1797,298 @@
         </div>
         <div class="hero-phone">
             <div class="phone-glow"></div>
-            <div class="iphone-container">
+            <div class="iphone-container" id="iphoneContainer">
                 <div class="iphone">
+                    <!-- Side Buttons -->
+                    <div class="iphone-button power"></div>
+                    <div class="iphone-button volume-up"></div>
+                    <div class="iphone-button volume-down"></div>
+                    <div class="iphone-button silent"></div>
+
                     <div class="iphone-screen">
+                        <!-- Dynamic Island -->
+                        <div class="dynamic-island"></div>
+
                         <div class="screen-content">
-                            <div class="screen-header">
-                                <div class="screen-title">Games</div>
-                                <div class="screen-coins">10,000</div>
+                            <div class="tab-content">
+                                <!-- Tab 1: Home Screen -->
+                                <div class="tab-screen active" id="tab-home">
+                                    <div class="screen-header">
+                                        <div class="header-left">
+                                            <span class="header-fire">🔥</span>
+                                            <div class="screen-title">Games</div>
+                                        </div>
+                                        <div class="screen-coins">
+                                            <span class="coin-icon">🪙</span>
+                                            10,500
+                                        </div>
+                                    </div>
+
+                                    <div class="daily-bonus">
+                                        <div class="bonus-content">
+                                            <div class="bonus-left">
+                                                <h4>Daily Bonus Ready!</h4>
+                                                <p>Spin to win up to 5,000 coins</p>
+                                            </div>
+                                            <div class="bonus-btn">SPIN</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="sport-chips">
+                                        <div class="sport-chip active">All</div>
+                                        <div class="sport-chip">NFL</div>
+                                        <div class="sport-chip">NBA</div>
+                                        <div class="sport-chip">MLB</div>
+                                        <div class="sport-chip">NHL</div>
+                                    </div>
+
+                                    <div class="game-cards">
+                                        <div class="game-card">
+                                            <div class="game-league">NFL • Tonight 8:15 PM</div>
+                                            <div class="game-teams">
+                                                <div class="team">
+                                                    <div class="team-logo" style="background: #002244; color: #fff;">KC</div>
+                                                    <div class="team-name">Chiefs</div>
+                                                </div>
+                                                <div class="vs">VS</div>
+                                                <div class="team">
+                                                    <div class="team-logo" style="background: #A71930; color: #fff;">SF</div>
+                                                    <div class="team-name">49ers</div>
+                                                </div>
+                                            </div>
+                                            <div class="game-odds">
+                                                <button class="odd-btn selected">
+                                                    <span class="odd-label">KC</span>
+                                                    <span class="odd-value">-110</span>
+                                                </button>
+                                                <button class="odd-btn">
+                                                    <span class="odd-label">SF</span>
+                                                    <span class="odd-value">+105</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="game-card">
+                                            <div class="game-league">NBA • Tomorrow 7:30 PM</div>
+                                            <div class="game-teams">
+                                                <div class="team">
+                                                    <div class="team-logo" style="background: #552583; color: #FDB927;">LA</div>
+                                                    <div class="team-name">Lakers</div>
+                                                </div>
+                                                <div class="vs">VS</div>
+                                                <div class="team">
+                                                    <div class="team-logo" style="background: #006BB6; color: #fff;">BOS</div>
+                                                    <div class="team-name">Celtics</div>
+                                                </div>
+                                            </div>
+                                            <div class="game-odds">
+                                                <button class="odd-btn">
+                                                    <span class="odd-label">LAL</span>
+                                                    <span class="odd-value">+140</span>
+                                                </button>
+                                                <button class="odd-btn">
+                                                    <span class="odd-label">BOS</span>
+                                                    <span class="odd-value">-160</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tab 2: My Picks Screen -->
+                                <div class="tab-screen" id="tab-picks">
+                                    <div class="picks-header">
+                                        <div class="screen-title">My Picks</div>
+                                        <div class="win-rate-badge">67% Win Rate</div>
+                                    </div>
+
+                                    <div class="picks-tabs">
+                                        <div class="picks-tab active">Pending</div>
+                                        <div class="picks-tab">Settled</div>
+                                    </div>
+
+                                    <div class="pick-card">
+                                        <div class="pick-header">
+                                            <div class="pick-teams">Chiefs vs 49ers</div>
+                                            <div class="pick-status pending">Pending</div>
+                                        </div>
+                                        <div class="pick-details">
+                                            <span>KC -110 • 500 coins</span>
+                                            <span class="pick-payout">To win: 455</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="pick-card">
+                                        <div class="pick-header">
+                                            <div class="pick-teams">Lakers vs Celtics</div>
+                                            <div class="pick-status won">Won</div>
+                                        </div>
+                                        <div class="pick-details">
+                                            <span>LAL +140 • 300 coins</span>
+                                            <span class="pick-payout">+420</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="pick-card">
+                                        <div class="pick-header">
+                                            <div class="pick-teams">Dodgers vs Yankees</div>
+                                            <div class="pick-status lost">Lost</div>
+                                        </div>
+                                        <div class="pick-details">
+                                            <span>NYY +120 • 200 coins</span>
+                                            <span>-200</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="pick-card">
+                                        <div class="pick-header">
+                                            <div class="pick-teams">Bills vs Dolphins</div>
+                                            <div class="pick-status won">Won</div>
+                                        </div>
+                                        <div class="pick-details">
+                                            <span>BUF -130 • 650 coins</span>
+                                            <span class="pick-payout">+500</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tab 3: Leaderboard Screen -->
+                                <div class="tab-screen" id="tab-leaderboard">
+                                    <div class="leaderboard-header">
+                                        <span class="trophy-icon">🏆</span>
+                                        <div class="screen-title">Leaderboard</div>
+                                    </div>
+
+                                    <div class="leaderboard-tabs">
+                                        <div class="lb-tab active">Daily</div>
+                                        <div class="lb-tab">Weekly</div>
+                                        <div class="lb-tab">All Time</div>
+                                    </div>
+
+                                    <div class="top-three">
+                                        <div class="podium-item second">
+                                            <div class="podium-avatar">
+                                                JM
+                                                <div class="podium-rank">2</div>
+                                            </div>
+                                            <div class="podium-name">JakeMVP</div>
+                                            <div class="podium-coins">52.4K</div>
+                                        </div>
+                                        <div class="podium-item first">
+                                            <div class="podium-avatar">
+                                                SK
+                                                <div class="podium-rank">1</div>
+                                            </div>
+                                            <div class="podium-name">SportsKing</div>
+                                            <div class="podium-coins">78.2K</div>
+                                        </div>
+                                        <div class="podium-item third">
+                                            <div class="podium-avatar">
+                                                LP
+                                                <div class="podium-rank">3</div>
+                                            </div>
+                                            <div class="podium-name">LuckyPick</div>
+                                            <div class="podium-coins">41.8K</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="rank-list">
+                                        <div class="rank-row">
+                                            <div class="rank-num">4</div>
+                                            <div class="rank-avatar">BW</div>
+                                            <div class="rank-info">
+                                                <div class="rank-name">BetWizard</div>
+                                                <div class="rank-stats">156 picks • 68% win</div>
+                                            </div>
+                                            <div class="rank-coins">38.5K</div>
+                                        </div>
+                                        <div class="rank-row">
+                                            <div class="rank-num">5</div>
+                                            <div class="rank-avatar">PR</div>
+                                            <div class="rank-info">
+                                                <div class="rank-name">ProRaider</div>
+                                                <div class="rank-stats">142 picks • 65% win</div>
+                                            </div>
+                                            <div class="rank-coins">35.2K</div>
+                                        </div>
+                                        <div class="rank-row">
+                                            <div class="rank-num">6</div>
+                                            <div class="rank-avatar">AC</div>
+                                            <div class="rank-info">
+                                                <div class="rank-name">AceChamp</div>
+                                                <div class="rank-stats">128 picks • 71% win</div>
+                                            </div>
+                                            <div class="rank-coins">32.1K</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tab 4: Profile Screen -->
+                                <div class="tab-screen" id="tab-profile">
+                                    <div class="profile-avatar-container">
+                                        <div class="profile-avatar">
+                                            <div class="avatar-ring"></div>
+                                            <div class="avatar-ring"></div>
+                                            RC
+                                        </div>
+                                        <div class="profile-name">ReidColeman</div>
+                                        <div class="profile-level">⭐ Level 24</div>
+                                    </div>
+
+                                    <div class="xp-bar-container">
+                                        <div class="xp-label">
+                                            <span>XP Progress</span>
+                                            <span>6,500 / 10,000</span>
+                                        </div>
+                                        <div class="xp-bar">
+                                            <div class="xp-fill"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="profile-stats">
+                                        <div class="profile-stat">
+                                            <div class="profile-stat-value">847</div>
+                                            <div class="profile-stat-label">Predictions</div>
+                                        </div>
+                                        <div class="profile-stat">
+                                            <div class="profile-stat-value green">67%</div>
+                                            <div class="profile-stat-label">Win Rate</div>
+                                        </div>
+                                        <div class="profile-stat">
+                                            <div class="profile-stat-value">567</div>
+                                            <div class="profile-stat-label">Wins</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="wallet-card">
+                                        <div class="wallet-header">
+                                            <span class="wallet-label">Wallet Balance</span>
+                                            <span class="wallet-icon">🪙</span>
+                                        </div>
+                                        <div class="wallet-balance">10,500</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="game-cards">
-                                <div class="game-card">
-                                    <div class="game-league">NFL</div>
-                                    <div class="game-teams">
-                                        <div class="team">
-                                            <div class="team-logo" style="background: #002244; color: #fff;">KC</div>
-                                            <div class="team-name">Chiefs</div>
-                                        </div>
-                                        <div class="vs">VS</div>
-                                        <div class="team">
-                                            <div class="team-logo" style="background: #A71930; color: #fff;">SF</div>
-                                            <div class="team-name">49ers</div>
-                                        </div>
-                                    </div>
-                                    <div class="game-odds">
-                                        <button class="odd-btn selected">
-                                            <span class="odd-label">KC</span>
-                                            <span class="odd-value">-110</span>
-                                        </button>
-                                        <button class="odd-btn">
-                                            <span class="odd-label">SF</span>
-                                            <span class="odd-value">+105</span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="game-card">
-                                    <div class="game-league">NBA</div>
-                                    <div class="game-teams">
-                                        <div class="team">
-                                            <div class="team-logo" style="background: #552583; color: #FDB927;">LA</div>
-                                            <div class="team-name">Lakers</div>
-                                        </div>
-                                        <div class="vs">VS</div>
-                                        <div class="team">
-                                            <div class="team-logo" style="background: #006BB6; color: #fff;">NY</div>
-                                            <div class="team-name">Knicks</div>
-                                        </div>
-                                    </div>
-                                    <div class="game-odds">
-                                        <button class="odd-btn">
-                                            <span class="odd-label">LAL</span>
-                                            <span class="odd-value">-125</span>
-                                        </button>
-                                        <button class="odd-btn">
-                                            <span class="odd-label">NYK</span>
-                                            <span class="odd-value">+115</span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="game-card">
-                                    <div class="game-league">MLB</div>
-                                    <div class="game-teams">
-                                        <div class="team">
-                                            <div class="team-logo" style="background: #003087; color: #fff;">LA</div>
-                                            <div class="team-name">Dodgers</div>
-                                        </div>
-                                        <div class="vs">VS</div>
-                                        <div class="team">
-                                            <div class="team-logo" style="background: #0C2340; color: #C4CED4;">NY</div>
-                                            <div class="team-name">Yankees</div>
-                                        </div>
-                                    </div>
-                                    <div class="game-odds">
-                                        <button class="odd-btn">
-                                            <span class="odd-label">LAD</span>
-                                            <span class="odd-value">-140</span>
-                                        </button>
-                                        <button class="odd-btn">
-                                            <span class="odd-label">NYY</span>
-                                            <span class="odd-value">+120</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="screen-nav">
-                                <div class="nav-item active">
+                                <div class="nav-item active" data-tab="home">
                                     <div class="nav-icon">
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
                                     </div>
                                     Home
                                 </div>
-                                <div class="nav-item">
+                                <div class="nav-item" data-tab="picks">
                                     <div class="nav-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2v-4H8v-2h4V7h2v4h4v2h-4v4z"/></svg>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                                     </div>
                                     Picks
                                 </div>
-                                <div class="nav-item">
+                                <div class="nav-item" data-tab="leaderboard">
                                     <div class="nav-icon">
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 21H2V9h5.5v12zm7.25-18h-5.5v18h5.5V3zM22 11h-5.5v10H22V11z"/></svg>
                                     </div>
                                     Ranks
                                 </div>
-                                <div class="nav-item">
+                                <div class="nav-item" data-tab="profile">
                                     <div class="nav-icon">
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
                                     </div>
@@ -989,32 +2167,52 @@
                 <div class="sport-logo soccer">EPL</div>
                 <div class="sport-name">Soccer</div>
             </div>
+            <div class="sport-item">
+                <div class="sport-logo nhl">NHL</div>
+                <div class="sport-name">Hockey</div>
+                <div class="coming-soon-badge">Soon</div>
+            </div>
         </div>
     </section>
 
     <section class="stats">
         <div class="stats-grid">
             <div class="stat-item">
-                <div class="stat-number">6+</div>
+                <div class="stat-number" data-target="6">0</div>
                 <div class="stat-label">Sports Leagues</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">1000+</div>
+                <div class="stat-number" data-target="1000">0</div>
                 <div class="stat-label">Games Weekly</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">5</div>
+                <div class="stat-number" data-target="5">0</div>
                 <div class="stat-label">Bet Types</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">Free</div>
+                <div class="stat-number no-count">Free</div>
                 <div class="stat-label">To Play</div>
             </div>
         </div>
     </section>
 
     <section class="cta-section" id="download">
+        <!-- Confetti Particles -->
+        <div class="confetti-container">
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+        </div>
+
         <div class="cta-box">
+            <div class="cta-glow"></div>
             <h2>Ready to Start Your Streak?</h2>
             <p>Download HotStreak now and get 10,000 free coins to start making predictions</p>
             <div class="app-stores">
@@ -1055,6 +2253,63 @@
     </footer>
 
     <script>
+        // Tab Cycling Animation
+        const tabs = ['home', 'picks', 'leaderboard', 'profile'];
+        let currentTabIndex = 0;
+        let tabCycleInterval;
+        let isPaused = false;
+
+        function switchTab(tabName) {
+            // Update screens
+            document.querySelectorAll('.tab-screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+
+            // Update nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.tab === tabName) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        function cycleToNextTab() {
+            if (isPaused) return;
+            currentTabIndex = (currentTabIndex + 1) % tabs.length;
+            switchTab(tabs[currentTabIndex]);
+        }
+
+        function startTabCycling() {
+            tabCycleInterval = setInterval(cycleToNextTab, 4000);
+        }
+
+        function stopTabCycling() {
+            clearInterval(tabCycleInterval);
+        }
+
+        // Pause on hover
+        const iphoneContainer = document.getElementById('iphoneContainer');
+        iphoneContainer.addEventListener('mouseenter', () => {
+            isPaused = true;
+        });
+        iphoneContainer.addEventListener('mouseleave', () => {
+            isPaused = false;
+        });
+
+        // Click handlers for nav items
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const tabName = item.dataset.tab;
+                currentTabIndex = tabs.indexOf(tabName);
+                switchTab(tabName);
+            });
+        });
+
+        // Start cycling
+        startTabCycling();
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1069,6 +2324,31 @@
             });
         });
 
+        // Animated number counting
+        function animateValue(element, start, end, duration) {
+            const startTime = performance.now();
+            const suffix = end >= 1000 ? '+' : '+';
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(start + (end - start) * easeOut);
+
+                if (end >= 1000) {
+                    element.textContent = current.toLocaleString() + '+';
+                } else {
+                    element.textContent = current + '+';
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
         // Intersection Observer for scroll animations
         const observerOptions = {
             threshold: 0.1,
@@ -1080,14 +2360,24 @@
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
+
+                    // Animate stat numbers
+                    if (entry.target.classList.contains('stat-item')) {
+                        const numberEl = entry.target.querySelector('.stat-number');
+                        if (numberEl && !numberEl.classList.contains('no-count') && !numberEl.dataset.animated) {
+                            numberEl.dataset.animated = 'true';
+                            const target = parseInt(numberEl.dataset.target) || 0;
+                            animateValue(numberEl, 0, target, 2000);
+                        }
+                    }
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.feature-card, .sport-item, .stat-item').forEach(el => {
+        document.querySelectorAll('.feature-card, .sport-item, .stat-item').forEach((el, index) => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
             observer.observe(el);
         });
 
@@ -1095,9 +2385,20 @@
         document.addEventListener('mousemove', (e) => {
             const phone = document.querySelector('.iphone-container');
             if (phone && window.innerWidth > 968) {
-                const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
-                const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
-                phone.style.transform = `translateY(${-20 + yAxis}px) rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 60;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 60;
+
+                // Don't override the float animation, just add rotation
+                const floatY = -20 * Math.sin(Date.now() / 1000);
+                phone.style.transform = `translateY(${floatY}px) rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
+            }
+        });
+
+        // Reset phone transform when mouse leaves
+        document.addEventListener('mouseleave', () => {
+            const phone = document.querySelector('.iphone-container');
+            if (phone) {
+                phone.style.transform = '';
             }
         });
     </script>
