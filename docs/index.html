@@ -1739,36 +1739,124 @@
             font-size: 0.875rem;
         }
 
-        /* Screenshots Gallery Section */
+        /* Screenshots Showcase Section */
         .screenshots {
-            padding: 6rem 5%;
+            padding: 4rem 5% 2rem;
             position: relative;
-            overflow: hidden;
         }
 
-        .screenshots-container {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .screenshots-track {
+        .showcase-item {
             display: flex;
-            gap: 2rem;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            max-width: 1100px;
+            margin: 0 auto 6rem;
             padding: 2rem 0;
-            -ms-overflow-style: none;
         }
 
-        .screenshots-track::-webkit-scrollbar {
-            display: none;
+        .showcase-item:last-child {
+            margin-bottom: 2rem;
         }
 
-        .screenshot-item {
+        .showcase-item.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .showcase-phone {
             flex: 0 0 280px;
-            position: relative;
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .showcase-item.reverse .showcase-phone {
+            transform: translateX(60px);
+        }
+
+        .showcase-item.visible .showcase-phone {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .showcase-content {
+            flex: 1;
+            max-width: 450px;
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition-delay: 0.15s;
+        }
+
+        .showcase-item.reverse .showcase-content {
+            transform: translateX(-60px);
+        }
+
+        .showcase-item.visible .showcase-content {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .showcase-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(240, 197, 79, 0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            border: 1px solid rgba(240, 197, 79, 0.2);
+            font-weight: 600;
+        }
+
+        .showcase-content h3 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .showcase-content h3 span {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .showcase-content p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .showcase-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .showcase-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .showcase-feature-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(240, 197, 79, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
         }
 
         .screenshot-frame {
@@ -1784,17 +1872,16 @@
             transition: all 0.4s ease;
         }
 
-        .screenshot-item:hover .screenshot-frame {
-            transform: translateY(-8px) scale(1.02);
-            border-color: rgba(240, 197, 79, 0.3);
+        .showcase-item:hover .screenshot-frame {
+            border-color: rgba(240, 197, 79, 0.2);
             box-shadow:
                 0 20px 60px rgba(0, 0, 0, 0.4),
-                0 0 40px rgba(240, 197, 79, 0.1);
+                0 0 40px rgba(240, 197, 79, 0.08);
         }
 
         .screenshot-image {
             width: 100%;
-            height: 500px;
+            height: 480px;
             background: var(--bg-secondary);
             border-radius: 16px;
             display: flex;
@@ -1802,60 +1889,48 @@
             overflow: hidden;
         }
 
-        .screenshot-label {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 500;
+        @media (max-width: 968px) {
+            .showcase-item,
+            .showcase-item.reverse {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .showcase-phone {
+                transform: translateY(40px);
+            }
+
+            .showcase-item.reverse .showcase-phone {
+                transform: translateY(40px);
+            }
+
+            .showcase-content {
+                transform: translateY(40px);
+            }
+
+            .showcase-item.reverse .showcase-content {
+                transform: translateY(40px);
+            }
+
+            .showcase-item.visible .showcase-phone,
+            .showcase-item.visible .showcase-content {
+                transform: translateY(0);
+            }
+
+            .showcase-features {
+                align-items: center;
+            }
         }
 
-        .screenshots-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
+        @media (max-width: 480px) {
+            .showcase-phone {
+                flex: 0 0 260px;
+            }
 
-        .screenshot-arrow {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .screenshot-arrow:hover {
-            background: rgba(240, 197, 79, 0.1);
-            border-color: rgba(240, 197, 79, 0.3);
-            color: var(--accent-gold);
-        }
-
-        .screenshot-dots {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .screenshot-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .screenshot-dot.active {
-            background: var(--accent-gold);
-            width: 24px;
-            border-radius: 4px;
+            .screenshot-image {
+                height: 440px;
+            }
         }
 
         /* Testimonials Section */
@@ -2608,195 +2683,306 @@
         </div>
     </section>
 
-    <!-- Screenshots Gallery Section -->
+    <!-- Screenshots Showcase Section -->
     <section class="screenshots" id="screenshots">
         <div class="section-header">
             <h2>See HotStreak in Action</h2>
             <p>Experience the thrill of sports predictions with our intuitive, feature-rich interface</p>
         </div>
-        <div class="screenshots-container">
-            <div class="screenshots-track" id="screenshotsTrack">
-                <div class="screenshot-item">
-                    <div class="screenshot-frame">
-                        <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span style="font-size: 20px;">🔥</span>
-                                    <span style="font-weight: 700; font-size: 18px;">Games</span>
-                                </div>
-                                <div style="background: rgba(240, 197, 79, 0.15); padding: 6px 12px; border-radius: 20px; font-size: 13px; color: #f0c54f;">🪙 10,500</div>
+
+        <!-- Showcase 1: Live Games -->
+        <div class="showcase-item">
+            <div class="showcase-phone">
+                <div class="screenshot-frame">
+                    <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 20px;">🔥</span>
+                                <span style="font-weight: 700; font-size: 18px;">Games</span>
                             </div>
-                            <div style="background: linear-gradient(135deg, #f0c54f, #e09422); border-radius: 12px; padding: 14px; margin-bottom: 16px;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <div>
-                                        <div style="color: #000; font-weight: 700; font-size: 13px;">Daily Bonus Ready!</div>
-                                        <div style="color: rgba(0,0,0,0.6); font-size: 11px;">Spin to win up to 5,000</div>
-                                    </div>
-                                    <div style="background: #000; color: #f0c54f; padding: 6px 14px; border-radius: 16px; font-size: 11px; font-weight: 700;">SPIN</div>
+                            <div style="background: rgba(240, 197, 79, 0.15); padding: 6px 12px; border-radius: 20px; font-size: 13px; color: #f0c54f;">🪙 10,500</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #f0c54f, #e09422); border-radius: 12px; padding: 14px; margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="color: #000; font-weight: 700; font-size: 13px;">Daily Bonus Ready!</div>
+                                    <div style="color: rgba(0,0,0,0.6); font-size: 11px;">Spin to win up to 5,000</div>
                                 </div>
-                            </div>
-                            <div style="display: flex; gap: 8px; margin-bottom: 16px;">
-                                <span style="background: #f0c54f; color: #000; padding: 6px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">All</span>
-                                <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 11px;">NFL</span>
-                                <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 11px;">NBA</span>
-                            </div>
-                            <div style="background: rgba(255,255,255,0.03); border-radius: 14px; padding: 14px; border: 1px solid rgba(255,255,255,0.06);">
-                                <div style="color: #f0c54f; font-size: 10px; font-weight: 600; margin-bottom: 8px;">NFL • TONIGHT 8:15 PM</div>
-                                <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 12px;">
-                                    <div style="text-align: center;">
-                                        <div style="width: 36px; height: 36px; background: #002244; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-size: 11px; font-weight: 700;">KC</div>
-                                        <div style="font-size: 11px; font-weight: 600;">Chiefs</div>
-                                    </div>
-                                    <span style="color: #5a5f6e; font-size: 11px;">VS</span>
-                                    <div style="text-align: center;">
-                                        <div style="width: 36px; height: 36px; background: #A71930; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-size: 11px; font-weight: 700;">SF</div>
-                                        <div style="font-size: 11px; font-weight: 600;">49ers</div>
-                                    </div>
-                                </div>
+                                <div style="background: #000; color: #f0c54f; padding: 6px 14px; border-radius: 16px; font-size: 11px; font-weight: 700;">SPIN</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="screenshot-label">Live Games Feed</div>
-                </div>
-                <div class="screenshot-item">
-                    <div class="screenshot-frame">
-                        <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
-                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
-                                <span style="font-size: 18px;">📋</span>
-                                <span style="font-weight: 700; font-size: 18px;">My Picks</span>
-                                <span style="background: linear-gradient(135deg, #00FF7F, #00CC66); color: #000; padding: 4px 10px; border-radius: 10px; font-size: 10px; font-weight: 700; margin-left: auto;">67% Win</span>
-                            </div>
-                            <div style="display: flex; background: rgba(255,255,255,0.03); border-radius: 10px; padding: 4px; margin-bottom: 16px;">
-                                <div style="flex: 1; text-align: center; background: rgba(255,255,255,0.05); border-radius: 8px; padding: 8px; font-size: 11px; font-weight: 600;">Pending</div>
-                                <div style="flex: 1; text-align: center; padding: 8px; font-size: 11px; color: #8a8f9e;">Settled</div>
-                            </div>
-                            <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.06);">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                    <span style="font-size: 12px; font-weight: 600;">Chiefs vs 49ers</span>
-                                    <span style="background: rgba(240, 197, 79, 0.2); color: #f0c54f; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">Pending</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; font-size: 10px; color: #8a8f9e;">
-                                    <span>KC -110 • 500 coins</span>
-                                    <span style="color: #00FF7F;">To win: 455</span>
-                                </div>
-                            </div>
-                            <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px; border: 1px solid rgba(255,255,255,0.06);">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                    <span style="font-size: 12px; font-weight: 600;">Lakers vs Celtics</span>
-                                    <span style="background: rgba(0, 255, 127, 0.2); color: #00FF7F; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">Won</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; font-size: 10px; color: #8a8f9e;">
-                                    <span>LAL +140 • 300 coins</span>
-                                    <span style="color: #00FF7F;">+420</span>
-                                </div>
-                            </div>
+                        <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                            <span style="background: #f0c54f; color: #000; padding: 6px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">All</span>
+                            <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 11px;">NFL</span>
+                            <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 11px;">NBA</span>
                         </div>
-                    </div>
-                    <div class="screenshot-label">Track Your Picks</div>
-                </div>
-                <div class="screenshot-item">
-                    <div class="screenshot-frame">
-                        <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
-                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
-                                <span style="font-size: 18px;">🏆</span>
-                                <span style="font-weight: 700; font-size: 18px;">Leaderboard</span>
-                            </div>
-                            <div style="display: flex; gap: 8px; margin-bottom: 20px;">
-                                <span style="background: #f0c54f; color: #000; padding: 6px 12px; border-radius: 12px; font-size: 10px; font-weight: 600;">Daily</span>
-                                <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 10px;">Weekly</span>
-                                <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 10px;">All Time</span>
-                            </div>
-                            <div style="display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin-bottom: 20px;">
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 14px; padding: 14px; border: 1px solid rgba(255,255,255,0.06);">
+                            <div style="color: #f0c54f; font-size: 10px; font-weight: 600; margin-bottom: 8px;">NFL • TONIGHT 8:15 PM</div>
+                            <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 12px;">
                                 <div style="text-align: center;">
-                                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #C0C0C0, #A0A0A0); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 14px; font-weight: 700;">JM</div>
-                                    <div style="font-size: 10px; font-weight: 600;">JakeMVP</div>
-                                    <div style="font-size: 9px; color: #f0c54f;">52.4K</div>
+                                    <div style="width: 36px; height: 36px; background: #002244; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-size: 11px; font-weight: 700;">KC</div>
+                                    <div style="font-size: 11px; font-weight: 600;">Chiefs</div>
                                 </div>
+                                <span style="color: #5a5f6e; font-size: 11px;">VS</span>
                                 <div style="text-align: center;">
-                                    <div style="width: 52px; height: 52px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 16px; font-weight: 700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);">SK</div>
-                                    <div style="font-size: 10px; font-weight: 600;">SportsKing</div>
-                                    <div style="font-size: 9px; color: #f0c54f;">78.2K</div>
-                                </div>
-                                <div style="text-align: center;">
-                                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #CD7F32, #8B4513); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 14px; font-weight: 700;">LP</div>
-                                    <div style="font-size: 10px; font-weight: 600;">LuckyPick</div>
-                                    <div style="font-size: 9px; color: #f0c54f;">41.8K</div>
+                                    <div style="width: 36px; height: 36px; background: #A71930; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-size: 11px; font-weight: 700;">SF</div>
+                                    <div style="font-size: 11px; font-weight: 600;">49ers</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="screenshot-label">Compete Globally</div>
-                </div>
-                <div class="screenshot-item">
-                    <div class="screenshot-frame">
-                        <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
-                            <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-                                <div style="width: 72px; height: 72px; background: linear-gradient(135deg, #f0c54f, #e09422); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; margin-bottom: 10px; box-shadow: 0 0 30px rgba(240, 197, 79, 0.3);">RC</div>
-                                <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">ReidColeman</div>
-                                <div style="background: rgba(240, 197, 79, 0.15); padding: 4px 12px; border-radius: 12px; font-size: 11px; color: #f0c54f;">⭐ Level 24</div>
-                            </div>
-                            <div style="background: rgba(255,255,255,0.03); border-radius: 14px; padding: 16px; margin-bottom: 16px;">
-                                <div style="display: flex; justify-content: space-around; text-align: center;">
-                                    <div>
-                                        <div style="font-size: 20px; font-weight: 700;">847</div>
-                                        <div style="font-size: 9px; color: #8a8f9e;">Predictions</div>
-                                    </div>
-                                    <div>
-                                        <div style="font-size: 20px; font-weight: 700; color: #00FF7F;">67%</div>
-                                        <div style="font-size: 9px; color: #8a8f9e;">Win Rate</div>
-                                    </div>
-                                    <div>
-                                        <div style="font-size: 20px; font-weight: 700;">567</div>
-                                        <div style="font-size: 9px; color: #8a8f9e;">Wins</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px solid rgba(240, 197, 79, 0.2); border-radius: 14px; padding: 16px;">
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                                    <span style="font-size: 11px; color: #8a8f9e;">Wallet Balance</span>
-                                    <span style="font-size: 16px;">🪙</span>
-                                </div>
-                                <div style="font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #f5d980, #e09422); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">10,500</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="screenshot-label">Your Profile</div>
-                </div>
-                <div class="screenshot-item">
-                    <div class="screenshot-frame">
-                        <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <div style="font-size: 16px; font-weight: 700; margin-bottom: 20px;">Daily Bonus Wheel</div>
-                            <div style="width: 180px; height: 180px; border-radius: 50%; background: conic-gradient(from 0deg, #f0c54f 0deg 45deg, #e09422 45deg 90deg, #f0c54f 90deg 135deg, #e09422 135deg 180deg, #f0c54f 180deg 225deg, #e09422 225deg 270deg, #f0c54f 270deg 315deg, #e09422 315deg 360deg); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 0 40px rgba(240, 197, 79, 0.3);">
-                                <div style="width: 60px; height: 60px; background: #0f1117; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">🎯</div>
-                            </div>
-                            <div style="background: linear-gradient(135deg, #f0c54f, #e09422); color: #000; padding: 12px 32px; border-radius: 20px; font-weight: 700; font-size: 14px;">SPIN NOW</div>
-                            <div style="margin-top: 16px; text-align: center;">
-                                <div style="font-size: 11px; color: #8a8f9e;">Win up to</div>
-                                <div style="font-size: 24px; font-weight: 800; color: #f0c54f;">5,000 🪙</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="screenshot-label">Daily Bonus</div>
                 </div>
             </div>
-            <div class="screenshots-nav">
-                <button class="screenshot-arrow" id="prevScreenshot">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15 18l-6-6 6-6"/>
-                    </svg>
-                </button>
-                <div class="screenshot-dots">
-                    <div class="screenshot-dot active" data-index="0"></div>
-                    <div class="screenshot-dot" data-index="1"></div>
-                    <div class="screenshot-dot" data-index="2"></div>
-                    <div class="screenshot-dot" data-index="3"></div>
-                    <div class="screenshot-dot" data-index="4"></div>
+            <div class="showcase-content">
+                <div class="showcase-badge">🔥 Live Games</div>
+                <h3>Browse <span>Today's Matchups</span></h3>
+                <p>See all upcoming games across NFL, NBA, MLB, and more. Real-time odds update as the action unfolds, so you always have the latest lines.</p>
+                <div class="showcase-features">
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Filter by sport or league</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Live odds from real sportsbooks</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>One-tap predictions</span>
+                    </div>
                 </div>
-                <button class="screenshot-arrow" id="nextScreenshot">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 18l6-6-6-6"/>
-                    </svg>
-                </button>
+            </div>
+        </div>
+
+        <!-- Showcase 2: My Picks -->
+        <div class="showcase-item reverse">
+            <div class="showcase-phone">
+                <div class="screenshot-frame">
+                    <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                            <span style="font-size: 18px;">📋</span>
+                            <span style="font-weight: 700; font-size: 18px;">My Picks</span>
+                            <span style="background: linear-gradient(135deg, #00FF7F, #00CC66); color: #000; padding: 4px 10px; border-radius: 10px; font-size: 10px; font-weight: 700; margin-left: auto;">67% Win</span>
+                        </div>
+                        <div style="display: flex; background: rgba(255,255,255,0.03); border-radius: 10px; padding: 4px; margin-bottom: 16px;">
+                            <div style="flex: 1; text-align: center; background: rgba(255,255,255,0.05); border-radius: 8px; padding: 8px; font-size: 11px; font-weight: 600;">Pending</div>
+                            <div style="flex: 1; text-align: center; padding: 8px; font-size: 11px; color: #8a8f9e;">Settled</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.06);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 12px; font-weight: 600;">Chiefs vs 49ers</span>
+                                <span style="background: rgba(240, 197, 79, 0.2); color: #f0c54f; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">Pending</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 10px; color: #8a8f9e;">
+                                <span>KC -110 • 500 coins</span>
+                                <span style="color: #00FF7F;">To win: 455</span>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.06);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 12px; font-weight: 600;">Lakers vs Celtics</span>
+                                <span style="background: rgba(0, 255, 127, 0.2); color: #00FF7F; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">Won</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 10px; color: #8a8f9e;">
+                                <span>LAL +140 • 300 coins</span>
+                                <span style="color: #00FF7F;">+420</span>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px; border: 1px solid rgba(255,255,255,0.06);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 12px; font-weight: 600;">Bills vs Dolphins</span>
+                                <span style="background: rgba(0, 255, 127, 0.2); color: #00FF7F; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;">Won</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 10px; color: #8a8f9e;">
+                                <span>BUF -130 • 650 coins</span>
+                                <span style="color: #00FF7F;">+500</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-content">
+                <div class="showcase-badge">📋 My Picks</div>
+                <h3>Track Every <span>Prediction</span></h3>
+                <p>See all your active and settled picks in one place. Track your win rate, monitor pending bets, and celebrate your victories.</p>
+                <div class="showcase-features">
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Real-time bet tracking</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Win rate statistics</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Full betting history</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Showcase 3: Leaderboard -->
+        <div class="showcase-item">
+            <div class="showcase-phone">
+                <div class="screenshot-frame">
+                    <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                            <span style="font-size: 18px;">🏆</span>
+                            <span style="font-weight: 700; font-size: 18px;">Leaderboard</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+                            <span style="background: #f0c54f; color: #000; padding: 6px 12px; border-radius: 12px; font-size: 10px; font-weight: 600;">Daily</span>
+                            <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 10px;">Weekly</span>
+                            <span style="background: rgba(255,255,255,0.05); color: #8a8f9e; padding: 6px 12px; border-radius: 12px; font-size: 10px;">All Time</span>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin-bottom: 20px;">
+                            <div style="text-align: center;">
+                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #C0C0C0, #A0A0A0); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 14px; font-weight: 700;">JM</div>
+                                <div style="font-size: 10px; font-weight: 600;">JakeMVP</div>
+                                <div style="font-size: 9px; color: #f0c54f;">52.4K</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 52px; height: 52px; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 16px; font-weight: 700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);">SK</div>
+                                <div style="font-size: 10px; font-weight: 600;">SportsKing</div>
+                                <div style="font-size: 9px; color: #f0c54f;">78.2K</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #CD7F32, #8B4513); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 14px; font-weight: 700;">LP</div>
+                                <div style="font-size: 10px; font-weight: 600;">LuckyPick</div>
+                                <div style="font-size: 9px; color: #f0c54f;">41.8K</div>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 10px; padding: 10px;">
+                            <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <span style="font-size: 11px; font-weight: 700; color: #8a8f9e; width: 16px;">4</span>
+                                <div style="width: 28px; height: 28px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">BW</div>
+                                <span style="flex: 1; font-size: 11px; font-weight: 600;">BetWizard</span>
+                                <span style="font-size: 10px; color: #f0c54f;">38.5K</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0;">
+                                <span style="font-size: 11px; font-weight: 700; color: #8a8f9e; width: 16px;">5</span>
+                                <div style="width: 28px; height: 28px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">PR</div>
+                                <span style="flex: 1; font-size: 11px; font-weight: 600;">ProRaider</span>
+                                <span style="font-size: 10px; color: #f0c54f;">35.2K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-content">
+                <div class="showcase-badge">🏆 Leaderboard</div>
+                <h3>Compete for <span>Glory</span></h3>
+                <p>See how you stack up against players worldwide. Daily, weekly, and all-time rankings showcase the best predictors. Can you reach the top?</p>
+                <div class="showcase-features">
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Daily, weekly & all-time rankings</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Compete with friends</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Earn badges & bragging rights</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Showcase 4: Profile -->
+        <div class="showcase-item reverse">
+            <div class="showcase-phone">
+                <div class="screenshot-frame">
+                    <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
+                        <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 72px; height: 72px; background: linear-gradient(135deg, #f0c54f, #e09422); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; margin-bottom: 10px; box-shadow: 0 0 30px rgba(240, 197, 79, 0.3);">RC</div>
+                            <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">ReidColeman</div>
+                            <div style="background: rgba(240, 197, 79, 0.15); padding: 4px 12px; border-radius: 12px; font-size: 11px; color: #f0c54f;">⭐ Level 24</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 14px; padding: 16px; margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-around; text-align: center;">
+                                <div>
+                                    <div style="font-size: 20px; font-weight: 700;">847</div>
+                                    <div style="font-size: 9px; color: #8a8f9e;">Predictions</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 20px; font-weight: 700; color: #00FF7F;">67%</div>
+                                    <div style="font-size: 9px; color: #8a8f9e;">Win Rate</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 20px; font-weight: 700;">567</div>
+                                    <div style="font-size: 9px; color: #8a8f9e;">Wins</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px solid rgba(240, 197, 79, 0.2); border-radius: 14px; padding: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <span style="font-size: 11px; color: #8a8f9e;">Wallet Balance</span>
+                                <span style="font-size: 16px;">🪙</span>
+                            </div>
+                            <div style="font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #f5d980, #e09422); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">10,500</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-content">
+                <div class="showcase-badge">👤 Profile</div>
+                <h3>Your <span>Stats & Achievements</span></h3>
+                <p>Track your progress with detailed statistics. See your prediction count, win rate, and total winnings. Level up to unlock exclusive rewards.</p>
+                <div class="showcase-features">
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Detailed performance stats</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>XP-based leveling system</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Virtual wallet tracking</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Showcase 5: Daily Bonus -->
+        <div class="showcase-item">
+            <div class="showcase-phone">
+                <div class="screenshot-frame">
+                    <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <div style="font-size: 16px; font-weight: 700; margin-bottom: 20px;">Daily Bonus Wheel</div>
+                        <div style="width: 180px; height: 180px; border-radius: 50%; background: conic-gradient(from 0deg, #f0c54f 0deg 45deg, #e09422 45deg 90deg, #f0c54f 90deg 135deg, #e09422 135deg 180deg, #f0c54f 180deg 225deg, #e09422 225deg 270deg, #f0c54f 270deg 315deg, #e09422 315deg 360deg); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 0 40px rgba(240, 197, 79, 0.3);">
+                            <div style="width: 60px; height: 60px; background: #0f1117; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">🎯</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #f0c54f, #e09422); color: #000; padding: 12px 32px; border-radius: 20px; font-weight: 700; font-size: 14px;">SPIN NOW</div>
+                        <div style="margin-top: 16px; text-align: center;">
+                            <div style="font-size: 11px; color: #8a8f9e;">Win up to</div>
+                            <div style="font-size: 24px; font-weight: 800; color: #f0c54f;">5,000 🪙</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-content">
+                <div class="showcase-badge">🎰 Daily Bonus</div>
+                <h3>Spin to Win <span>Free Coins</span></h3>
+                <p>Come back every day to spin the bonus wheel. Win anywhere from 50 to 5,000 coins with each spin. The more you play, the more you earn!</p>
+                <div class="showcase-features">
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Free spin every 24 hours</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Win up to 5,000 coins</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Streak bonuses for daily play</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -3114,72 +3300,21 @@
             }
         });
 
-        // Screenshot Carousel
-        const screenshotsTrack = document.getElementById('screenshotsTrack');
-        const prevBtn = document.getElementById('prevScreenshot');
-        const nextBtn = document.getElementById('nextScreenshot');
-        const dots = document.querySelectorAll('.screenshot-dot');
-        let currentSlide = 0;
-        const slideWidth = 312; // 280px + 32px gap
-        let screenshotInterval;
-
-        function updateCarousel() {
-            screenshotsTrack.scrollTo({
-                left: currentSlide * slideWidth,
-                behavior: 'smooth'
+        // Showcase Scroll Animations
+        const showcaseObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
-            });
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % 5;
-            updateCarousel();
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + 5) % 5;
-            updateCarousel();
-        }
-
-        prevBtn.addEventListener('click', () => {
-            prevSlide();
-            resetInterval();
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
         });
 
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
-            resetInterval();
+        document.querySelectorAll('.showcase-item').forEach(item => {
+            showcaseObserver.observe(item);
         });
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentSlide = index;
-                updateCarousel();
-                resetInterval();
-            });
-        });
-
-        function startCarouselInterval() {
-            screenshotInterval = setInterval(nextSlide, 5000);
-        }
-
-        function resetInterval() {
-            clearInterval(screenshotInterval);
-            startCarouselInterval();
-        }
-
-        // Pause carousel on hover
-        screenshotsTrack.addEventListener('mouseenter', () => {
-            clearInterval(screenshotInterval);
-        });
-
-        screenshotsTrack.addEventListener('mouseleave', () => {
-            startCarouselInterval();
-        });
-
-        startCarouselInterval();
 
         // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(question => {
@@ -3320,7 +3455,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.feature-card, .sport-item, .stat-item, .testimonial-card, .faq-item, .screenshot-item').forEach((el, index) => {
+        document.querySelectorAll('.feature-card, .sport-item, .stat-item, .testimonial-card, .faq-item').forEach((el, index) => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = `opacity 0.6s ease ${(index % 6) * 0.1}s, transform 0.6s ease ${(index % 6) * 0.1}s`;
