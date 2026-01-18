@@ -1386,92 +1386,142 @@
         .sports-logos {
             display: flex;
             justify-content: center;
-            gap: 3rem;
+            gap: 2.5rem;
             flex-wrap: wrap;
             margin-top: 3rem;
             position: relative;
+            perspective: 1000px;
         }
 
         .sport-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
             position: relative;
+            cursor: pointer;
         }
 
         .sport-logo {
-            width: 80px;
-            height: 80px;
-            border-radius: 22px;
+            width: 100px;
+            height: 100px;
+            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 800;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            transform-style: preserve-3d;
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .sport-logo svg {
+            width: 56px;
+            height: 56px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            transition: transform 0.4s ease;
         }
 
         .sport-item:hover .sport-logo {
-            transform: scale(1.15) rotateY(10deg) rotateX(5deg);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-12px) rotateY(15deg) rotateX(10deg) scale(1.1);
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .sport-item:hover .sport-logo svg {
+            transform: scale(1.1);
+        }
+
+        .sport-logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 28px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .sport-item:hover .sport-logo::before {
+            opacity: 1;
         }
 
         .sport-logo::after {
             content: '';
             position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            border-radius: 26px;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border-radius: 34px;
             background: inherit;
-            filter: blur(15px);
+            filter: blur(20px);
             opacity: 0;
             z-index: -1;
             transition: opacity 0.4s;
         }
 
         .sport-item:hover .sport-logo::after {
-            opacity: 0.5;
+            opacity: 0.6;
             animation: logoGlow 2s ease-in-out infinite;
         }
 
         @keyframes logoGlow {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
         }
 
-        .sport-logo.nfl { background: linear-gradient(135deg, #013369, #D50A0A); }
-        .sport-logo.nba { background: linear-gradient(135deg, #1D428A, #C8102E); }
-        .sport-logo.mlb { background: linear-gradient(135deg, #002D72, #D50032); }
-        .sport-logo.cfb { background: linear-gradient(135deg, #4B2E83, #E8D9A8); color: #4B2E83; }
-        .sport-logo.soccer { background: linear-gradient(135deg, #38003C, #00FF85); }
-        .sport-logo.nhl { background: linear-gradient(135deg, #000000, #FCB514); }
+        .sport-logo.nfl { background: linear-gradient(145deg, #013369, #D50A0A); }
+        .sport-logo.nba { background: linear-gradient(145deg, #1D428A, #C8102E); }
+        .sport-logo.mlb { background: linear-gradient(145deg, #002D72, #D50032); }
+        .sport-logo.cfb { background: linear-gradient(145deg, #1a1a2e, #f0c54f); }
+        .sport-logo.soccer { background: linear-gradient(145deg, #38003C, #00FF85); }
+        .sport-logo.nhl { background: linear-gradient(145deg, #111111, #FCB514); }
+        .sport-logo.ufc { background: linear-gradient(145deg, #D20A0A, #000000); }
+        .sport-logo.golf { background: linear-gradient(145deg, #006747, #FFD700); }
 
         .sport-name {
-            font-size: 0.875rem;
+            font-size: 0.95rem;
             font-weight: 600;
             color: var(--text-secondary);
-            transition: color 0.3s;
+            transition: all 0.3s;
         }
 
         .sport-item:hover .sport-name {
             color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .sport-league {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: -0.5rem;
         }
 
         .coming-soon-badge {
             position: absolute;
-            top: -8px;
-            right: -8px;
+            top: -10px;
+            right: -10px;
             background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
             color: #000;
-            font-size: 8px;
+            font-size: 9px;
             font-weight: 700;
-            padding: 3px 6px;
-            border-radius: 6px;
+            padding: 4px 8px;
+            border-radius: 8px;
             text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(240, 197, 79, 0.3);
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         /* Stats Section */
@@ -2948,8 +2998,79 @@
             </div>
         </div>
 
-        <!-- Showcase 5: Daily Bonus -->
+        <!-- Showcase 5: Parlay Builder -->
         <div class="showcase-item">
+            <div class="showcase-phone">
+                <div class="screenshot-frame">
+                    <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                            <span style="font-size: 18px;">🎲</span>
+                            <span style="font-weight: 700; font-size: 18px;">Parlay Builder</span>
+                        </div>
+                        <div style="background: linear-gradient(135deg, rgba(240, 197, 79, 0.15), rgba(240, 197, 79, 0.05)); border: 1px solid rgba(240, 197, 79, 0.3); border-radius: 14px; padding: 14px; margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span style="font-size: 11px; color: #8a8f9e;">3-Leg Parlay</span>
+                                <span style="font-size: 14px; font-weight: 800; color: #f0c54f;">+650</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 10px; color: #8a8f9e;">Potential Win</span>
+                                <span style="font-size: 16px; font-weight: 700; color: #00FF7F;">3,250 🪙</span>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(0, 255, 127, 0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div style="width: 8px; height: 8px; background: #00FF7F; border-radius: 50%;"></div>
+                                    <span style="font-size: 11px; font-weight: 600;">Chiefs ML</span>
+                                </div>
+                                <span style="font-size: 11px; color: #f0c54f;">-110</span>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(0, 255, 127, 0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div style="width: 8px; height: 8px; background: #00FF7F; border-radius: 50%;"></div>
+                                    <span style="font-size: 11px; font-weight: 600;">Lakers +4.5</span>
+                                </div>
+                                <span style="font-size: 11px; color: #f0c54f;">-105</span>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 12px; margin-bottom: 16px; border: 1px solid rgba(0, 255, 127, 0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div style="width: 8px; height: 8px; background: #00FF7F; border-radius: 50%;"></div>
+                                    <span style="font-size: 11px; font-weight: 600;">Over 45.5 pts</span>
+                                </div>
+                                <span style="font-size: 11px; color: #f0c54f;">-110</span>
+                            </div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #f0c54f, #e09422); color: #000; padding: 14px; border-radius: 14px; text-align: center; font-weight: 700;">Place Parlay • 500 🪙</div>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-content">
+                <div class="showcase-badge">🎲 Parlays</div>
+                <h3>Build <span>Multi-Leg Parlays</span></h3>
+                <p>Combine multiple picks into high-payout parlays. Stack your favorite bets across different games and sports for massive potential returns.</p>
+                <div class="showcase-features">
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Up to 10 legs per parlay</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Real-time odds calculation</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Mix sports & bet types</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Showcase 6: Daily Bonus -->
+        <div class="showcase-item reverse">
             <div class="showcase-phone">
                 <div class="screenshot-frame">
                     <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
@@ -2981,6 +3102,161 @@
                     <div class="showcase-feature">
                         <div class="showcase-feature-icon">✓</div>
                         <span>Streak bonuses for daily play</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Showcase 7: Achievements -->
+        <div class="showcase-item">
+            <div class="showcase-phone">
+                <div class="screenshot-frame">
+                    <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                            <span style="font-size: 18px;">🏅</span>
+                            <span style="font-weight: 700; font-size: 18px;">Achievements</span>
+                            <span style="background: rgba(240, 197, 79, 0.15); color: #f0c54f; padding: 4px 10px; border-radius: 10px; font-size: 10px; font-weight: 700; margin-left: auto;">24/50</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;">
+                            <div style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1)); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 12px; padding: 12px; text-align: center;">
+                                <div style="font-size: 24px; margin-bottom: 4px;">🔥</div>
+                                <div style="font-size: 9px; font-weight: 600;">Hot Streak</div>
+                                <div style="font-size: 8px; color: #f0c54f;">5 in a row</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(128, 128, 128, 0.1)); border: 1px solid rgba(192, 192, 192, 0.3); border-radius: 12px; padding: 12px; text-align: center;">
+                                <div style="font-size: 24px; margin-bottom: 4px;">💎</div>
+                                <div style="font-size: 9px; font-weight: 600;">Diamond</div>
+                                <div style="font-size: 8px; color: #8a8f9e;">100 wins</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1)); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 12px; padding: 12px; text-align: center;">
+                                <div style="font-size: 24px; margin-bottom: 4px;">🎯</div>
+                                <div style="font-size: 9px; font-weight: 600;">Sniper</div>
+                                <div style="font-size: 8px; color: #8b5cf6;">70% rate</div>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px; margin-bottom: 10px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div style="font-size: 20px;">🏆</div>
+                                    <div>
+                                        <div style="font-size: 11px; font-weight: 600;">Parlay King</div>
+                                        <div style="font-size: 9px; color: #8a8f9e;">Win 10 parlays</div>
+                                    </div>
+                                </div>
+                                <span style="font-size: 10px; color: #f0c54f;">7/10</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); border-radius: 6px; height: 6px; overflow: hidden;">
+                                <div style="background: linear-gradient(90deg, #f0c54f, #e09422); height: 100%; width: 70%; border-radius: 6px;"></div>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 14px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div style="font-size: 20px;">⚡</div>
+                                    <div>
+                                        <div style="font-size: 11px; font-weight: 600;">Speed Demon</div>
+                                        <div style="font-size: 9px; color: #8a8f9e;">500 predictions</div>
+                                    </div>
+                                </div>
+                                <span style="font-size: 10px; color: #f0c54f;">347/500</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); border-radius: 6px; height: 6px; overflow: hidden;">
+                                <div style="background: linear-gradient(90deg, #f0c54f, #e09422); height: 100%; width: 69%; border-radius: 6px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-content">
+                <div class="showcase-badge">🏅 Achievements</div>
+                <h3>Unlock <span>Badges & Rewards</span></h3>
+                <p>Earn achievements for your accomplishments. From hot streaks to parlay wins, every milestone is rewarded with exclusive badges and bonus coins.</p>
+                <div class="showcase-features">
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>50+ unique achievements</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Rarity tiers: Common to Legendary</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Bonus coins for each unlock</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Showcase 8: Game Detail -->
+        <div class="showcase-item reverse">
+            <div class="showcase-phone">
+                <div class="screenshot-frame">
+                    <div class="screenshot-image" style="background: linear-gradient(180deg, #0f1117 0%, #1a1d27 100%); padding: 20px;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#8a8f9e"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                            <span style="font-weight: 700; font-size: 16px;">Game Details</span>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.06);">
+                            <div style="text-align: center; margin-bottom: 16px;">
+                                <div style="font-size: 10px; color: #f0c54f; font-weight: 600; margin-bottom: 12px;">NFL • SUNDAY 4:25 PM</div>
+                                <div style="display: flex; justify-content: center; align-items: center; gap: 24px;">
+                                    <div style="text-align: center;">
+                                        <div style="width: 48px; height: 48px; background: #002244; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 14px; font-weight: 700;">KC</div>
+                                        <div style="font-size: 13px; font-weight: 700;">Chiefs</div>
+                                        <div style="font-size: 10px; color: #8a8f9e;">10-3</div>
+                                    </div>
+                                    <div style="font-size: 20px; font-weight: 300; color: #5a5f6e;">@</div>
+                                    <div style="text-align: center;">
+                                        <div style="width: 48px; height: 48px; background: #A71930; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 14px; font-weight: 700;">SF</div>
+                                        <div style="font-size: 13px; font-weight: 700;">49ers</div>
+                                        <div style="font-size: 10px; color: #8a8f9e;">11-2</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="font-size: 11px; font-weight: 600; color: #8a8f9e; margin-bottom: 10px;">BETTING OPTIONS</div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px; text-align: center; cursor: pointer;">
+                                <div style="font-size: 10px; color: #8a8f9e; margin-bottom: 4px;">Spread</div>
+                                <div style="font-size: 13px; font-weight: 700;">KC -3.5</div>
+                                <div style="font-size: 11px; color: #f0c54f;">-110</div>
+                            </div>
+                            <div style="background: rgba(240, 197, 79, 0.1); border: 1px solid rgba(240, 197, 79, 0.3); border-radius: 10px; padding: 12px; text-align: center; cursor: pointer;">
+                                <div style="font-size: 10px; color: #8a8f9e; margin-bottom: 4px;">Spread</div>
+                                <div style="font-size: 13px; font-weight: 700;">SF +3.5</div>
+                                <div style="font-size: 11px; color: #f0c54f;">-110</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px; text-align: center; cursor: pointer;">
+                                <div style="font-size: 10px; color: #8a8f9e; margin-bottom: 4px;">Total</div>
+                                <div style="font-size: 13px; font-weight: 700;">Over 47.5</div>
+                                <div style="font-size: 11px; color: #f0c54f;">-105</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px; text-align: center; cursor: pointer;">
+                                <div style="font-size: 10px; color: #8a8f9e; margin-bottom: 4px;">Total</div>
+                                <div style="font-size: 13px; font-weight: 700;">Under 47.5</div>
+                                <div style="font-size: 11px; color: #f0c54f;">-115</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-content">
+                <div class="showcase-badge">📊 Game Details</div>
+                <h3>Deep Dive Into <span>Every Matchup</span></h3>
+                <p>Get all the information you need to make smart picks. Team records, betting lines, spreads, totals, and moneylines all in one place.</p>
+                <div class="showcase-features">
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Complete betting markets</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>Team stats & records</span>
+                    </div>
+                    <div class="showcase-feature">
+                        <div class="showcase-feature-icon">✓</div>
+                        <span>One-tap bet placement</span>
                     </div>
                 </div>
             </div>
@@ -3025,6 +3301,21 @@
                 <h3>Virtual Currency</h3>
                 <p>Start with 10,000 coins. No real money involved. Pure prediction skill and entertainment.</p>
             </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎲</div>
+                <h3>Parlay Builder</h3>
+                <p>Combine up to 10 picks into massive payouts. Mix sports, bet types, and games for maximum excitement.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Social Features</h3>
+                <p>Follow friends, share picks, and compare stats. See who's on fire and compete head-to-head.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔔</div>
+                <h3>Smart Notifications</h3>
+                <p>Get alerts when games start, odds change, or your picks hit. Never miss an important moment.</p>
+            </div>
         </div>
     </section>
 
@@ -3035,28 +3326,93 @@
         </div>
         <div class="sports-logos">
             <div class="sport-item">
-                <div class="sport-logo nfl">NFL</div>
+                <div class="sport-logo nfl">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <path d="M20.5 3.5C12.4 3.5 3.5 12.4 3.5 20.5c0 0 .5-1.5 2-3s4.5-3 7-3.5c2.5-.5 5.5 0 7.5-1s3.5-3.5 3.5-3.5c0-2.5-1-4-3-6zM9.5 14.5c-1.5 1.5-3 4-3 4 4.5-4.5 9-6.5 13-8.5-1 1.5-2.5 3-4.5 4s-4 1-5.5.5z"/>
+                        <ellipse cx="12" cy="12" rx="9" ry="6" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-30 12 12)"/>
+                        <path d="M7 10l10 4M9 7l6 10" stroke="white" stroke-width="1" fill="none"/>
+                    </svg>
+                </div>
                 <div class="sport-name">Football</div>
+                <div class="sport-league">NFL</div>
             </div>
             <div class="sport-item">
-                <div class="sport-logo nba">NBA</div>
+                <div class="sport-logo nba">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <circle cx="12" cy="12" r="9" fill="none" stroke="white" stroke-width="1.5"/>
+                        <path d="M12 3v18M3 12h18" stroke="white" stroke-width="1.5"/>
+                        <path d="M5.5 5.5c3 3 3 10 0 13M18.5 5.5c-3 3-3 10 0 13" stroke="white" stroke-width="1.5" fill="none"/>
+                    </svg>
+                </div>
                 <div class="sport-name">Basketball</div>
+                <div class="sport-league">NBA</div>
             </div>
             <div class="sport-item">
-                <div class="sport-logo mlb">MLB</div>
+                <div class="sport-logo mlb">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <circle cx="12" cy="12" r="9" fill="none" stroke="white" stroke-width="1.5"/>
+                        <path d="M5 8c2 1 4 1 6 0s4-1 6 0M5 12c2 1 4 1 6 0s4-1 6 0M5 16c2 1 4 1 6 0s4-1 6 0" stroke="white" stroke-width="1" fill="none"/>
+                    </svg>
+                </div>
                 <div class="sport-name">Baseball</div>
+                <div class="sport-league">MLB</div>
             </div>
             <div class="sport-item">
-                <div class="sport-logo cfb">CFB</div>
+                <div class="sport-logo cfb">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <ellipse cx="12" cy="12" rx="9" ry="6" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-30 12 12)"/>
+                        <path d="M7 10l10 4M9 7l6 10" stroke="white" stroke-width="1.2" fill="none"/>
+                        <path d="M6 18l2-2M18 6l-2 2" stroke="#f0c54f" stroke-width="2"/>
+                    </svg>
+                </div>
                 <div class="sport-name">College Football</div>
+                <div class="sport-league">NCAA</div>
             </div>
             <div class="sport-item">
-                <div class="sport-logo soccer">EPL</div>
+                <div class="sport-logo soccer">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <circle cx="12" cy="12" r="9" fill="none" stroke="white" stroke-width="1.5"/>
+                        <polygon points="12,6 15,10 14,14 10,14 9,10" fill="white"/>
+                        <path d="M12 6l3-3M15 10l4 0M14 14l2 4M10 14l-2 4M9 10l-4 0M12 6l-3-3" stroke="white" stroke-width="1"/>
+                    </svg>
+                </div>
                 <div class="sport-name">Soccer</div>
+                <div class="sport-league">EPL & MLS</div>
             </div>
             <div class="sport-item">
-                <div class="sport-logo nhl">NHL</div>
+                <div class="sport-logo nhl">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <ellipse cx="12" cy="12" rx="9" ry="5" fill="none" stroke="white" stroke-width="1.5"/>
+                        <rect x="11" y="4" width="2" height="16" rx="1" fill="white"/>
+                        <rect x="6" y="11" width="12" height="2" rx="1" fill="white"/>
+                    </svg>
+                </div>
                 <div class="sport-name">Hockey</div>
+                <div class="sport-league">NHL</div>
+                <div class="coming-soon-badge">Soon</div>
+            </div>
+            <div class="sport-item">
+                <div class="sport-logo ufc">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <path d="M12 4c-2 0-4 1-5 3l-2 4c-1 2 0 4 1 5l3 3c1 1 3 2 5 2s4-1 5-2l3-3c1-1 2-3 1-5l-2-4c-1-2-3-3-5-3h-4z" fill="none" stroke="white" stroke-width="1.5"/>
+                        <path d="M9 10l3 6 3-6" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="sport-name">MMA</div>
+                <div class="sport-league">UFC</div>
+                <div class="coming-soon-badge">Soon</div>
+            </div>
+            <div class="sport-item">
+                <div class="sport-logo golf">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <circle cx="12" cy="8" r="3" fill="none" stroke="white" stroke-width="1.5"/>
+                        <path d="M12 11v9" stroke="white" stroke-width="2"/>
+                        <path d="M8 20h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M15 6l3-2" stroke="white" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <div class="sport-name">Golf</div>
+                <div class="sport-league">PGA</div>
                 <div class="coming-soon-badge">Soon</div>
             </div>
         </div>
