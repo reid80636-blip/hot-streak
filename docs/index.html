@@ -4083,69 +4083,71 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-        // Supabase Configuration
-        const SUPABASE_URL = 'https://egdsonwgwoghxpdfzapl.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVnZHNvbndnd29naHhwZGZ6YXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzNDUyMDAsImV4cCI6MjA4MzkyMTIwMH0.wd4pdOa-dRgUls-K4_g9Mo9TGnjRPqbhXghYlgw1VpI';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Supabase Configuration & Waitlist
+        (function() {
+            const SUPABASE_URL = 'https://egdsonwgwoghxpdfzapl.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVnZHNvbndnd29naHhwZGZ6YXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzNDUyMDAsImV4cCI6MjA4MzkyMTIwMH0.wd4pdOa-dRgUls-K4_g9Mo9TGnjRPqbhXghYlgw1VpI';
+            const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Waitlist Form Submission
-        async function joinWaitlist() {
-            const nameInput = document.getElementById('waitlistName');
-            const emailInput = document.getElementById('waitlistEmail');
-            const btn = document.getElementById('waitlistBtn');
-            const form = document.getElementById('waitlistForm');
-            const success = document.getElementById('waitlistSuccess');
+            // Waitlist Form Submission
+            window.joinWaitlist = async function() {
+                const nameInput = document.getElementById('waitlistName');
+                const emailInput = document.getElementById('waitlistEmail');
+                const btn = document.getElementById('waitlistBtn');
+                const form = document.getElementById('waitlistForm');
+                const success = document.getElementById('waitlistSuccess');
 
-            const name = nameInput.value.trim();
-            const email = emailInput.value.trim();
+                const name = nameInput.value.trim();
+                const email = emailInput.value.trim();
 
-            // Validation
-            if (!name || !email) {
-                alert('Please enter both your name and email.');
-                return;
-            }
-
-            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-
-            // Disable button and show loading
-            btn.disabled = true;
-            btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="animation: spin 1s linear infinite;"><path d="M12 4V2A10 10 0 0 0 2 12h2a8 8 0 0 1 8-8z"/></svg> Joining...';
-
-            try {
-                const { data, error } = await supabase
-                    .from('waitlist')
-                    .insert([{ name, email }]);
-
-                if (error) {
-                    if (error.code === '23505') {
-                        // Duplicate email
-                        alert('This email is already on the waitlist!');
-                        btn.disabled = false;
-                        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Join Waitlist';
-                        return;
-                    }
-                    throw error;
+                // Validation
+                if (!name || !email) {
+                    alert('Please enter both your name and email.');
+                    return;
                 }
 
-                // Success - show success message
-                form.style.display = 'none';
-                success.style.display = 'block';
+                if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
 
-            } catch (error) {
-                console.error('Error joining waitlist:', error);
-                alert('Something went wrong. Please try again.');
-                btn.disabled = false;
-                btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Join Waitlist';
-            }
-        }
+                // Disable button and show loading
+                btn.disabled = true;
+                btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="animation: spin 1s linear infinite;"><path d="M12 4V2A10 10 0 0 0 2 12h2a8 8 0 0 1 8-8z"/></svg> Joining...';
 
-        // Add spin animation for loading
-        const style = document.createElement('style');
-        style.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
-        document.head.appendChild(style);
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('waitlist')
+                        .insert([{ name, email }]);
+
+                    if (error) {
+                        if (error.code === '23505') {
+                            // Duplicate email
+                            alert('This email is already on the waitlist!');
+                            btn.disabled = false;
+                            btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Join Waitlist';
+                            return;
+                        }
+                        throw error;
+                    }
+
+                    // Success - show success message
+                    form.style.display = 'none';
+                    success.style.display = 'block';
+
+                } catch (error) {
+                    console.error('Error joining waitlist:', error);
+                    alert('Something went wrong. Please try again.');
+                    btn.disabled = false;
+                    btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Join Waitlist';
+                }
+            };
+
+            // Add spin animation for loading
+            const style = document.createElement('style');
+            style.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
+            document.head.appendChild(style);
+        })();
     </script>
 
     <script>
