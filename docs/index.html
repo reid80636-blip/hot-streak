@@ -451,41 +451,6 @@
                 inset 0 0 0 1px rgba(255, 255, 255, 0.05);
         }
 
-        /* Side Buttons */
-        .iphone-button {
-            position: absolute;
-            background: linear-gradient(135deg, #4A4A4C 0%, #2C2C2E 100%);
-            border-radius: 2px;
-        }
-
-        .iphone-button.power {
-            right: -3px;
-            top: 140px;
-            width: 3px;
-            height: 80px;
-        }
-
-        .iphone-button.volume-up {
-            left: -3px;
-            top: 120px;
-            width: 3px;
-            height: 35px;
-        }
-
-        .iphone-button.volume-down {
-            left: -3px;
-            top: 165px;
-            width: 3px;
-            height: 35px;
-        }
-
-        .iphone-button.silent {
-            left: -3px;
-            top: 85px;
-            width: 3px;
-            height: 20px;
-        }
-
         .iphone-screen {
             width: 100%;
             height: 100%;
@@ -1246,25 +1211,6 @@
             transition: transform 0.3s;
         }
 
-        /* Glow effects */
-        .phone-glow {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, rgba(0, 102, 255, 0.1) 30%, transparent 70%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: -1;
-            animation: glowPulse 4s ease-in-out infinite;
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.1); }
-        }
-
         /* Features Section */
         .features {
             padding: 6rem 5%;
@@ -1825,15 +1771,6 @@
             animation: breatheGlow 3s ease-in-out infinite;
         }
 
-        /* Screenshot Frame Subtle Float */
-        .screenshot-frame {
-            animation: cardFloat 8s ease-in-out infinite;
-        }
-
-        .showcase-item:nth-child(1) .screenshot-frame { animation-delay: 0s; }
-        .showcase-item:nth-child(2) .screenshot-frame { animation-delay: 1s; }
-        .showcase-item:nth-child(3) .screenshot-frame { animation-delay: 2s; }
-        .showcase-item:nth-child(4) .screenshot-frame { animation-delay: 3s; }
 
         /* Testimonial Card Glow */
         .testimonial-card.active {
@@ -2208,28 +2145,6 @@
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* iPhone side buttons */
-        .screenshot-frame::before {
-            content: '';
-            position: absolute;
-            left: -6px;
-            top: 100px;
-            width: 4px;
-            height: 30px;
-            background: linear-gradient(180deg, #4a4a4e, #3a3a3e);
-            border-radius: 2px 0 0 2px;
-        }
-
-        .screenshot-frame::after {
-            content: '';
-            position: absolute;
-            right: -6px;
-            top: 80px;
-            width: 4px;
-            height: 60px;
-            background: linear-gradient(180deg, #4a4a4e, #3a3a3e);
-            border-radius: 0 2px 2px 0;
-        }
 
         .showcase-item:hover .screenshot-frame {
             transform: scale(1.02);
@@ -2810,15 +2725,8 @@
             </div>
         </div>
         <div class="hero-phone">
-            <div class="phone-glow"></div>
             <div class="iphone-container" id="iphoneContainer">
                 <div class="iphone">
-                    <!-- Side Buttons -->
-                    <div class="iphone-button power"></div>
-                    <div class="iphone-button volume-up"></div>
-                    <div class="iphone-button volume-down"></div>
-                    <div class="iphone-button silent"></div>
-
                     <div class="iphone-screen">
                         <!-- Dynamic Island -->
                         <div class="dynamic-island"></div>
