@@ -460,24 +460,7 @@
                 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        /* Screen Gloss Effect */
-        .iphone-screen::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                135deg,
-                rgba(255, 255, 255, 0.1) 0%,
-                transparent 50%,
-                transparent 100%
-            );
-            pointer-events: none;
-            z-index: 100;
-            border-radius: 44px;
-        }
+        /* Screen Gloss Effect - removed to eliminate visible border */
 
         /* Tab Screen Content */
         .screen-content {
@@ -1719,7 +1702,7 @@
 
         /* Breathing Effect for Hero Phone */
         .hero-phone .iphone-container {
-            animation: float 6s ease-in-out infinite, breatheGlow 4s ease-in-out infinite;
+            animation: float 6s ease-in-out infinite;
         }
 
         /* Icon Animation on Hover */

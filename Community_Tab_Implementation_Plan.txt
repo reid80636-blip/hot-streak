@@ -1,0 +1,1168 @@
+================================================================================
+                         HOTSTREAK COMMUNITY TAB
+                        IMPLEMENTATION PLAN
+================================================================================
+              Mini Social Media for Sports Betting Community
+                Blue Aura Theme • Liquid Glass Design
+================================================================================
+
+
+================================================================================
+                         TABLE OF CONTENTS
+================================================================================
+
+1.  Feature Overview
+2.  Database Schema (Supabase)
+3.  Data Models (Dart)
+4.  Provider (State Management)
+5.  Service Layer (Supabase Integration)
+6.  Screen Components
+7.  Widget Components
+8.  Navigation Integration
+9.  Styling Specifications
+10. Real-Time Features
+11. Implementation Steps
+12. File Structure
+
+
+================================================================================
+1. FEATURE OVERVIEW
+================================================================================
+
+DESCRIPTION
+--------------------------------------------------------------------------------
+A community feed tab where users can:
+- Post about teams, games, and predictions
+- Share wins and celebrate victories
+- React to and comment on posts
+- Follow favorite teams and see team-specific content
+- View trending topics and popular posts
+- Engage with other bettors in real-time
+
+CORE FEATURES
+--------------------------------------------------------------------------------
+✦ Post Creation
+  - Text posts (up to 500 characters)
+  - Attach team tags (e.g., @Lakers, @Chiefs)
+  - Attach game references
+  - Share prediction results (auto-generated win posts)
+  - Add emojis and reactions
+
+✦ Feed Types
+  - "For You" - Personalized based on favorite teams
+  - "Trending" - Most engaged posts
+  - "Following" - Posts from followed users
+  - "Team" - Filter by specific team
+
+✦ Engagement
+  - Like/Fire reactions (🔥)
+  - Comments (threaded)
+  - Share to bet slip (for game references)
+  - Report inappropriate content
+
+✦ User Profiles (Mini)
+  - Username + Avatar
+  - Level badge
+  - Win rate display
+  - Follow/Unfollow
+
+
+================================================================================
+2. DATABASE SCHEMA (SUPABASE)
+================================================================================
+
+Run this SQL in your Supabase SQL Editor:
+
+--------------------------------------------------------------------------------
+-- Community Posts Table
+--------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS community_posts (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+  content TEXT NOT NULL,
+  post_type TEXT DEFAULT 'text', -- 'text', 'win', 'prediction', 'game_share'
+
+  -- Optional references
+  game_id TEXT,
+  prediction_id UUID REFERENCES predictions(id) ON DELETE SET NULL,
+  team_tags TEXT[] DEFAULT '{}',
+  sport_key TEXT,
+
+  -- Engagement metrics (denormalized for performance)
+  likes_count INTEGER DEFAULT 0,
+  comments_count INTEGER DEFAULT 0,
+
+  -- Metadata
+  is_pinned BOOLEAN DEFAULT FALSE,
+  is_hidden BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable RLS
+ALTER TABLE community_posts ENABLE ROW LEVEL SECURITY;
+
+-- Policies
+CREATE POLICY "Anyone can view non-hidden posts"
+  ON community_posts FOR SELECT
+  USING (is_hidden = FALSE);
+
+CREATE POLICY "Users can create their own posts"
+  ON community_posts FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update their own posts"
+  ON community_posts FOR UPDATE
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete their own posts"
+  ON community_posts FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- Indexes
+CREATE INDEX idx_posts_user_id ON community_posts(user_id);
+CREATE INDEX idx_posts_created_at ON community_posts(created_at DESC);
+CREATE INDEX idx_posts_team_tags ON community_posts USING GIN(team_tags);
+CREATE INDEX idx_posts_sport_key ON community_posts(sport_key);
+
+--------------------------------------------------------------------------------
+-- Post Likes Table
+--------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS post_likes (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  post_id UUID REFERENCES community_posts(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(post_id, user_id)
+);
+
+-- Enable RLS
+ALTER TABLE post_likes ENABLE ROW LEVEL SECURITY;
+
+-- Policies
+CREATE POLICY "Anyone can view likes"
+  ON post_likes FOR SELECT
+  USING (TRUE);
+
+CREATE POLICY "Users can like posts"
+  ON post_likes FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can unlike posts"
+  ON post_likes FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- Index
+CREATE INDEX idx_likes_post_id ON post_likes(post_id);
+CREATE INDEX idx_likes_user_id ON post_likes(user_id);
+
+--------------------------------------------------------------------------------
+-- Post Comments Table
+--------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS post_comments (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  post_id UUID REFERENCES community_posts(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+  parent_comment_id UUID REFERENCES post_comments(id) ON DELETE CASCADE,
+  content TEXT NOT NULL,
+  likes_count INTEGER DEFAULT 0,
+  is_hidden BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable RLS
+ALTER TABLE post_comments ENABLE ROW LEVEL SECURITY;
+
+-- Policies
+CREATE POLICY "Anyone can view non-hidden comments"
+  ON post_comments FOR SELECT
+  USING (is_hidden = FALSE);
+
+CREATE POLICY "Users can create comments"
+  ON post_comments FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update their own comments"
+  ON post_comments FOR UPDATE
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete their own comments"
+  ON post_comments FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- Indexes
+CREATE INDEX idx_comments_post_id ON post_comments(post_id);
+CREATE INDEX idx_comments_user_id ON post_comments(user_id);
+CREATE INDEX idx_comments_parent ON post_comments(parent_comment_id);
+
+--------------------------------------------------------------------------------
+-- User Follows Table
+--------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS user_follows (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  follower_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+  following_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(follower_id, following_id)
+);
+
+-- Enable RLS
+ALTER TABLE user_follows ENABLE ROW LEVEL SECURITY;
+
+-- Policies
+CREATE POLICY "Anyone can view follows"
+  ON user_follows FOR SELECT
+  USING (TRUE);
+
+CREATE POLICY "Users can follow others"
+  ON user_follows FOR INSERT
+  WITH CHECK (auth.uid() = follower_id);
+
+CREATE POLICY "Users can unfollow"
+  ON user_follows FOR DELETE
+  USING (auth.uid() = follower_id);
+
+-- Indexes
+CREATE INDEX idx_follows_follower ON user_follows(follower_id);
+CREATE INDEX idx_follows_following ON user_follows(following_id);
+
+--------------------------------------------------------------------------------
+-- Functions for updating counts
+--------------------------------------------------------------------------------
+-- Function to update likes count
+CREATE OR REPLACE FUNCTION update_post_likes_count()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF TG_OP = 'INSERT' THEN
+    UPDATE community_posts SET likes_count = likes_count + 1 WHERE id = NEW.post_id;
+  ELSIF TG_OP = 'DELETE' THEN
+    UPDATE community_posts SET likes_count = likes_count - 1 WHERE id = OLD.post_id;
+  END IF;
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Trigger for likes count
+CREATE TRIGGER on_like_change
+  AFTER INSERT OR DELETE ON post_likes
+  FOR EACH ROW EXECUTE FUNCTION update_post_likes_count();
+
+-- Function to update comments count
+CREATE OR REPLACE FUNCTION update_post_comments_count()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF TG_OP = 'INSERT' THEN
+    UPDATE community_posts SET comments_count = comments_count + 1 WHERE id = NEW.post_id;
+  ELSIF TG_OP = 'DELETE' THEN
+    UPDATE community_posts SET comments_count = comments_count - 1 WHERE id = OLD.post_id;
+  END IF;
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Trigger for comments count
+CREATE TRIGGER on_comment_change
+  AFTER INSERT OR DELETE ON post_comments
+  FOR EACH ROW EXECUTE FUNCTION update_post_comments_count();
+
+--------------------------------------------------------------------------------
+-- Enable Realtime for posts and comments
+--------------------------------------------------------------------------------
+ALTER PUBLICATION supabase_realtime ADD TABLE community_posts;
+ALTER PUBLICATION supabase_realtime ADD TABLE post_comments;
+
+
+================================================================================
+3. DATA MODELS (DART)
+================================================================================
+
+FILE: lib/models/community_post.dart
+--------------------------------------------------------------------------------
+import 'dart:convert';
+
+enum PostType { text, win, prediction, gameShare }
+
+class CommunityPost {
+  final String id;
+  final String userId;
+  final String content;
+  final PostType postType;
+  final String? gameId;
+  final String? predictionId;
+  final List<String> teamTags;
+  final String? sportKey;
+  final int likesCount;
+  final int commentsCount;
+  final bool isPinned;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  // Joined data (from profiles table)
+  final String? authorUsername;
+  final String? authorAvatarUrl;
+  final int? authorLevel;
+  final double? authorWinRate;
+
+  // User interaction state
+  final bool isLikedByCurrentUser;
+
+  CommunityPost({
+    required this.id,
+    required this.userId,
+    required this.content,
+    this.postType = PostType.text,
+    this.gameId,
+    this.predictionId,
+    this.teamTags = const [],
+    this.sportKey,
+    this.likesCount = 0,
+    this.commentsCount = 0,
+    this.isPinned = false,
+    required this.createdAt,
+    required this.updatedAt,
+    this.authorUsername,
+    this.authorAvatarUrl,
+    this.authorLevel,
+    this.authorWinRate,
+    this.isLikedByCurrentUser = false,
+  });
+
+  // copyWith, toJson, fromJson methods...
+}
+
+--------------------------------------------------------------------------------
+FILE: lib/models/post_comment.dart
+--------------------------------------------------------------------------------
+class PostComment {
+  final String id;
+  final String postId;
+  final String userId;
+  final String? parentCommentId;
+  final String content;
+  final int likesCount;
+  final DateTime createdAt;
+
+  // Joined data
+  final String? authorUsername;
+  final String? authorAvatarUrl;
+  final int? authorLevel;
+
+  // Nested replies (for threaded comments)
+  final List<PostComment> replies;
+
+  PostComment({
+    required this.id,
+    required this.postId,
+    required this.userId,
+    this.parentCommentId,
+    required this.content,
+    this.likesCount = 0,
+    required this.createdAt,
+    this.authorUsername,
+    this.authorAvatarUrl,
+    this.authorLevel,
+    this.replies = const [],
+  });
+
+  // copyWith, toJson, fromJson methods...
+}
+
+
+================================================================================
+4. PROVIDER (STATE MANAGEMENT)
+================================================================================
+
+FILE: lib/providers/community_provider.dart
+--------------------------------------------------------------------------------
+import 'package:flutter/foundation.dart';
+import '../models/community_post.dart';
+import '../models/post_comment.dart';
+import '../services/community_service.dart';
+
+enum FeedType { forYou, trending, following, team }
+
+class CommunityProvider extends ChangeNotifier {
+  List<CommunityPost> _posts = [];
+  List<CommunityPost> get posts => _posts;
+
+  FeedType _currentFeed = FeedType.forYou;
+  FeedType get currentFeed => _currentFeed;
+
+  String? _selectedTeam;
+  String? get selectedTeam => _selectedTeam;
+
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  bool _isLoadingMore = false;
+  bool get isLoadingMore => _isLoadingMore;
+
+  bool _hasMore = true;
+  bool get hasMore => _hasMore;
+
+  String? _error;
+  String? get error => _error;
+
+  // Pagination
+  static const int _pageSize = 20;
+  int _currentPage = 0;
+
+  // Load posts based on current feed type
+  Future<void> loadPosts({bool refresh = false}) async {
+    if (refresh) {
+      _currentPage = 0;
+      _hasMore = true;
+    }
+
+    if (!_hasMore && !refresh) return;
+
+    _isLoading = refresh || _currentPage == 0;
+    _isLoadingMore = !_isLoading;
+    notifyListeners();
+
+    try {
+      final newPosts = await CommunityService.getPosts(
+        feedType: _currentFeed,
+        team: _selectedTeam,
+        offset: _currentPage * _pageSize,
+        limit: _pageSize,
+      );
+
+      if (refresh) {
+        _posts = newPosts;
+      } else {
+        _posts.addAll(newPosts);
+      }
+
+      _hasMore = newPosts.length == _pageSize;
+      _currentPage++;
+      _error = null;
+    } catch (e) {
+      _error = e.toString();
+    } finally {
+      _isLoading = false;
+      _isLoadingMore = false;
+      notifyListeners();
+    }
+  }
+
+  // Change feed type
+  void setFeedType(FeedType type) {
+    if (_currentFeed != type) {
+      _currentFeed = type;
+      _selectedTeam = null;
+      loadPosts(refresh: true);
+    }
+  }
+
+  // Filter by team
+  void setTeamFilter(String? team) {
+    _selectedTeam = team;
+    _currentFeed = team != null ? FeedType.team : FeedType.forYou;
+    loadPosts(refresh: true);
+  }
+
+  // Create new post
+  Future<bool> createPost({
+    required String content,
+    PostType type = PostType.text,
+    String? gameId,
+    String? predictionId,
+    List<String> teamTags = const [],
+    String? sportKey,
+  }) async {
+    try {
+      final post = await CommunityService.createPost(
+        content: content,
+        type: type,
+        gameId: gameId,
+        predictionId: predictionId,
+        teamTags: teamTags,
+        sportKey: sportKey,
+      );
+      _posts.insert(0, post);
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+      return false;
+    }
+  }
+
+  // Like/Unlike post
+  Future<void> toggleLike(String postId) async {
+    final index = _posts.indexWhere((p) => p.id == postId);
+    if (index == -1) return;
+
+    final post = _posts[index];
+    final isLiked = post.isLikedByCurrentUser;
+
+    // Optimistic update
+    _posts[index] = post.copyWith(
+      isLikedByCurrentUser: !isLiked,
+      likesCount: post.likesCount + (isLiked ? -1 : 1),
+    );
+    notifyListeners();
+
+    try {
+      if (isLiked) {
+        await CommunityService.unlikePost(postId);
+      } else {
+        await CommunityService.likePost(postId);
+      }
+    } catch (e) {
+      // Revert on error
+      _posts[index] = post;
+      notifyListeners();
+    }
+  }
+
+  // Delete post
+  Future<bool> deletePost(String postId) async {
+    try {
+      await CommunityService.deletePost(postId);
+      _posts.removeWhere((p) => p.id == postId);
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+      return false;
+    }
+  }
+
+  // Real-time subscription
+  void subscribeToUpdates() {
+    CommunityService.subscribeToNewPosts((post) {
+      if (!_posts.any((p) => p.id == post.id)) {
+        _posts.insert(0, post);
+        notifyListeners();
+      }
+    });
+  }
+
+  void unsubscribe() {
+    CommunityService.unsubscribe();
+  }
+}
+
+
+================================================================================
+5. SERVICE LAYER (SUPABASE INTEGRATION)
+================================================================================
+
+FILE: lib/services/community_service.dart
+--------------------------------------------------------------------------------
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '../models/community_post.dart';
+import '../models/post_comment.dart';
+import '../providers/community_provider.dart';
+
+class CommunityService {
+  static SupabaseClient get _client => Supabase.instance.client;
+  static RealtimeChannel? _postsChannel;
+
+  // Get posts with pagination and filtering
+  static Future<List<CommunityPost>> getPosts({
+    required FeedType feedType,
+    String? team,
+    int offset = 0,
+    int limit = 20,
+  }) async {
+    var query = _client
+        .from('community_posts')
+        .select('''
+          *,
+          profiles:user_id (
+            username,
+            avatar_url,
+            level,
+            wins,
+            total_predictions
+          ),
+          user_liked:post_likes!left (
+            user_id
+          )
+        ''')
+        .eq('is_hidden', false);
+
+    // Apply feed type filters
+    switch (feedType) {
+      case FeedType.trending:
+        query = query.order('likes_count', ascending: false);
+        break;
+      case FeedType.following:
+        // Get followed user IDs first, then filter
+        // This would need a subquery or RPC function
+        break;
+      case FeedType.team:
+        if (team != null) {
+          query = query.contains('team_tags', [team]);
+        }
+        break;
+      case FeedType.forYou:
+      default:
+        query = query.order('created_at', ascending: false);
+    }
+
+    final response = await query
+        .range(offset, offset + limit - 1)
+        .order('created_at', ascending: false);
+
+    return (response as List).map((json) => CommunityPost.fromJson(json)).toList();
+  }
+
+  // Create a new post
+  static Future<CommunityPost> createPost({
+    required String content,
+    PostType type = PostType.text,
+    String? gameId,
+    String? predictionId,
+    List<String> teamTags = const [],
+    String? sportKey,
+  }) async {
+    final userId = _client.auth.currentUser!.id;
+
+    final response = await _client.from('community_posts').insert({
+      'user_id': userId,
+      'content': content,
+      'post_type': type.name,
+      'game_id': gameId,
+      'prediction_id': predictionId,
+      'team_tags': teamTags,
+      'sport_key': sportKey,
+    }).select('''
+      *,
+      profiles:user_id (
+        username,
+        avatar_url,
+        level,
+        wins,
+        total_predictions
+      )
+    ''').single();
+
+    return CommunityPost.fromJson(response);
+  }
+
+  // Like a post
+  static Future<void> likePost(String postId) async {
+    final userId = _client.auth.currentUser!.id;
+    await _client.from('post_likes').insert({
+      'post_id': postId,
+      'user_id': userId,
+    });
+  }
+
+  // Unlike a post
+  static Future<void> unlikePost(String postId) async {
+    final userId = _client.auth.currentUser!.id;
+    await _client.from('post_likes')
+        .delete()
+        .eq('post_id', postId)
+        .eq('user_id', userId);
+  }
+
+  // Delete a post
+  static Future<void> deletePost(String postId) async {
+    await _client.from('community_posts').delete().eq('id', postId);
+  }
+
+  // Get comments for a post
+  static Future<List<PostComment>> getComments(String postId) async {
+    final response = await _client
+        .from('post_comments')
+        .select('''
+          *,
+          profiles:user_id (
+            username,
+            avatar_url,
+            level
+          )
+        ''')
+        .eq('post_id', postId)
+        .eq('is_hidden', false)
+        .order('created_at', ascending: true);
+
+    return (response as List).map((json) => PostComment.fromJson(json)).toList();
+  }
+
+  // Add a comment
+  static Future<PostComment> addComment({
+    required String postId,
+    required String content,
+    String? parentCommentId,
+  }) async {
+    final userId = _client.auth.currentUser!.id;
+
+    final response = await _client.from('post_comments').insert({
+      'post_id': postId,
+      'user_id': userId,
+      'content': content,
+      'parent_comment_id': parentCommentId,
+    }).select('''
+      *,
+      profiles:user_id (
+        username,
+        avatar_url,
+        level
+      )
+    ''').single();
+
+    return PostComment.fromJson(response);
+  }
+
+  // Follow a user
+  static Future<void> followUser(String userId) async {
+    final currentUserId = _client.auth.currentUser!.id;
+    await _client.from('user_follows').insert({
+      'follower_id': currentUserId,
+      'following_id': userId,
+    });
+  }
+
+  // Unfollow a user
+  static Future<void> unfollowUser(String userId) async {
+    final currentUserId = _client.auth.currentUser!.id;
+    await _client.from('user_follows')
+        .delete()
+        .eq('follower_id', currentUserId)
+        .eq('following_id', userId);
+  }
+
+  // Real-time subscription for new posts
+  static void subscribeToNewPosts(Function(CommunityPost) onNewPost) {
+    _postsChannel = _client.channel('public:community_posts')
+        .onPostgresChanges(
+          event: PostgresChangeEvent.insert,
+          schema: 'public',
+          table: 'community_posts',
+          callback: (payload) async {
+            // Fetch the full post with profile data
+            final post = await _client
+                .from('community_posts')
+                .select('''
+                  *,
+                  profiles:user_id (
+                    username,
+                    avatar_url,
+                    level,
+                    wins,
+                    total_predictions
+                  )
+                ''')
+                .eq('id', payload.newRecord['id'])
+                .single();
+            onNewPost(CommunityPost.fromJson(post));
+          },
+        )
+        .subscribe();
+  }
+
+  static void unsubscribe() {
+    _postsChannel?.unsubscribe();
+  }
+}
+
+
+================================================================================
+6. SCREEN COMPONENTS
+================================================================================
+
+FILE: lib/screens/community/community_screen.dart
+--------------------------------------------------------------------------------
+Main community feed screen with:
+- Feed type tabs (For You, Trending, Following)
+- Pull-to-refresh
+- Infinite scroll pagination
+- Floating compose button
+- Team filter chips (horizontal scroll)
+
+LAYOUT:
+┌─────────────────────────────────────────┐
+│  Community              [Compose]       │  ← Header
+├─────────────────────────────────────────┤
+│  [For You] [Trending] [Following]       │  ← Feed Tabs
+├─────────────────────────────────────────┤
+│  🏈 NFL  🏀 NBA  ⚽ Soccer  ...         │  ← Team Filter Chips
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌─────────────────────────────────┐    │
+│  │ [Avatar] @username • Lv.12      │    │
+│  │ Just hit a 5-leg parlay! 🔥     │    │
+│  │ @Lakers @Celtics                │    │
+│  │ ────────────────────────────    │    │
+│  │ 🔥 142    💬 23    ↗️ Share     │    │
+│  └─────────────────────────────────┘    │
+│                                         │
+│  ┌─────────────────────────────────┐    │
+│  │ [Avatar] @username • Lv.5       │    │
+│  │ Chiefs looking strong tonight   │    │
+│  │ @Chiefs #NFL                    │    │
+│  │ ────────────────────────────    │    │
+│  │ 🔥 89     💬 12    ↗️ Share     │    │
+│  └─────────────────────────────────┘    │
+│                                         │
+│  ... (infinite scroll)                  │
+│                                         │
+└─────────────────────────────────────────┘
+
+--------------------------------------------------------------------------------
+FILE: lib/screens/community/compose_post_screen.dart
+--------------------------------------------------------------------------------
+Post creation screen with:
+- Text input (500 char limit)
+- Team tag selector
+- Sport selector
+- Game attachment (optional)
+- Character counter
+- Post button
+
+--------------------------------------------------------------------------------
+FILE: lib/screens/community/post_detail_screen.dart
+--------------------------------------------------------------------------------
+Full post view with:
+- Full post content
+- Like/Comment/Share actions
+- Comments list (threaded)
+- Comment input field
+- Author profile mini-card
+
+
+================================================================================
+7. WIDGET COMPONENTS
+================================================================================
+
+FILE: lib/widgets/community/post_card.dart
+--------------------------------------------------------------------------------
+Individual post card with:
+- Author avatar + username + level badge
+- Post content with team tags highlighted
+- Timestamp (relative: "2h ago")
+- Like button with count (animated)
+- Comment button with count
+- Share button
+- More menu (delete if owner, report)
+
+--------------------------------------------------------------------------------
+FILE: lib/widgets/community/comment_item.dart
+--------------------------------------------------------------------------------
+Comment display with:
+- Author mini info
+- Comment text
+- Like button
+- Reply button
+- Nested replies (indented)
+
+--------------------------------------------------------------------------------
+FILE: lib/widgets/community/feed_tabs.dart
+--------------------------------------------------------------------------------
+Segmented control for feed types:
+- For You (personalized)
+- Trending (most liked)
+- Following (from followed users)
+
+--------------------------------------------------------------------------------
+FILE: lib/widgets/community/team_filter_chips.dart
+--------------------------------------------------------------------------------
+Horizontal scrolling chips for team filtering:
+- All sports/teams
+- Sport-specific colors
+- Selected state with glow
+
+--------------------------------------------------------------------------------
+FILE: lib/widgets/community/compose_fab.dart
+--------------------------------------------------------------------------------
+Floating action button to open compose screen:
+- Cyan gradient background
+- Pen/Edit icon
+- Glow effect
+
+--------------------------------------------------------------------------------
+FILE: lib/widgets/community/win_post_card.dart
+--------------------------------------------------------------------------------
+Special card for win celebrations:
+- Confetti background effect
+- "🏆 WIN!" badge
+- Prediction details
+- Payout amount highlighted
+
+--------------------------------------------------------------------------------
+FILE: lib/widgets/community/user_mini_profile.dart
+--------------------------------------------------------------------------------
+Compact user profile display:
+- Avatar (40px)
+- Username
+- Level badge
+- Win rate
+- Follow button
+
+
+================================================================================
+8. NAVIGATION INTEGRATION
+================================================================================
+
+FILE: lib/config/routes.dart (UPDATE)
+--------------------------------------------------------------------------------
+Add new route:
+
+static const String community = '/community';
+
+GoRoute(
+  path: '/community',
+  pageBuilder: (context, state) => NoTransitionPage(
+    child: MainScaffold(child: CommunityScreen()),
+  ),
+),
+
+--------------------------------------------------------------------------------
+FILE: lib/widgets/common/main_scaffold.dart (UPDATE)
+--------------------------------------------------------------------------------
+Add Community tab to bottom navigation:
+
+Current tabs: Home, Games, [FAB], My Picks, Live
+New tabs:     Home, Games, [FAB], Community, Live
+
+Update _getCurrentIndex:
+  if (location.startsWith('/community')) return 3;
+  if (location.startsWith('/live')) return 4;
+
+Update navigation items:
+  _NavItem(
+    icon: Icons.forum_outlined,
+    activeIcon: Icons.forum_rounded,
+    label: 'Community',
+    isActive: currentIndex == 3,
+    onTap: () => context.go(AppRoutes.community),
+  ),
+
+
+================================================================================
+9. STYLING SPECIFICATIONS
+================================================================================
+
+POST CARD STYLING
+--------------------------------------------------------------------------------
+PROPERTY        | VALUE
+--------------------------------------------------------------------------------
+Background      | Glass 60% (rgba(30, 58, 95, 0.6))
+Border          | 1px rgba(0, 163, 255, 0.25)
+Border Radius   | 20px
+Padding         | 16px
+Margin Bottom   | 12px
+
+AUTHOR ROW
+--------------------------------------------------------------------------------
+Avatar Size     | 40px × 40px
+Avatar Radius   | 20px (circle)
+Username        | Body Large (16px), White, Bold
+Level Badge     | 8px left margin, Cyan pill, "Lv.X"
+Timestamp       | Body Small (12px), White 50%
+
+POST CONTENT
+--------------------------------------------------------------------------------
+Text            | Body Large (16px), White 90%, line-height 1.5
+Team Tags       | Cyan color, bold, tappable
+Max Lines       | 6 (expandable)
+Char Limit      | 500
+
+ACTION BAR
+--------------------------------------------------------------------------------
+Button Spacing  | 24px between buttons
+Icon Size       | 20px
+Count Text      | Body Small (12px), White 70%
+Like Active     | Fire emoji 🔥 + Cyan count
+Divider         | 1px White 10%, 12px margin top
+
+WIN POST CARD (SPECIAL)
+--------------------------------------------------------------------------------
+Background      | Glass 60% + Gold gradient overlay (10% opacity)
+Border          | 2px rgba(255, 215, 0, 0.4)
+Badge           | "🏆 WIN!" pill, Gold gradient bg
+Payout          | Display Medium, Gold color, "+1,250 coins"
+
+COMPOSE BUTTON
+--------------------------------------------------------------------------------
+Size            | 56px × 56px
+Background      | Cyan gradient (#00A3FF → #00D4FF)
+Icon            | Edit/Pen, 24px, White
+Shadow          | Cyan glow (0 0 20px rgba(0, 212, 255, 0.4))
+Position        | Bottom right, 16px margin
+
+FEED TABS
+--------------------------------------------------------------------------------
+Container       | Glass 40%, pill shape, 8px padding
+Tab             | 12px horizontal padding, 8px vertical
+Active Tab      | Cyan background (20% opacity), Cyan text
+Inactive Tab    | Transparent, White 60% text
+Font            | Body Medium (14px), Bold
+
+
+================================================================================
+10. REAL-TIME FEATURES
+================================================================================
+
+REAL-TIME UPDATES
+--------------------------------------------------------------------------------
+✦ New Posts
+  - Subscribe to community_posts INSERT events
+  - Show "New posts available" banner at top
+  - Tap to load new posts with animation
+
+✦ Like Updates
+  - Optimistic UI update on tap
+  - Revert if server request fails
+  - Animate count change
+
+✦ Comment Updates
+  - Subscribe to post_comments for open post
+  - Auto-append new comments
+  - Show typing indicator (optional)
+
+IMPLEMENTATION
+--------------------------------------------------------------------------------
+// In CommunityProvider.initState()
+CommunityService.subscribeToNewPosts((post) {
+  if (!_posts.any((p) => p.id == post.id)) {
+    _newPostsAvailable = true;
+    notifyListeners();
+  }
+});
+
+// Show banner when _newPostsAvailable = true
+// On tap: insert new posts at top, scroll to top
+
+
+================================================================================
+11. IMPLEMENTATION STEPS
+================================================================================
+
+PHASE 1: DATABASE & MODELS (Day 1)
+--------------------------------------------------------------------------------
+□ Run SQL schema in Supabase
+□ Create community_post.dart model
+□ Create post_comment.dart model
+□ Update exports in models/index.dart
+
+PHASE 2: SERVICE LAYER (Day 1-2)
+--------------------------------------------------------------------------------
+□ Create community_service.dart
+□ Implement getPosts with pagination
+□ Implement createPost
+□ Implement likePost / unlikePost
+□ Implement getComments / addComment
+□ Implement followUser / unfollowUser
+□ Add real-time subscription
+
+PHASE 3: PROVIDER (Day 2)
+--------------------------------------------------------------------------------
+□ Create community_provider.dart
+□ Implement feed loading with pagination
+□ Implement feed type switching
+□ Implement team filtering
+□ Implement post creation
+□ Implement like toggling
+□ Add to MultiProvider in app.dart
+
+PHASE 4: WIDGETS (Day 2-3)
+--------------------------------------------------------------------------------
+□ Create post_card.dart
+□ Create win_post_card.dart
+□ Create comment_item.dart
+□ Create feed_tabs.dart
+□ Create team_filter_chips.dart
+□ Create compose_fab.dart
+□ Create user_mini_profile.dart
+
+PHASE 5: SCREENS (Day 3-4)
+--------------------------------------------------------------------------------
+□ Create community_screen.dart
+□ Create compose_post_screen.dart
+□ Create post_detail_screen.dart
+□ Style all screens with Blue Aura theme
+
+PHASE 6: NAVIGATION (Day 4)
+--------------------------------------------------------------------------------
+□ Add route in routes.dart
+□ Update main_scaffold.dart bottom nav
+□ Add Community tab icon and label
+□ Test navigation flow
+
+PHASE 7: POLISH & TESTING (Day 5)
+--------------------------------------------------------------------------------
+□ Add pull-to-refresh
+□ Add infinite scroll
+□ Add loading states (shimmer)
+□ Add empty states
+□ Add error handling
+□ Test real-time updates
+□ Test on multiple devices
+
+
+================================================================================
+12. FILE STRUCTURE
+================================================================================
+
+lib/
+├── models/
+│   ├── community_post.dart        (NEW)
+│   └── post_comment.dart          (NEW)
+│
+├── providers/
+│   └── community_provider.dart    (NEW)
+│
+├── services/
+│   └── community_service.dart     (NEW)
+│
+├── screens/
+│   └── community/
+│       ├── community_screen.dart  (NEW)
+│       ├── compose_post_screen.dart (NEW)
+│       └── post_detail_screen.dart (NEW)
+│
+├── widgets/
+│   └── community/
+│       ├── post_card.dart         (NEW)
+│       ├── win_post_card.dart     (NEW)
+│       ├── comment_item.dart      (NEW)
+│       ├── feed_tabs.dart         (NEW)
+│       ├── team_filter_chips.dart (NEW)
+│       ├── compose_fab.dart       (NEW)
+│       └── user_mini_profile.dart (NEW)
+│
+├── config/
+│   └── routes.dart                (UPDATE - add community route)
+│
+└── widgets/
+    └── common/
+        └── main_scaffold.dart     (UPDATE - add nav item)
+
+
+================================================================================
+                              SUMMARY
+================================================================================
+
+TOTAL NEW FILES: 13
+TOTAL UPDATED FILES: 2
+
+DATABASE TABLES: 4
+  - community_posts
+  - post_likes
+  - post_comments
+  - user_follows
+
+KEY FEATURES:
+  ✦ Social feed with posts about teams and games
+  ✦ Like and comment on posts
+  ✦ Follow other users
+  ✦ Team-based filtering
+  ✦ Auto-generated win celebration posts
+  ✦ Real-time updates via Supabase
+  ✦ Blue Aura liquid glass styling throughout
+
+ESTIMATED TIME: 5 days for full implementation
+
+================================================================================
+                         END OF PLAN
+================================================================================

@@ -1,0 +1,1187 @@
+================================================================================
+                              HOTSTREAK
+                         SPORTS BETTING APP
+================================================================================
+                    COMPREHENSIVE STYLE GUIDE
+          Blue Aura Theme • Liquid Glass Design • Round & Clean
+     Font: Loar Italic Bold 600 (Headers) • Loar Bold 600 (Body)
+                            Version 1.0
+================================================================================
+
+
+================================================================================
+                         TABLE OF CONTENTS
+================================================================================
+
+1.  Design Philosophy
+2.  Color System - Blue Aura Palette
+3.  Typography - Loar Font System
+4.  Spacing & Layout Grid
+5.  Border Radius - Round & Clean
+6.  Liquid Glass Design System
+7.  Shadows, Glows & Effects
+8.  Component Library
+    8.1  Buttons
+    8.2  Cards
+    8.3  Input Fields
+    8.4  Chips & Tags
+    8.5  Bottom Sheets & Modals
+9.  Home Tab Styling
+10. Games Tab Styling
+11. My Picks Tab Styling
+12. Live Tab Styling
+13. Profile Tab Styling
+14. Bet Slip Styling
+15. Wallet Screen
+16. Spin Wheel & Gamification
+17. Navigation & Bottom Bar
+18. Animations & Transitions
+19. Sport-Specific Colors
+20. CSS Variables (Copy-Paste)
+
+
+================================================================================
+1. DESIGN PHILOSOPHY
+================================================================================
+
+HotStreak embraces a Blue Aura aesthetic with liquid glass morphism that
+creates depth, elegance, and a premium betting experience.
+
+CORE DESIGN PILLARS
+--------------------------------------------------------------------------------
+PILLAR              | DESCRIPTION                    | IMPLEMENTATION
+--------------------------------------------------------------------------------
+Blue Aura Theme     | Glowing blue tones create      | Cyan/blue gradients,
+                    | energy and excitement          | glow effects, neon accents
+--------------------------------------------------------------------------------
+Liquid Glass        | Frosted translucent surfaces   | backdrop-blur, rgba
+                    | with depth                     | overlays, glass borders
+--------------------------------------------------------------------------------
+Round & Clean       | Soft corners, generous         | 16-32px radius,
+                    | padding, minimal noise         | consistent spacing scale
+--------------------------------------------------------------------------------
+Premium Feel        | Casino-quality visual          | Gold accents, smooth
+                    | language                       | animations, haptic feedback
+--------------------------------------------------------------------------------
+Dark Mode First     | Deep navy backgrounds for      | #0A1628 base, white
+                    | reduced eye strain             | text hierarchy
+--------------------------------------------------------------------------------
+
+DESIGN PRINCIPLES
+--------------------------------------------------------------------------------
+
+✦ Hierarchy Through Light
+  Important elements glow brighter. CTAs have the strongest blue aura.
+
+✦ Consistent Roundness
+  Every corner is rounded. No sharp edges. Creates a friendly, approachable feel.
+
+✦ Glass Layering
+  Cards float on glass surfaces. Modals have frosted backgrounds. Creates depth.
+
+✦ Motion with Purpose
+  Every animation reinforces the action. Wins glow. Losses fade. Live games pulse.
+
+✦ Typography Weight
+  All text uses Loar Bold 600 weight. Headers add italic for emphasis.
+
+
+================================================================================
+2. COLOR SYSTEM - BLUE AURA PALETTE
+================================================================================
+
+PRIMARY COLORS
+--------------------------------------------------------------------------------
+COLOR NAME      | HEX CODE  | RGB                | USAGE
+--------------------------------------------------------------------------------
+Primary Blue    | #0066FF   | rgb(0, 102, 255)   | Main CTAs, links, active states
+Glow Blue       | #00A3FF   | rgb(0, 163, 255)   | Highlights, hover states, aura
+Accent Cyan     | #00D4FF   | rgb(0, 212, 255)   | Live indicators, winning states
+Deep Blue       | #0A1628   | rgb(10, 22, 40)    | Primary background, app base
+Glass Blue      | #1E3A5F   | rgb(30, 58, 95)    | Card backgrounds, glass overlays
+Soft Blue       | #1A3A5C   | rgb(26, 58, 92)    | Secondary backgrounds
+Ice Blue        | #E0F4FF   | rgb(224, 244, 255) | Light accents, table alternates
+--------------------------------------------------------------------------------
+
+SEMANTIC COLORS
+--------------------------------------------------------------------------------
+COLOR NAME      | HEX CODE  | USAGE
+--------------------------------------------------------------------------------
+Success Green   | #00FF7F   | Winning bets, positive changes, confirmations
+Error Red       | #FF3B30   | Losing bets, errors, destructive actions
+Warning Gold    | #FFD700   | Coins, rewards, premium features
+Live Red        | #FF416C   | Live game indicators, urgent states
+--------------------------------------------------------------------------------
+
+TEXT COLORS
+--------------------------------------------------------------------------------
+LEVEL           | COLOR     | OPACITY | USAGE
+--------------------------------------------------------------------------------
+Text Primary    | #FFFFFF   | 95%     | Headlines, important content
+Text Secondary  | #FFFFFF   | 70%     | Body text, descriptions
+Text Muted      | #FFFFFF   | 50%     | Captions, timestamps, hints
+Text Disabled   | #FFFFFF   | 30%     | Disabled states, placeholders
+--------------------------------------------------------------------------------
+
+BORDER COLORS
+--------------------------------------------------------------------------------
+TYPE            | COLOR     | OPACITY | USAGE
+--------------------------------------------------------------------------------
+Subtle Border   | #FFFFFF   | 5%      | Card separators, dividers
+Default Border  | #FFFFFF   | 10%     | Input fields, card borders
+Active Border   | #00A3FF   | 100%    | Focus states, selected items
+Glow Border     | #00D4FF   | 30%     | Glass effect borders
+--------------------------------------------------------------------------------
+
+
+================================================================================
+3. TYPOGRAPHY - LOAR FONT SYSTEM
+================================================================================
+
+Primary Font: Loar
+Fallback: Public Sans, Arial, system-ui
+
+FONT WEIGHTS
+--------------------------------------------------------------------------------
+STYLE NAME          | WEIGHT | ITALIC | CSS DECLARATION
+--------------------------------------------------------------------------------
+Loar Bold           | 600    | No     | font-weight: 600; font-style: normal;
+Loar Italic Bold    | 600    | Yes    | font-weight: 600; font-style: italic;
+--------------------------------------------------------------------------------
+
+TYPOGRAPHY SCALE
+--------------------------------------------------------------------------------
+STYLE            | SIZE  | WEIGHT     | LINE HEIGHT | USE CASE
+--------------------------------------------------------------------------------
+Display Large    | 48px  | 600 Italic | 1.1         | Hero headlines, splash
+Display Medium   | 40px  | 600 Italic | 1.15        | Page titles, section headers
+Headline Large   | 32px  | 600 Italic | 1.2         | Card titles, modal headers
+Headline Medium  | 24px  | 600        | 1.25        | Subsection headers
+Title Large      | 20px  | 600        | 1.3         | List item titles, emphasis
+Title Medium     | 18px  | 600        | 1.35        | Buttons, labels
+Body Large       | 16px  | 600        | 1.5         | Primary body text
+Body Medium      | 14px  | 600        | 1.5         | Secondary body text
+Body Small       | 12px  | 600        | 1.4         | Captions, timestamps
+Label            | 11px  | 600        | 1.3         | Chips, badges, tags
+--------------------------------------------------------------------------------
+
+TYPOGRAPHY USAGE RULES
+--------------------------------------------------------------------------------
+
+✦ Headers
+  Always use Loar Italic Bold 600. Apply to page titles, section headers,
+  modal titles.
+
+✦ Body Text
+  Always use Loar Bold 600 (non-italic). Maintains readability at smaller sizes.
+
+✦ Numbers & Odds
+  Use tabular figures. Monospace for live scores. Loar Bold for odds display.
+
+✦ Button Text
+  Title Medium (18px) for primary buttons. Body Medium (14px) for secondary.
+
+
+================================================================================
+4. SPACING & LAYOUT GRID
+================================================================================
+
+SPACING SCALE
+--------------------------------------------------------------------------------
+TOKEN        | VALUE | REM      | USE CASE
+--------------------------------------------------------------------------------
+space-xxs    | 2px   | 0.125rem | Icon padding, tight elements
+space-xs     | 4px   | 0.25rem  | Inline spacing, small gaps
+space-sm     | 8px   | 0.5rem   | Tight groupings, chip padding
+space-md     | 12px  | 0.75rem  | Default component spacing
+space-lg     | 16px  | 1rem     | Card padding, section gaps
+space-xl     | 20px  | 1.25rem  | Large section spacing
+space-xxl    | 24px  | 1.5rem   | Page margins, major sections
+space-xxxl   | 32px  | 2rem     | Hero spacing, modal padding
+space-huge   | 48px  | 3rem     | Page header spacing
+--------------------------------------------------------------------------------
+
+LAYOUT GRID
+--------------------------------------------------------------------------------
+PROPERTY           | VALUE                        | NOTES
+--------------------------------------------------------------------------------
+Page Margin        | 16px (mobile) / 24px (tablet)| Consistent horizontal padding
+Card Gap           | 12px                         | Space between cards in lists
+Section Gap        | 24px                         | Space between major sections
+Content Max Width  | 500px                        | Mobile-first max container
+Bottom Nav Height  | 80px                         | Fixed bottom navigation
+FAB Size           | 56px                         | Centered floating action button
+--------------------------------------------------------------------------------
+
+
+================================================================================
+5. BORDER RADIUS - ROUND & CLEAN
+================================================================================
+
+Every element uses rounded corners. No sharp edges anywhere.
+
+RADIUS SCALE
+--------------------------------------------------------------------------------
+TOKEN        | VALUE   | USE CASE
+--------------------------------------------------------------------------------
+radius-xs    | 4px     | Small badges, inline tags
+radius-sm    | 8px     | Input fields, chips, small buttons
+radius-md    | 12px    | Standard buttons, list items
+radius-lg    | 16px    | Cards, containers, dropdowns
+radius-xl    | 20px    | Modal dialogs, bottom sheets
+radius-xxl   | 24px    | Large cards, feature containers
+radius-xxxl  | 32px    | Hero cards, bet slip container
+radius-round | 9999px  | Pills, circular buttons, avatars
+--------------------------------------------------------------------------------
+
+COMPONENT RADIUS MAPPING
+--------------------------------------------------------------------------------
+COMPONENT          | RADIUS           | NOTES
+--------------------------------------------------------------------------------
+Primary Buttons    | 24px             | Pill-shaped for CTAs
+Secondary Buttons  | 20px             | Slightly softer
+Game Cards         | 24px             | Large, prominent radius
+Bet Slip Cards     | 32px             | Extra rounded for premium feel
+Input Fields       | 12px             | Standard form radius
+Chips/Tags         | 9999px (pill)    | Fully rounded pills
+Modals             | 24px (top)       | Rounded top corners only
+Bottom Sheets      | 24px (top)       | Matches modal styling
+Avatars            | 9999px           | Perfect circles
+Sport Icons        | 12px             | Soft square icons
+--------------------------------------------------------------------------------
+
+
+================================================================================
+6. LIQUID GLASS DESIGN SYSTEM
+================================================================================
+
+GLASS EFFECT PROPERTIES
+--------------------------------------------------------------------------------
+PROPERTY         | VALUE                              | CSS PROPERTY
+--------------------------------------------------------------------------------
+Background       | rgba(30, 58, 95, 0.6)              | background-color
+Backdrop Blur    | 20px                               | backdrop-filter: blur(20px)
+Border           | 1px solid rgba(0, 163, 255, 0.3)   | border
+Inner Highlight  | inset 0 1px 0 rgba(255,255,255,0.1)| box-shadow (inset)
+Outer Glow       | 0 0 30px rgba(0, 212, 255, 0.15)   | box-shadow
+--------------------------------------------------------------------------------
+
+GLASS LAYERS
+--------------------------------------------------------------------------------
+LAYER            | OPACITY | BLUR | USE CASE
+--------------------------------------------------------------------------------
+Base Layer       | N/A     | N/A  | Deep Blue #0A1628 solid background
+Surface Layer    | 70%     | 15px | Card backgrounds, containers
+Overlay Layer    | 50%     | 20px | Modals, popups, overlays
+Highlight Layer  | 30%     | 25px | Tooltips, dropdowns, menus
+--------------------------------------------------------------------------------
+
+GLASS CARD CSS
+--------------------------------------------------------------------------------
+.glass-card {
+  background: rgba(30, 58, 95, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 163, 255, 0.3);
+  border-radius: 24px;
+  box-shadow:
+    0 0 30px rgba(0, 212, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+--------------------------------------------------------------------------------
+
+GLASS VARIANTS
+--------------------------------------------------------------------------------
+VARIANT        | BG OPACITY | BORDER COLOR             | USE CASE
+--------------------------------------------------------------------------------
+Default Glass  | 60%        | rgba(0, 163, 255, 0.3)   | Standard cards
+Elevated Glass | 70%        | rgba(0, 212, 255, 0.4)   | Prominent cards, modals
+Subtle Glass   | 40%        | rgba(255, 255, 255, 0.1) | Background sections
+Active Glass   | 80%        | rgba(0, 102, 255, 0.5)   | Selected states
+Live Glass     | 60%        | rgba(255, 65, 108, 0.4)  | Live game cards
+--------------------------------------------------------------------------------
+
+
+================================================================================
+7. SHADOWS, GLOWS & EFFECTS
+================================================================================
+
+SHADOW SCALE
+--------------------------------------------------------------------------------
+TOKEN      | VALUE                           | USE CASE
+--------------------------------------------------------------------------------
+shadow-sm  | 0 2px 4px rgba(0, 0, 0, 0.2)    | Subtle elevation
+shadow-md  | 0 4px 8px rgba(0, 0, 0, 0.25)   | Cards, buttons
+shadow-lg  | 0 8px 16px rgba(0, 0, 0, 0.3)   | Modals, popups
+shadow-xl  | 0 12px 24px rgba(0, 0, 0, 0.35) | Floating elements
+--------------------------------------------------------------------------------
+
+GLOW EFFECTS
+--------------------------------------------------------------------------------
+GLOW TYPE     | VALUE                              | USE CASE
+--------------------------------------------------------------------------------
+Primary Glow  | 0 0 20px rgba(0, 102, 255, 0.4)    | Primary buttons, CTAs
+Cyan Glow     | 0 0 30px rgba(0, 212, 255, 0.3)    | Accent elements, winning
+Success Glow  | 0 0 25px rgba(0, 255, 127, 0.35)   | Win states, confirmations
+Error Glow    | 0 0 25px rgba(255, 59, 48, 0.35)   | Loss states, errors
+Live Glow     | 0 0 20px rgba(255, 65, 108, 0.4)   | Live game indicators
+Gold Glow     | 0 0 30px rgba(255, 215, 0, 0.4)    | Coins, rewards, premium
+--------------------------------------------------------------------------------
+
+GRADIENT EFFECTS
+--------------------------------------------------------------------------------
+GRADIENT NAME | START    | END      | USE CASE
+--------------------------------------------------------------------------------
+Blue Aura     | #0066FF  | #00D4FF  | Primary CTAs, headers
+Cyan Shift    | #00A3FF  | #00D4FF  | Hover states, accents
+Gold Premium  | #FFD700  | #FFA500  | Coins, rewards
+Success Flow  | #00FF7F  | #00D68F  | Win animations
+Live Pulse    | #FF416C  | #FF4B2B  | Live indicators
+Deep Ocean    | #0A1628  | #1E3A5F  | Background gradients
+--------------------------------------------------------------------------------
+
+
+================================================================================
+8. COMPONENT LIBRARY
+================================================================================
+
+--------------------------------------------------------------------------------
+8.1 BUTTONS
+--------------------------------------------------------------------------------
+
+BUTTON TYPES
+--------------------------------------------------------------------------------
+TYPE        | BACKGROUND                  | TEXT        | RADIUS | GLOW
+--------------------------------------------------------------------------------
+Primary CTA | Gradient: #0066FF → #00A3FF | White Bold  | 24px   | Primary Glow
+Secondary   | rgba(30, 58, 95, 0.6)       | White Bold  | 20px   | None
+Outline     | Transparent                 | Cyan Bold   | 20px   | Subtle Cyan
+Ghost       | Transparent                 | White 70%   | 12px   | None
+Danger      | Gradient: #FF3B30 → #D32F2F | White Bold  | 20px   | Error Glow
+Success     | Gradient: #00FF7F → #00D68F | Deep Blue   | 20px   | Success Glow
+--------------------------------------------------------------------------------
+
+BUTTON SIZES
+--------------------------------------------------------------------------------
+SIZE    | HEIGHT | PADDING X | FONT SIZE | USE CASE
+--------------------------------------------------------------------------------
+Small   | 36px   | 16px      | 14px      | Inline actions, chips
+Medium  | 44px   | 20px      | 16px      | Secondary actions
+Large   | 52px   | 24px      | 18px      | Primary CTAs
+XLarge  | 60px   | 32px      | 20px      | Hero buttons, bet placement
+--------------------------------------------------------------------------------
+
+BUTTON STATES
+--------------------------------------------------------------------------------
+STATE    | OPACITY | SCALE | GLOW INTENSITY | CURSOR
+--------------------------------------------------------------------------------
+Default  | 100%    | 1.0   | 100%           | pointer
+Hover    | 100%    | 1.02  | 150%           | pointer
+Pressed  | 90%     | 0.98  | 80%            | pointer
+Disabled | 50%     | 1.0   | 0%             | not-allowed
+Loading  | 80%     | 1.0   | Pulsing        | wait
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+8.2 CARDS
+--------------------------------------------------------------------------------
+
+CARD TYPES
+--------------------------------------------------------------------------------
+CARD TYPE       | RADIUS | BACKGROUND  | BORDER           | PADDING
+--------------------------------------------------------------------------------
+Game Card       | 24px   | Glass 60%   | Glow Blue 30%    | 16px
+Bet Slip Card   | 32px   | Glass 70%   | Cyan 40%         | 20px
+Stats Card      | 20px   | Glass 50%   | White 10%        | 16px
+Profile Card    | 24px   | Glass 60%   | None             | 20px
+Prediction Card | 20px   | Glass 60%   | Status color     | 16px
+Feature Card    | 28px   | Gradient    | None             | 24px
+--------------------------------------------------------------------------------
+
+CARD STATES
+--------------------------------------------------------------------------------
+STATE    | BORDER COLOR             | GLOW           | ADDITIONAL EFFECT
+--------------------------------------------------------------------------------
+Default  | rgba(0, 163, 255, 0.3)   | None           | —
+Hover    | rgba(0, 212, 255, 0.5)   | Subtle Cyan    | Scale 1.01
+Selected | rgba(0, 102, 255, 0.8)   | Primary        | Border 2px
+Live     | rgba(255, 65, 108, 0.5)  | Live Red Pulse | Animated border
+Won      | rgba(0, 255, 127, 0.5)   | Success        | Green tint overlay
+Lost     | rgba(255, 59, 48, 0.3)   | None           | Reduced opacity 70%
+--------------------------------------------------------------------------------
+
+GAME CARD LAYOUT
+--------------------------------------------------------------------------------
+┌─────────────────────────────────────────┐
+│  [Sport Icon]  League Name    [Live]    │  ← Header: 12px padding
+├─────────────────────────────────────────┤
+│                                         │
+│  [Logo] Team A         2.15    [+]      │  ← Team Row: 16px height
+│                                         │
+│  [Logo] Team B         1.85    [+]      │  ← Team Row: 16px height
+│                                         │
+├─────────────────────────────────────────┤
+│  Mar 15, 2024 • 7:30 PM EST             │  ← Footer: 10px padding
+└─────────────────────────────────────────┘
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+8.3 INPUT FIELDS
+--------------------------------------------------------------------------------
+
+INPUT STATES
+--------------------------------------------------------------------------------
+PROPERTY    | DEFAULT STATE          | FOCUS STATE           | ERROR STATE
+--------------------------------------------------------------------------------
+Background  | rgba(30, 58, 95, 0.4)  | rgba(30, 58, 95, 0.6) | rgba(255,59,48,0.1)
+Border      | 1px rgba(255,255,255,0.1) | 2px #00A3FF        | 2px #FF3B30
+Radius      | 12px                   | 12px                  | 12px
+Text Color  | White 95%              | White 100%            | White 95%
+Placeholder | White 40%              | White 50%             | White 40%
+Height      | 52px                   | 52px                  | 52px
+Padding     | 0 16px                 | 0 16px                | 0 16px
+--------------------------------------------------------------------------------
+
+INPUT TYPES
+--------------------------------------------------------------------------------
+TYPE         | ICON POSITION    | SPECIAL STYLING
+--------------------------------------------------------------------------------
+Text Input   | Left (optional)  | Standard styling
+Password     | Right (toggle)   | Obscured text, eye icon
+Search       | Left (search)    | Pill radius (9999px)
+Number/Stake | Left (coin icon) | Gold accent, larger text
+Dropdown     | Right (chevron)  | Arrow indicator
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+8.4 CHIPS & TAGS
+--------------------------------------------------------------------------------
+
+CHIP TYPES
+--------------------------------------------------------------------------------
+CHIP TYPE          | BACKGROUND       | TEXT        | RADIUS  | HEIGHT
+--------------------------------------------------------------------------------
+Sport Filter       | Glass 40%        | White 70%   | 9999px  | 36px
+Sport Filter (Act) | Sport Color 80%  | White 100%  | 9999px  | 36px
+Status Tag         | Status Color 20% | Status Color| 8px     | 24px
+Odds Chip          | Glass 60%        | Cyan Bold   | 12px    | 40px
+Odds Chip (Select) | Primary Gradient | White Bold  | 12px    | 40px
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+8.5 BOTTOM SHEETS & MODALS
+--------------------------------------------------------------------------------
+
+MODAL PROPERTIES
+--------------------------------------------------------------------------------
+PROPERTY      | BOTTOM SHEET       | MODAL DIALOG        | POPUP
+--------------------------------------------------------------------------------
+Background    | Deep Blue solid    | Glass 80% + blur    | Glass 70% + blur
+Border Radius | 24px (top only)    | 24px (all)          | 20px (all)
+Backdrop      | Black 50%          | Black 60% + blur    | Black 40%
+Max Height    | 90% viewport       | 80% viewport        | Auto
+Animation     | Slide up 300ms     | Scale + fade 250ms  | Scale 200ms
+Handle Bar    | Visible 40px × 4px | None                | None
+--------------------------------------------------------------------------------
+
+MODAL HANDLE BAR CSS
+--------------------------------------------------------------------------------
+.modal-handle {
+  width: 40px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  margin: 12px auto 16px;
+}
+--------------------------------------------------------------------------------
+
+
+================================================================================
+9. HOME TAB STYLING
+================================================================================
+
+The Home tab is the primary landing screen featuring featured games,
+daily bonus wheel, and personalized suggestions.
+
+PAGE ELEMENTS
+--------------------------------------------------------------------------------
+ELEMENT              | STYLING              | SPECIFICATIONS
+--------------------------------------------------------------------------------
+Page Background      | Deep Blue #0A1628    | Solid, no pattern
+Header               | Transparent overlay  | Coin balance + profile icon
+Welcome Section      | None (text only)     | Display Large, White 95%
+Featured Carousel    | Horizontal scroll    | Card width: 300px, gap: 16px
+Daily Spin Banner    | Gold gradient border | Radius 24px, animated glow
+Suggestions Section  | Standard cards       | Vertical list, 12px gap
+Quick Picks          | Horizontal chips     | Pill chips, sport colors
+--------------------------------------------------------------------------------
+
+FEATURED GAME CARD
+--------------------------------------------------------------------------------
+PROPERTY      | VALUE
+--------------------------------------------------------------------------------
+Width         | 300px (carousel item)
+Height        | 180px
+Background    | Glass 60% + backdrop blur 20px
+Border        | 1px rgba(0, 163, 255, 0.3)
+Border Radius | 24px
+Padding       | 20px
+Shadow        | 0 8px 32px rgba(0, 0, 0, 0.3)
+--------------------------------------------------------------------------------
+
+DAILY BONUS SECTION
+--------------------------------------------------------------------------------
+PROPERTY         | VALUE
+--------------------------------------------------------------------------------
+Container BG     | Linear gradient: #FFD700 → #FFA500 at 10% opacity
+Border           | 2px solid rgba(255, 215, 0, 0.5)
+Border Radius    | 24px
+CTA Button       | Gold gradient, Deep Blue text, 24px radius
+Icon             | Spin wheel emoji + glow effect
+Text             | "Spin & Win!" - Loar Italic Bold, Gold color
+--------------------------------------------------------------------------------
+
+
+================================================================================
+10. GAMES TAB STYLING
+================================================================================
+
+The Games tab displays all available matches with sport filtering and
+"For You" personalized recommendations.
+
+PAGE ELEMENTS
+--------------------------------------------------------------------------------
+ELEMENT           | STYLING              | SPECIFICATIONS
+--------------------------------------------------------------------------------
+Page Header       | "Games" title        | Headline Large, Loar Italic Bold
+Sport Filter Bar  | Horizontal scroll    | Pill chips, 8px gap, sticky top
+"For You" Section | Highlighted header   | Cyan accent, star icon
+Game List         | Vertical scroll      | 12px gap between cards
+Empty State       | Centered message     | Illustration + text + CTA
+Loading State     | Shimmer effect       | 3 placeholder cards
+--------------------------------------------------------------------------------
+
+SPORT FILTER CHIPS
+--------------------------------------------------------------------------------
+STATE    | BACKGROUND             | TEXT       | BORDER
+--------------------------------------------------------------------------------
+Default  | rgba(30, 58, 95, 0.4)  | White 70%  | 1px White 10%
+Selected | Sport Color 80%        | White 100% | 2px Sport Color
+Hover    | rgba(30, 58, 95, 0.6)  | White 85%  | 1px White 20%
+--------------------------------------------------------------------------------
+
+GAME CARD (LIST VIEW)
+--------------------------------------------------------------------------------
+PROPERTY       | VALUE
+--------------------------------------------------------------------------------
+Width          | 100% - 32px (page margins)
+Min Height     | 140px
+Background     | Glass 60%
+Border         | 1px rgba(0, 163, 255, 0.25)
+Border Radius  | 24px
+Padding        | 16px
+Team Logo Size | 40px × 40px, radius 8px
+Odds Button    | 60px × 40px, radius 12px
+Live Indicator | Pulsing red dot + "LIVE" text
+--------------------------------------------------------------------------------
+
+ODDS BUTTON STATES
+--------------------------------------------------------------------------------
+STATE    | BACKGROUND       | TEXT        | BORDER         | EFFECT
+--------------------------------------------------------------------------------
+Default  | Glass 50%        | Cyan Bold   | 1px Cyan 30%   | None
+Hover    | Glass 70%        | White Bold  | 1px Cyan 50%   | Subtle glow
+Selected | Primary Gradient | White Bold  | None           | Primary glow
+Disabled | Glass 30%        | White 40%   | 1px White 10%  | None
+--------------------------------------------------------------------------------
+
+
+================================================================================
+11. MY PICKS TAB STYLING
+================================================================================
+
+The My Picks tab shows the user's betting history with filtering by status
+(Pending, Won, Lost).
+
+PAGE ELEMENTS
+--------------------------------------------------------------------------------
+ELEMENT         | STYLING            | SPECIFICATIONS
+--------------------------------------------------------------------------------
+Page Header     | "My Picks" title   | Headline Large, Loar Italic Bold
+Status Tabs     | Segmented control  | 3 tabs: Pending, Won, Lost
+Summary Stats   | 3-column grid      | Total bets, Win rate, Profit
+Prediction List | Vertical scroll    | 12px gap, grouped by date
+Date Headers    | Section dividers   | Body Small, White 50%
+Empty State     | Centered           | "No picks yet" + CTA to browse
+--------------------------------------------------------------------------------
+
+STATUS TAB STYLING
+--------------------------------------------------------------------------------
+TAB     | INACTIVE BG  | ACTIVE BG               | TEXT COLOR
+--------------------------------------------------------------------------------
+Pending | Transparent  | rgba(0, 163, 255, 0.2)  | Cyan
+Won     | Transparent  | rgba(0, 255, 127, 0.2)  | Success Green
+Lost    | Transparent  | rgba(255, 59, 48, 0.2)  | Error Red
+--------------------------------------------------------------------------------
+
+PREDICTION CARD
+--------------------------------------------------------------------------------
+PROPERTY     | PENDING         | WON                   | LOST
+--------------------------------------------------------------------------------
+Background   | Glass 60%       | Glass 60% + green     | Glass 40%
+Border       | 1px Cyan 30%    | 1px Success 50%       | 1px Error 30%
+Left Accent  | None            | 4px Success Green bar | 4px Error Red bar
+Opacity      | 100%            | 100%                  | 70%
+Status Badge | Cyan 20% bg     | Success 20% bg        | Error 20% bg
+Badge Text   | Cyan            | Success Green         | Error Red
+--------------------------------------------------------------------------------
+
+PREDICTION CARD LAYOUT
+--------------------------------------------------------------------------------
+┌─────────────────────────────────────────┐
+│ [Accent] │ Team A vs Team B    [Status] │
+│   Bar    │ Your Pick: Team A ML +2.15   │
+│          │ Stake: 500  →  Payout: 1,075 │
+│          │ Mar 15, 2024           [···] │
+└─────────────────────────────────────────┘
+--------------------------------------------------------------------------------
+
+
+================================================================================
+12. LIVE TAB STYLING
+================================================================================
+
+The Live tab displays real-time scores for games currently in progress,
+grouped by sport.
+
+PAGE ELEMENTS
+--------------------------------------------------------------------------------
+ELEMENT        | STYLING               | SPECIFICATIONS
+--------------------------------------------------------------------------------
+Page Header    | "Live" + pulsing dot  | Headline Large + red pulsing circle
+Sport Tabs     | Horizontal tabs       | Sport icons + names, scrollable
+Live Game Cards| Prominent styling     | Animated border, live glow
+Score Display  | Large numerals        | 48px, Loar Bold, tabular figures
+Time/Period    | Badge style           | Red background, white text
+Auto-Refresh   | Indicator             | Subtle spinning icon
+--------------------------------------------------------------------------------
+
+LIVE GAME CARD
+--------------------------------------------------------------------------------
+PROPERTY      | VALUE
+--------------------------------------------------------------------------------
+Background    | Glass 60%
+Border        | 2px animated gradient (Live Pulse colors)
+Border Radius | 24px
+Glow          | 0 0 30px rgba(255, 65, 108, 0.25)
+Animation     | Border gradient rotation 3s infinite
+Padding       | 20px
+--------------------------------------------------------------------------------
+
+SCORE DISPLAY
+--------------------------------------------------------------------------------
+PROPERTY     | VALUE
+--------------------------------------------------------------------------------
+Font Size    | 48px
+Font Weight  | 600 (Loar Bold)
+Color        | White 100%
+Font Feature | tabular-nums (monospace numbers)
+Alignment    | Center
+Separator    | " - " in White 50%
+--------------------------------------------------------------------------------
+
+PERIOD/TIME BADGE
+--------------------------------------------------------------------------------
+PROPERTY      | VALUE
+--------------------------------------------------------------------------------
+Background    | rgba(255, 65, 108, 0.8)
+Text          | White Bold, 12px
+Padding       | 4px 12px
+Border Radius | 9999px (pill)
+Animation     | Subtle pulse every 2s
+--------------------------------------------------------------------------------
+
+
+================================================================================
+13. PROFILE TAB STYLING
+================================================================================
+
+The Profile tab displays user statistics, XP progression, achievements,
+and account settings.
+
+PAGE ELEMENTS
+--------------------------------------------------------------------------------
+ELEMENT           | STYLING            | SPECIFICATIONS
+--------------------------------------------------------------------------------
+Avatar            | Circular, 80px     | Border: 3px Primary gradient
+Username          | Display Medium     | Loar Italic Bold, White
+Level Badge       | Pill badge         | Gold gradient BG, level number
+XP Progress Bar   | Horizontal bar     | Gradient fill, animated
+Stats Grid        | 3-column grid      | Glass cards, 16px gap
+Achievements      | Horizontal scroll  | Badge cards
+Settings Links    | List items         | Chevron right, dividers
+--------------------------------------------------------------------------------
+
+XP PROGRESS BAR
+--------------------------------------------------------------------------------
+PROPERTY       | VALUE
+--------------------------------------------------------------------------------
+Container BG   | rgba(30, 58, 95, 0.4)
+Container Height | 12px
+Container Radius | 6px
+Fill Gradient  | Linear: #0066FF → #00D4FF
+Fill Animation | Width transition 500ms ease-out
+Glow Effect    | 0 0 10px rgba(0, 212, 255, 0.5)
+--------------------------------------------------------------------------------
+
+STATS CARD
+--------------------------------------------------------------------------------
+PROPERTY    | VALUE
+--------------------------------------------------------------------------------
+Background  | Glass 50%
+Border      | 1px White 10%
+Radius      | 16px
+Padding     | 16px
+Stat Value  | Headline Large, Loar Italic Bold, Cyan
+Stat Label  | Body Small, White 60%
+--------------------------------------------------------------------------------
+
+ACHIEVEMENT BADGE RARITY
+--------------------------------------------------------------------------------
+RARITY    | BORDER COLOR     | GLOW              | BACKGROUND TINT
+--------------------------------------------------------------------------------
+Common    | #AAAAAA (Gray)   | None              | Gray 10%
+Rare      | #00A3FF (Blue)   | Blue glow         | Blue 10%
+Epic      | #9B59B6 (Purple) | Purple glow       | Purple 10%
+Legendary | #FFD700 (Gold)   | Gold glow + parts | Gold 15%
+--------------------------------------------------------------------------------
+
+
+================================================================================
+14. BET SLIP STYLING
+================================================================================
+
+BET SLIP CONTAINER
+--------------------------------------------------------------------------------
+PROPERTY      | VALUE
+--------------------------------------------------------------------------------
+Type          | Bottom Sheet (full height modal)
+Background    | Deep Blue #0A1628 solid
+Border Radius | 32px (top corners only)
+Handle Bar    | 40px × 4px, White 30%, centered
+Header Height | 60px
+Padding       | 24px horizontal, 16px vertical
+--------------------------------------------------------------------------------
+
+BET SLIP ITEM CARD
+--------------------------------------------------------------------------------
+PROPERTY      | VALUE
+--------------------------------------------------------------------------------
+Background    | Glass 60%
+Border        | 1px rgba(0, 163, 255, 0.3)
+Border Radius | 20px
+Padding       | 16px
+Delete Button | Red ghost button, right side
+Odds Display  | Cyan Bold, 20px
+Team Names    | White Bold, 16px
+--------------------------------------------------------------------------------
+
+STAKE INPUT FIELD
+--------------------------------------------------------------------------------
+PROPERTY      | VALUE
+--------------------------------------------------------------------------------
+Background    | Glass 40%
+Border        | 2px rgba(255, 215, 0, 0.5)
+Border Radius | 16px
+Height        | 60px
+Font Size     | 24px, Loar Bold
+Icon          | Coin icon, left side, gold
+Focus Border  | 2px solid #FFD700
+--------------------------------------------------------------------------------
+
+QUICK STAKE BUTTONS
+--------------------------------------------------------------------------------
+PROPERTY      | VALUE
+--------------------------------------------------------------------------------
+Layout        | 4 buttons, horizontal row
+Values        | +100, +250, +500, MAX
+Background    | Glass 50%
+Border        | 1px White 20%
+Border Radius | 12px
+Text          | Body Medium, White Bold
+--------------------------------------------------------------------------------
+
+PLACE BET BUTTON
+--------------------------------------------------------------------------------
+PROPERTY       | VALUE
+--------------------------------------------------------------------------------
+Background     | Linear gradient: #0066FF → #00A3FF
+Text           | "PLACE BET" - 20px, Loar Bold, White
+Height         | 60px
+Border Radius  | 24px
+Glow           | 0 0 30px rgba(0, 102, 255, 0.4)
+Disabled State | Gray gradient, no glow, 50% opacity
+--------------------------------------------------------------------------------
+
+COMBO/PARLAY SECTION
+--------------------------------------------------------------------------------
+PROPERTY          | VALUE
+--------------------------------------------------------------------------------
+Toggle Container  | Glass 50%, pill shape
+Active State      | Cyan background, animated switch
+Multiplier Display| Gold text, "×2.5" format
+Combined Odds     | Large Cyan text, 28px
+Potential Payout  | Gold gradient text, 24px
+--------------------------------------------------------------------------------
+
+
+================================================================================
+15. WALLET SCREEN STYLING
+================================================================================
+
+WALLET HEADER
+--------------------------------------------------------------------------------
+PROPERTY        | VALUE
+--------------------------------------------------------------------------------
+Background      | Deep Blue with subtle gradient
+Balance Display | 64px, Loar Italic Bold, Gold gradient text
+Coin Icon       | 48px, animated subtle rotation
+Glow Effect     | 0 0 60px rgba(255, 215, 0, 0.3)
+Label           | "Your Balance" - Body Medium, White 70%
+--------------------------------------------------------------------------------
+
+DAILY BONUS CARD
+--------------------------------------------------------------------------------
+PROPERTY      | VALUE
+--------------------------------------------------------------------------------
+Background    | Linear gradient: Gold 10% opacity
+Border        | 2px dashed rgba(255, 215, 0, 0.5)
+Border Radius | 24px
+Icon          | Gift/Spin emoji, 32px
+CTA           | "Claim Bonus" button, Gold style
+Timer         | Countdown to next bonus, Body Small
+--------------------------------------------------------------------------------
+
+TRANSACTION TYPES
+--------------------------------------------------------------------------------
+TYPE        | ICON        | AMOUNT COLOR  | PREFIX
+--------------------------------------------------------------------------------
+Bet Placed  | Arrow down  | Error Red     | -
+Bet Won     | Trophy      | Success Green | +
+Bet Lost    | X mark      | White 50%     | —
+Daily Bonus | Gift        | Gold          | +
+Spin Win    | Star        | Gold          | +
+Level Up    | Arrow up    | Cyan          | +
+--------------------------------------------------------------------------------
+
+TRANSACTION ITEM
+--------------------------------------------------------------------------------
+PROPERTY    | VALUE
+--------------------------------------------------------------------------------
+Background  | Transparent
+Border      | Bottom 1px White 5%
+Padding     | 16px 0
+Icon Size   | 24px, in colored circle
+Description | Body Medium, White 80%
+Timestamp   | Body Small, White 50%
+Amount      | Title Large, transaction color
+--------------------------------------------------------------------------------
+
+
+================================================================================
+16. SPIN WHEEL & GAMIFICATION
+================================================================================
+
+SPIN WHEEL MODAL
+--------------------------------------------------------------------------------
+PROPERTY      | VALUE
+--------------------------------------------------------------------------------
+Backdrop      | Black 80% + heavy blur
+Container     | Centered, max-width 400px
+Background    | Deep Blue solid
+Border Radius | 32px
+Padding       | 32px
+--------------------------------------------------------------------------------
+
+WHEEL DESIGN
+--------------------------------------------------------------------------------
+PROPERTY    | VALUE
+--------------------------------------------------------------------------------
+Size        | 300px × 300px
+Segments    | 8-12 prize segments
+Border      | 8px metallic gold gradient
+Center Hub  | 60px circle, gold, logo
+Pointer     | Triangle at top, gold with glow
+Lights      | 24 LEDs around rim, animated
+--------------------------------------------------------------------------------
+
+WHEEL SEGMENT COLORS
+--------------------------------------------------------------------------------
+PRIZE TIER  | BACKGROUND           | TEXT COLOR
+--------------------------------------------------------------------------------
+50 Coins    | #1A3A5C (Soft Blue)  | White
+100 Coins   | #0066FF (Primary)    | White
+250 Coins   | #00A3FF (Glow Blue)  | White
+500 Coins   | #00D4FF (Cyan)       | Deep Blue
+1000 Coins  | #00FF7F (Success)    | Deep Blue
+JACKPOT     | #FFD700 (Gold)       | Deep Blue
+--------------------------------------------------------------------------------
+
+SPIN ANIMATION
+--------------------------------------------------------------------------------
+PHASE        | DURATION | EASING   | ROTATIONS
+--------------------------------------------------------------------------------
+Acceleration | 1000ms   | ease-in  | 1-2 rotations
+Full Speed   | 3000ms   | linear   | 4-5 rotations
+Deceleration | 1500ms   | ease-out | 1 rotation
+Settle       | 500ms    | ease-out | Minor adjustment
+--------------------------------------------------------------------------------
+
+WIN CELEBRATION
+--------------------------------------------------------------------------------
+ELEMENT       | SPECIFICATION
+--------------------------------------------------------------------------------
+Confetti      | 100+ particles, gold/cyan colors, 3s duration
+Coin Rain     | 20 coin icons falling, gold glow
+Prize Display | Scale in animation, 48px gold text
+Sound         | Coin jingle + celebration chime
+Haptics       | Heavy impact on win, light on spin
+--------------------------------------------------------------------------------
+
+
+================================================================================
+17. NAVIGATION & BOTTOM BAR
+================================================================================
+
+BOTTOM NAVIGATION BAR
+--------------------------------------------------------------------------------
+PROPERTY    | VALUE
+--------------------------------------------------------------------------------
+Background  | Deep Blue #0A1628 with top border
+Top Border  | 1px rgba(255, 255, 255, 0.1)
+Height      | 80px (including safe area)
+Padding     | 8px 16px 24px (safe area bottom)
+Items       | 4 tabs + centered FAB
+--------------------------------------------------------------------------------
+
+NAVIGATION ITEMS
+--------------------------------------------------------------------------------
+STATE    | ICON COLOR | LABEL COLOR | BACKGROUND
+--------------------------------------------------------------------------------
+Inactive | White 50%  | White 40%   | Transparent
+Active   | Cyan 100%  | Cyan 100%   | Cyan 10% pill
+Pressed  | Cyan 80%   | Cyan 80%    | Cyan 15%
+--------------------------------------------------------------------------------
+
+FLOATING ACTION BUTTON (BET SLIP)
+--------------------------------------------------------------------------------
+PROPERTY      | VALUE
+--------------------------------------------------------------------------------
+Size          | 56px × 56px
+Position      | Centered, elevated above nav
+Background    | Linear gradient: #0066FF → #00A3FF
+Icon          | Bet slip icon, 24px, white
+Border Radius | 28px (circle)
+Shadow        | 0 4px 20px rgba(0, 102, 255, 0.4)
+Badge         | Red circle, item count, top-right
+--------------------------------------------------------------------------------
+
+FAB BADGE (ITEM COUNT)
+--------------------------------------------------------------------------------
+PROPERTY      | VALUE
+--------------------------------------------------------------------------------
+Size          | 20px × 20px minimum
+Position      | Top right, offset -4px
+Background    | #FF3B30 (Error Red)
+Text          | 12px, White Bold, centered
+Border        | 2px Deep Blue (creates separation)
+Border Radius | 9999px
+--------------------------------------------------------------------------------
+
+
+================================================================================
+18. ANIMATIONS & TRANSITIONS
+================================================================================
+
+TIMING FUNCTIONS
+--------------------------------------------------------------------------------
+NAME        | CSS VALUE                          | USE CASE
+--------------------------------------------------------------------------------
+ease-smooth | cubic-bezier(0.4, 0, 0.2, 1)       | General transitions
+ease-bounce | cubic-bezier(0.68, -0.55, 0.265, 1.55) | Playful elements
+ease-in     | cubic-bezier(0.4, 0, 1, 1)         | Exit animations
+ease-out    | cubic-bezier(0, 0, 0.2, 1)         | Enter animations
+linear      | linear                              | Continuous animations
+--------------------------------------------------------------------------------
+
+DURATION SCALE
+--------------------------------------------------------------------------------
+TOKEN   | VALUE  | USE CASE
+--------------------------------------------------------------------------------
+instant | 50ms   | Micro-interactions
+fast    | 150ms  | Button feedback
+normal  | 250ms  | Standard transitions
+slow    | 400ms  | Page transitions
+slower  | 600ms  | Complex animations
+--------------------------------------------------------------------------------
+
+COMMON ANIMATIONS
+--------------------------------------------------------------------------------
+ANIMATION      | PROPERTIES              | DURATION | EASING
+--------------------------------------------------------------------------------
+Fade In        | opacity: 0 → 1          | 250ms    | ease-out
+Slide Up       | translateY: 20px → 0    | 300ms    | ease-out
+Scale In       | scale: 0.95 → 1         | 200ms    | ease-bounce
+Glow Pulse     | box-shadow opacity      | 1500ms   | ease-in-out
+Shake Error    | translateX: ±5px        | 400ms    | ease-smooth
+Bounce         | scale: 1 → 1.1 → 1      | 300ms    | ease-bounce
+--------------------------------------------------------------------------------
+
+LIST STAGGER ANIMATION CSS
+--------------------------------------------------------------------------------
+/* Each item delays by index * 50ms */
+.list-item {
+  animation: fadeSlideIn 300ms ease-out;
+  animation-delay: calc(var(--index) * 50ms);
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+--------------------------------------------------------------------------------
+
+
+================================================================================
+19. SPORT-SPECIFIC COLORS
+================================================================================
+
+SPORT COLORS
+--------------------------------------------------------------------------------
+SPORT              | PRIMARY COLOR | HEX      | EMOJI
+--------------------------------------------------------------------------------
+NFL                | Navy Blue     | #013369  | 🏈
+NBA                | Orange/Red    | #C8102E  | 🏀
+Soccer (EPL)       | Purple        | #38003C  | ⚽
+Soccer (La Liga)   | Orange        | #FF4B44  | ⚽
+Soccer (Champions) | Navy          | #0D1541  | ⚽
+Soccer (MLS)       | Blue          | #0033A0  | ⚽
+NHL                | Black/Silver  | #000000  | 🏒
+MLB                | Red/Blue      | #002D72  | ⚾
+NCAA Football      | Brown         | #8B4513  | 🏈
+NCAA Basketball    | Orange        | #FF6B00  | 🏀
+--------------------------------------------------------------------------------
+
+SPORT COLOR USAGE
+--------------------------------------------------------------------------------
+
+✦ Sport Filter Chips
+  Selected state uses sport color as background at 80% opacity.
+
+✦ Game Cards
+  Sport icon badge uses sport color. Subtle tint on card hover.
+
+✦ Tab Headers
+  Active sport tab in Live screen uses sport color underline.
+
+
+================================================================================
+20. CSS VARIABLES (COPY-PASTE)
+================================================================================
+
+Copy this complete CSS variable set to implement the Blue Aura theme:
+
+--------------------------------------------------------------------------------
+:root {
+  /* ===== COLORS ===== */
+  --color-primary-blue: #0066FF;
+  --color-glow-blue: #00A3FF;
+  --color-accent-cyan: #00D4FF;
+  --color-deep-blue: #0A1628;
+  --color-glass-blue: #1E3A5F;
+  --color-soft-blue: #1A3A5C;
+  --color-ice-blue: #E0F4FF;
+  --color-success: #00FF7F;
+  --color-error: #FF3B30;
+  --color-warning: #FFD700;
+  --color-live: #FF416C;
+
+  /* ===== TEXT ===== */
+  --text-primary: rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.70);
+  --text-muted: rgba(255, 255, 255, 0.50);
+  --text-disabled: rgba(255, 255, 255, 0.30);
+
+  /* ===== TYPOGRAPHY ===== */
+  --font-family: 'Loar', 'Public Sans', Arial, sans-serif;
+  --font-weight-bold: 600;
+
+  /* ===== SPACING ===== */
+  --space-xxs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-xxl: 24px;
+  --space-xxxl: 32px;
+
+  /* ===== BORDER RADIUS ===== */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-xxl: 24px;
+  --radius-xxxl: 32px;
+  --radius-round: 9999px;
+
+  /* ===== GLASS EFFECT ===== */
+  --glass-bg: rgba(30, 58, 95, 0.6);
+  --glass-blur: 20px;
+  --glass-border: rgba(0, 163, 255, 0.3);
+
+  /* ===== SHADOWS ===== */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.3);
+
+  /* ===== GLOWS ===== */
+  --glow-primary: 0 0 20px rgba(0, 102, 255, 0.4);
+  --glow-cyan: 0 0 30px rgba(0, 212, 255, 0.3);
+  --glow-success: 0 0 25px rgba(0, 255, 127, 0.35);
+  --glow-gold: 0 0 30px rgba(255, 215, 0, 0.4);
+
+  /* ===== GRADIENTS ===== */
+  --gradient-primary: linear-gradient(135deg, #0066FF, #00A3FF);
+  --gradient-cyan: linear-gradient(135deg, #00A3FF, #00D4FF);
+  --gradient-gold: linear-gradient(135deg, #FFD700, #FFA500);
+  --gradient-success: linear-gradient(135deg, #00FF7F, #00D68F);
+  --gradient-live: linear-gradient(135deg, #FF416C, #FF4B2B);
+
+  /* ===== ANIMATION ===== */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+}
+--------------------------------------------------------------------------------
+
+
+================================================================================
+                              HOTSTREAK
+                    COMPREHENSIVE STYLE GUIDE
+          Blue Aura Theme • Liquid Glass • Round & Clean
+                            Version 1.0
+================================================================================
