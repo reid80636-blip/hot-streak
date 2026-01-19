@@ -4405,8 +4405,8 @@
                     <line x1="12" y1="16" x2="12.01" y2="16"/>
                 </svg>
             </div>
-            <h2 class="error-title">Already on the List!</h2>
-            <p class="error-subtitle">This email is already registered on our waitlist. We'll keep you updated on HotStreak's progress!</p>
+            <h2 class="error-title" id="errorTitle">Oops!</h2>
+            <p class="error-subtitle" id="errorSubtitle">Something went wrong.</p>
             <button class="error-close-btn" onclick="closeErrorModal()">Got It!</button>
         </div>
     </div>
@@ -4534,8 +4534,10 @@
                 document.body.style.overflow = '';
             };
 
-            // Show error modal
-            function showErrorModal() {
+            // Show error modal with custom message
+            function showErrorModal(title, message) {
+                document.getElementById('errorTitle').textContent = title;
+                document.getElementById('errorSubtitle').textContent = message;
                 const overlay = document.getElementById('errorOverlay');
                 overlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -4559,13 +4561,23 @@
                 const email = emailInput.value.trim();
 
                 // Validation
-                if (!name || !email) {
-                    alert('Please enter both your name and email.');
+                if (!name && !email) {
+                    showErrorModal('Missing Information', 'Please enter both your name and email address to join the waitlist.');
+                    return;
+                }
+
+                if (!name) {
+                    showErrorModal('Name Required', 'Please enter your name so we know who you are!');
+                    return;
+                }
+
+                if (!email) {
+                    showErrorModal('Email Required', 'Please enter your email address so we can keep you updated.');
                     return;
                 }
 
                 if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-                    alert('Please enter a valid email address.');
+                    showErrorModal('Invalid Email', 'Please enter a valid email address (e.g., name@example.com).');
                     return;
                 }
 
@@ -4581,7 +4593,7 @@
                     if (error) {
                         if (error.code === '23505') {
                             // Duplicate email - show error modal
-                            showErrorModal();
+                            showErrorModal('Already on the List!', 'This email is already registered on our waitlist. We\'ll keep you updated on HotStreak\'s progress!');
                             btn.disabled = false;
                             btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Join Waitlist';
                             return;
@@ -4600,7 +4612,7 @@
 
                 } catch (error) {
                     console.error('Error joining waitlist:', error);
-                    alert('Something went wrong. Please try again.');
+                    showErrorModal('Something Went Wrong', 'Please try again. If the problem persists, check your internet connection.');
                     btn.disabled = false;
                     btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Join Waitlist';
                 }
