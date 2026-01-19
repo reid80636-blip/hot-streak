@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#0A1628">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="HotStreak - The ultimate virtual sports prediction app. Pick winners, build parlays, and compete against friends with virtual coins.">
     <title>HotStreak - Virtual Sports Predictions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,12 +42,20 @@
             --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
+        html {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
         body {
             font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         h1, h2, h3, .hero h1, .section-header h2, .cta-box h2, .showcase-content h3 {
@@ -2747,22 +2760,23 @@
                 flex-direction: column;
                 gap: 2rem;
                 text-align: center;
+                padding: 0 1rem;
             }
 
             .showcase-phone {
-                transform: translateY(60px) scale(0.95);
+                transform: translateY(30px) scale(0.98);
             }
 
             .showcase-item.reverse .showcase-phone {
-                transform: translateY(60px) scale(0.95);
+                transform: translateY(30px) scale(0.98);
             }
 
             .showcase-content {
-                transform: translateY(50px);
+                transform: translateY(20px);
             }
 
             .showcase-item.reverse .showcase-content {
-                transform: translateY(50px);
+                transform: translateY(20px);
             }
 
             .showcase-item.visible .showcase-phone,
@@ -2773,15 +2787,54 @@
             .showcase-features {
                 align-items: center;
             }
+
+            .showcase-content h3 {
+                font-size: 1.75rem;
+            }
+
+            .showcase-content p {
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
+            .screenshots {
+                padding: 2.5rem 0 1.5rem;
+            }
+
+            .showcase-item {
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
             .showcase-phone {
-                flex: 0 0 260px;
+                flex: 0 0 240px;
+            }
+
+            .screenshot-frame {
+                width: 220px;
             }
 
             .screenshot-image {
-                height: 440px;
+                height: 400px;
+            }
+
+            .showcase-content h3 {
+                font-size: 1.5rem;
+            }
+
+            .showcase-content p {
+                font-size: 0.95rem;
+                padding: 0 0.5rem;
+            }
+
+            .showcase-features {
+                gap: 0.5rem;
+            }
+
+            .showcase-feature {
+                font-size: 0.875rem;
+                padding: 0.5rem 0.75rem;
             }
         }
 
@@ -3118,27 +3171,56 @@
         }
 
         /* Mobile Responsive */
+        /* ==================== */
+        /* MOBILE OPTIMIZATIONS */
+        /* ==================== */
+
+        /* Tablet and below */
         @media (max-width: 968px) {
+            /* Reduce animation complexity for performance */
+            *, *::before, *::after {
+                animation-duration: 0.3s !important;
+                animation-delay: 0s !important;
+            }
+
+            /* Keep essential animations */
+            .confetti, #confettiCanvas, .hero-orb, .particle {
+                animation-duration: unset !important;
+                animation-delay: unset !important;
+            }
+
             .hero {
                 flex-direction: column;
                 text-align: center;
-                padding-top: 6rem;
+                padding: 5rem 1.25rem 3rem;
+                min-height: auto;
             }
 
             .hero-content {
                 max-width: 100%;
+                padding: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                line-height: 1.15;
+                margin-bottom: 1.25rem;
             }
 
             .hero p {
-                margin: 0 auto 2rem;
+                margin: 0 auto 1.75rem;
+                font-size: 1.1rem;
+                padding: 0 0.5rem;
             }
 
             .waitlist-form {
                 margin: 0 auto;
+                width: 100%;
+                max-width: 380px;
             }
 
             .hero-phone {
-                margin-top: 3rem;
+                margin-top: 2.5rem;
             }
 
             .nav-links {
@@ -3149,124 +3231,439 @@
                 display: none;
             }
 
+            /* Reduce orb complexity */
             .hero-orb-1, .hero-orb-2, .hero-orb-3 {
-                opacity: 0.3;
+                opacity: 0.2;
+                filter: blur(100px);
+            }
+
+            .hero-orb-3 {
+                display: none;
+            }
+
+            /* Reduce particles on mobile */
+            .particle:nth-child(n+6) {
+                display: none;
+            }
+
+            /* Navigation mobile */
+            nav {
+                padding: 1rem 4%;
+            }
+
+            nav.scrolled {
+                padding: 0.75rem 4%;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .logo-icon {
+                width: 34px;
+                height: 34px;
+            }
+
+            .cta-button {
+                padding: 0.65rem 1.25rem;
+                font-size: 0.9rem;
+            }
+
+            /* Section headers */
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .section-header p {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            /* Footer */
+            footer {
+                padding: 2.5rem 4%;
+            }
+
+            .footer-links {
+                gap: 1.5rem;
+            }
+
+            .footer-links a {
+                font-size: 0.85rem;
+                padding: 0.5rem; /* Larger touch target */
             }
         }
 
+        /* Mobile phones */
         @media (max-width: 480px) {
+            /* Further reduce animations */
+            .liquid-glass-modal::before,
+            .liquid-glass-modal::after,
+            .waitlist-btn::before,
+            .cta-button::before,
+            .success-close-btn::before {
+                display: none !important;
+            }
+
+            .hero {
+                padding: 4.5rem 1rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+                letter-spacing: -0.02em;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
+            .hero-badge {
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
+            }
+
             .iphone {
-                width: 240px;
-                height: 500px;
-                border-radius: 36px;
-                padding: 0;
+                width: 220px;
+                height: 460px;
+                border-radius: 32px;
             }
 
             .iphone-screen {
-                border-radius: 36px;
+                border-radius: 32px;
             }
 
+            /* Waitlist form mobile */
             .waitlist-form {
                 width: 100%;
                 max-width: 100%;
-                padding: 0 0.5rem;
+                padding: 0;
+            }
+
+            .waitlist-inputs {
+                gap: 0.75rem;
             }
 
             .waitlist-input {
-                padding: 1rem;
+                padding: 1rem 1.1rem;
                 font-size: 16px; /* Prevents iOS zoom */
+                border-radius: 12px;
+                -webkit-appearance: none; /* Remove iOS styling */
             }
 
             .waitlist-btn {
                 padding: 1rem;
+                font-size: 1rem;
+                border-radius: 12px;
+                min-height: 52px; /* Touch-friendly */
             }
 
             .waitlist-disclaimer {
                 font-size: 0.75rem;
+                text-align: center;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.35rem;
             }
 
-            /* Modal mobile styles */
+            .waitlist-disclaimer svg {
+                margin-top: 0;
+            }
+
+            /* Modal mobile optimizations */
+            .success-overlay,
+            .error-overlay {
+                padding: 1rem;
+                align-items: flex-start;
+                padding-top: 10vh;
+            }
+
             .liquid-glass-modal {
-                width: 95%;
-                padding: 2rem 1.5rem;
-                border-radius: 24px;
-                margin: 1rem;
+                width: 100%;
+                max-width: 100%;
+                padding: 1.75rem 1.25rem;
+                border-radius: 20px;
+                margin: 0;
+                max-height: 85vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
             .success-icon {
-                width: 70px;
-                height: 70px;
-                margin-bottom: 1.25rem;
+                width: 65px;
+                height: 65px;
+                margin-bottom: 1rem;
             }
 
             .success-icon svg {
-                width: 35px;
-                height: 35px;
+                width: 32px;
+                height: 32px;
             }
 
             .success-title {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
+                margin-bottom: 0.75rem;
             }
 
             .success-subtitle {
-                font-size: 1rem;
+                font-size: 0.95rem;
                 margin-bottom: 1.25rem;
+                line-height: 1.5;
             }
 
             .success-features {
-                gap: 0.625rem;
+                gap: 0.6rem;
                 margin-bottom: 1.25rem;
+                padding: 0 0.25rem;
+            }
+
+            .success-feature {
+                gap: 0.6rem;
+            }
+
+            .success-feature svg {
+                width: 18px;
+                height: 18px;
             }
 
             .success-feature span {
-                font-size: 0.875rem;
+                font-size: 0.85rem;
             }
 
             .release-badge {
-                padding: 0.75rem 1.25rem;
-                font-size: 0.875rem;
+                padding: 0.7rem 1.1rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .release-badge svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .release-badge span {
+                font-size: 0.85rem;
             }
 
             .success-close-btn,
             .error-close-btn {
-                padding: 0.9rem 2rem;
-                font-size: 0.95rem;
+                padding: 1rem 2rem;
+                font-size: 1rem;
                 width: 100%;
+                min-height: 52px; /* Touch-friendly */
+                border-radius: 12px;
+            }
+
+            .error-overlay .liquid-glass-modal {
+                padding: 1.5rem 1.25rem;
             }
 
             .error-icon {
-                width: 60px;
-                height: 60px;
+                width: 56px;
+                height: 56px;
+                margin-bottom: 1rem;
             }
 
             .error-icon svg {
-                width: 30px;
-                height: 30px;
+                width: 28px;
+                height: 28px;
             }
 
             .error-title {
-                font-size: 1.3rem;
+                font-size: 1.25rem;
+                margin-bottom: 0.5rem;
             }
 
             .error-subtitle {
                 font-size: 0.9rem;
+                margin-bottom: 1.25rem;
+                line-height: 1.5;
             }
 
             .btn-primary, .btn-secondary {
                 width: 100%;
-                max-width: 280px;
                 justify-content: center;
+                min-height: 48px;
             }
 
+            /* Sport logos */
             .sports-logos {
-                gap: 1.5rem;
+                gap: 1.25rem;
             }
 
             .sport-logo {
-                width: 64px;
-                height: 64px;
-                font-size: 1.2rem;
+                width: 56px;
+                height: 56px;
+                font-size: 1.1rem;
             }
+
+            /* Navigation */
+            nav {
+                padding: 0.875rem 4%;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+                gap: 0.4rem;
+            }
+
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+            }
+
+            .cta-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            /* Section headers */
+            .section-header {
+                margin-bottom: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .section-header p {
+                font-size: 0.95rem;
+            }
+
+            /* Footer */
+            footer {
+                padding: 2rem 4%;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+
+            .footer-links a {
+                padding: 0.75rem;
+                display: block;
+            }
+
+            .copyright {
+                font-size: 0.8rem;
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* Extra small phones */
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .iphone {
+                width: 200px;
+                height: 420px;
+            }
+
+            .waitlist-input {
+                padding: 0.9rem 1rem;
+            }
+
+            .success-title {
+                font-size: 1.35rem;
+            }
+
+            .liquid-glass-modal {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        /* Landscape mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                padding: 4rem 2rem 2rem;
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .hero-phone {
+                margin-top: 0;
+            }
+
+            .iphone {
+                width: 180px;
+                height: 380px;
+            }
+
+            .success-overlay,
+            .error-overlay {
+                padding: 0.5rem;
+                align-items: center;
+                padding-top: 0;
+            }
+
+            .liquid-glass-modal {
+                max-height: 95vh;
+                padding: 1.25rem;
+            }
+
+            .success-icon,
+            .error-icon {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 0.75rem;
+            }
+
+            .success-features {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem 1rem;
+            }
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            /* Remove hover effects that don't work well on touch */
+            .nav-links a::after,
+            .footer-links a::after {
+                display: none;
+            }
+
+            /* Ensure touch targets are large enough */
+            .nav-links a,
+            .footer-links a {
+                padding: 0.5rem;
+            }
+
+            /* Remove hover transforms on buttons */
+            .waitlist-btn:hover,
+            .cta-button:hover,
+            .success-close-btn:hover,
+            .error-close-btn:hover {
+                transform: none;
+            }
+
+            /* Add active states instead */
+            .waitlist-btn:active,
+            .cta-button:active,
+            .success-close-btn:active,
+            .error-close-btn:active {
+                transform: scale(0.98);
+                opacity: 0.9;
+            }
+        }
 
             .screenshot-item {
                 flex: 0 0 260px;
