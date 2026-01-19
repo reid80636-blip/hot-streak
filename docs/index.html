@@ -523,16 +523,19 @@
 
         /* Liquid Glass Modal */
         .liquid-glass-modal {
-            background: linear-gradient(
-                135deg,
-                rgba(255, 255, 255, 0.1) 0%,
-                rgba(255, 255, 255, 0.05) 50%,
-                rgba(0, 163, 255, 0.1) 100%
-            );
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 32px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255, 255, 255, 0.15) 0%,
+                    rgba(255, 255, 255, 0.05) 25%,
+                    rgba(0, 212, 255, 0.08) 50%,
+                    rgba(255, 255, 255, 0.05) 75%,
+                    rgba(0, 163, 255, 0.12) 100%
+                );
+            backdrop-filter: blur(50px) saturate(180%);
+            -webkit-backdrop-filter: blur(50px) saturate(180%);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 36px;
             padding: 3rem 2.5rem;
             max-width: 480px;
             width: 90%;
@@ -540,9 +543,11 @@
             position: relative;
             overflow: hidden;
             box-shadow:
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                0 0 80px rgba(0, 212, 255, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 0 100px rgba(0, 212, 255, 0.2),
+                0 0 60px rgba(0, 163, 255, 0.15),
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1);
             transform: scale(0.8) translateY(20px);
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -551,29 +556,133 @@
             transform: scale(1) translateY(0);
         }
 
-        /* Glass Shine Effect */
+        /* Liquid Refraction Layer */
         .liquid-glass-modal::before {
             content: '';
             position: absolute;
-            top: 0;
+            top: -50%;
             left: -50%;
             width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+            animation: liquidMove 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        /* Glass Shine Sweep */
+        .liquid-glass-modal::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
             height: 100%;
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                rgba(255, 255, 255, 0.05) 45%,
-                rgba(255, 255, 255, 0.1) 50%,
-                rgba(255, 255, 255, 0.05) 55%,
+                rgba(255, 255, 255, 0.08) 40%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0.08) 60%,
                 transparent 100%
             );
             transform: skewX(-20deg);
-            animation: glassShine 3s ease-in-out infinite;
+            animation: glassShine 4s ease-in-out infinite;
+        }
+
+        @keyframes liquidMove {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(5%, 5%) rotate(2deg); }
+            50% { transform: translate(0, 10%) rotate(0deg); }
+            75% { transform: translate(-5%, 5%) rotate(-2deg); }
         }
 
         @keyframes glassShine {
-            0%, 100% { left: -50%; }
-            50% { left: 150%; }
+            0%, 100% { left: -100%; }
+            50% { left: 200%; }
+        }
+
+        /* Error Modal Styling */
+        .error-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 22, 40, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .error-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .error-overlay .liquid-glass-modal {
+            max-width: 400px;
+            padding: 2.5rem 2rem;
+        }
+
+        .error-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF3B30 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            box-shadow: 0 10px 40px rgba(255, 59, 48, 0.4);
+            animation: iconPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+        }
+
+        .error-icon svg {
+            width: 35px;
+            height: 35px;
+            color: white;
+        }
+
+        .error-title {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .error-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .error-close-btn {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF3B30 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Public Sans', sans-serif;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .error-close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(255, 59, 48, 0.4);
         }
 
         .success-icon {
@@ -4286,6 +4395,22 @@
         </div>
     </div>
 
+    <!-- Error Modal Overlay -->
+    <div class="error-overlay" id="errorOverlay">
+        <div class="liquid-glass-modal">
+            <div class="error-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+            </div>
+            <h2 class="error-title">Already on the List!</h2>
+            <p class="error-subtitle">This email is already registered on our waitlist. We'll keep you updated on HotStreak's progress!</p>
+            <button class="error-close-btn" onclick="closeErrorModal()">Got It!</button>
+        </div>
+    </div>
+
     <!-- Confetti Canvas -->
     <canvas id="confettiCanvas"></canvas>
 
@@ -4309,54 +4434,75 @@
             const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVnZHNvbndnd29naHhwZGZ6YXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzNDUyMDAsImV4cCI6MjA4MzkyMTIwMH0.wd4pdOa-dRgUls-K4_g9Mo9TGnjRPqbhXghYlgw1VpI';
             const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-            // Confetti Animation
+            // Confetti Animation - Big celebration!
             function launchConfetti() {
                 const canvas = document.getElementById('confettiCanvas');
                 const ctx = canvas.getContext('2d');
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
 
-                const confettiColors = ['#00D4FF', '#0066FF', '#00A3FF', '#ffffff', '#00FF7F', '#f0c54f'];
-                const confettiCount = 150;
+                const confettiColors = ['#00D4FF', '#0066FF', '#00A3FF', '#ffffff', '#00FF7F', '#f0c54f', '#FF6B6B', '#8b5cf6', '#00FFAA'];
                 const confetti = [];
+                let animationFrame;
+                let startTime = Date.now();
+                const duration = 15000; // 15 seconds
 
-                for (let i = 0; i < confettiCount; i++) {
-                    confetti.push({
-                        x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height - canvas.height,
-                        w: Math.random() * 10 + 5,
-                        h: Math.random() * 6 + 4,
-                        color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
-                        speed: Math.random() * 3 + 2,
-                        angle: Math.random() * Math.PI * 2,
-                        spin: Math.random() * 0.2 - 0.1,
-                        drift: Math.random() * 2 - 1
-                    });
+                // Create initial burst
+                function createConfetti(count) {
+                    for (let i = 0; i < count; i++) {
+                        confetti.push({
+                            x: Math.random() * canvas.width,
+                            y: -20 - Math.random() * 300,
+                            w: Math.random() * 12 + 6,
+                            h: Math.random() * 8 + 4,
+                            color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+                            speed: Math.random() * 4 + 2,
+                            angle: Math.random() * Math.PI * 2,
+                            spin: Math.random() * 0.3 - 0.15,
+                            drift: Math.random() * 3 - 1.5,
+                            wobble: Math.random() * Math.PI * 2,
+                            wobbleSpeed: Math.random() * 0.1 + 0.05
+                        });
+                    }
                 }
 
-                let animationFrame;
+                // Initial burst of 400 confetti
+                createConfetti(400);
+
                 function animate() {
+                    const elapsed = Date.now() - startTime;
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                    let activeConfetti = 0;
-                    confetti.forEach(c => {
-                        if (c.y < canvas.height + 50) {
-                            activeConfetti++;
-                            c.y += c.speed;
-                            c.x += c.drift;
-                            c.angle += c.spin;
+                    // Add more confetti periodically during first 10 seconds
+                    if (elapsed < 10000 && Math.random() < 0.3) {
+                        createConfetti(5);
+                    }
 
-                            ctx.save();
-                            ctx.translate(c.x, c.y);
-                            ctx.rotate(c.angle);
-                            ctx.fillStyle = c.color;
-                            ctx.globalAlpha = Math.min(1, (canvas.height - c.y + 200) / 200);
-                            ctx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
-                            ctx.restore();
+                    // Remove off-screen confetti and animate remaining
+                    for (let i = confetti.length - 1; i >= 0; i--) {
+                        const c = confetti[i];
+
+                        if (c.y > canvas.height + 50) {
+                            confetti.splice(i, 1);
+                            continue;
                         }
-                    });
 
-                    if (activeConfetti > 0) {
+                        c.y += c.speed;
+                        c.wobble += c.wobbleSpeed;
+                        c.x += c.drift + Math.sin(c.wobble) * 0.5;
+                        c.angle += c.spin;
+
+                        ctx.save();
+                        ctx.translate(c.x, c.y);
+                        ctx.rotate(c.angle);
+                        ctx.fillStyle = c.color;
+                        ctx.globalAlpha = Math.min(1, Math.max(0.3, (canvas.height - c.y + 100) / canvas.height));
+                        ctx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
+                        ctx.restore();
+                    }
+
+                    // Continue animation for 15 seconds or until confetti is gone
+                    if (elapsed < duration || confetti.length > 0) {
                         animationFrame = requestAnimationFrame(animate);
                     } else {
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -4365,11 +4511,12 @@
 
                 animate();
 
-                // Stop after 5 seconds
+                // Force stop after 15 seconds
                 setTimeout(() => {
                     cancelAnimationFrame(animationFrame);
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                }, 5000);
+                    confetti.length = 0;
+                }, duration + 1000);
             }
 
             // Show success modal
@@ -4383,6 +4530,20 @@
             // Close success modal
             window.closeSuccessModal = function() {
                 const overlay = document.getElementById('successOverlay');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            // Show error modal
+            function showErrorModal() {
+                const overlay = document.getElementById('errorOverlay');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Close error modal
+            window.closeErrorModal = function() {
+                const overlay = document.getElementById('errorOverlay');
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
             };
@@ -4419,8 +4580,8 @@
 
                     if (error) {
                         if (error.code === '23505') {
-                            // Duplicate email
-                            alert('This email is already on the waitlist!');
+                            // Duplicate email - show error modal
+                            showErrorModal();
                             btn.disabled = false;
                             btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Join Waitlist';
                             return;
