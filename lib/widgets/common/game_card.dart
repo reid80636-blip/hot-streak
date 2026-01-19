@@ -11,6 +11,7 @@ import '../../models/prediction.dart';
 import '../../models/sport.dart';
 import '../../providers/bet_slip_provider.dart';
 import '../betting/game_bet_popup.dart';
+import '../betting/stake_popup.dart';
 import 'team_logo.dart';
 
 class GameCard extends StatelessWidget {
@@ -192,7 +193,14 @@ class GameCard extends StatelessWidget {
                           isHighlighted: betSlip.hasItem(game.id, PredictionType.moneyline, PredictionOutcome.away),
                           onTap: () {
                             HapticFeedback.mediumImpact();
-                            GameBetPopup.show(context, game);
+                            // Go directly to stake popup with away team selected
+                            StakePopup.show(
+                              context,
+                              game: game,
+                              type: PredictionType.moneyline,
+                              outcome: PredictionOutcome.away,
+                              odds: game.odds!.away,
+                            );
                           },
                         ),
                         const SizedBox(width: 8),
@@ -203,7 +211,14 @@ class GameCard extends StatelessWidget {
                             isHighlighted: betSlip.hasItem(game.id, PredictionType.moneyline, PredictionOutcome.draw),
                             onTap: () {
                               HapticFeedback.mediumImpact();
-                              GameBetPopup.show(context, game);
+                              // Go directly to stake popup with draw selected
+                              StakePopup.show(
+                                context,
+                                game: game,
+                                type: PredictionType.moneyline,
+                                outcome: PredictionOutcome.draw,
+                                odds: game.odds!.draw!,
+                              );
                             },
                           ),
                           const SizedBox(width: 8),
@@ -214,7 +229,14 @@ class GameCard extends StatelessWidget {
                           isHighlighted: betSlip.hasItem(game.id, PredictionType.moneyline, PredictionOutcome.home),
                           onTap: () {
                             HapticFeedback.mediumImpact();
-                            GameBetPopup.show(context, game);
+                            // Go directly to stake popup with home team selected
+                            StakePopup.show(
+                              context,
+                              game: game,
+                              type: PredictionType.moneyline,
+                              outcome: PredictionOutcome.home,
+                              odds: game.odds!.home,
+                            );
                           },
                         ),
                       ],

@@ -15,6 +15,7 @@ import '../../providers/auth_provider.dart';
 import '../../providers/games_provider.dart';
 import '../../providers/predictions_provider.dart';
 import '../common/team_logo.dart';
+import 'stake_popup.dart';
 
 /// Stadium Live style bottom sheet for game betting with all options
 class GameBetPopup extends StatefulWidget {
@@ -117,18 +118,18 @@ class _GameBetPopupState extends State<GameBetPopup> {
 
   void _selectBet(PredictionOutcome outcome, double odds, {double? line}) {
     HapticFeedback.selectionClick();
-    setState(() {
-      if (_selectedOutcome == outcome && _selectedType == _selectedType) {
-        // Deselect if tapping the same one
-        _selectedOutcome = null;
-        _selectedOdds = null;
-        _selectedLine = null;
-      } else {
-        _selectedOutcome = outcome;
-        _selectedOdds = odds;
-        _selectedLine = line;
-      }
-    });
+
+    // Close this popup and open StakePopup with selected bet
+    Navigator.of(context).pop();
+
+    StakePopup.show(
+      context,
+      game: _game,
+      type: _selectedType,
+      outcome: outcome,
+      odds: odds,
+      line: line,
+    );
   }
 
   Future<void> _placeBet() async {
@@ -244,12 +245,19 @@ class _GameBetPopupState extends State<GameBetPopup> {
                     _buildBetTypeSelector(),
                     const SizedBox(height: 12),
                     _buildOddsOptions(),
-                    if (_selectedOutcome != null) ...[
-                      const SizedBox(height: 16),
-                      _buildStakeSection(maxStake),
-                      _buildPayoutSection(),
-                      _buildPlaceButton(userCoins),
-                    ],
+                    const SizedBox(height: 8),
+                    // Hint text
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'Tap odds to continue',
+                        style: TextStyle(
+                          color: AppColors.textMutedOp,
+                          fontSize: 13,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                     SizedBox(height: bottomPadding + 16),
                   ],
                 ),
