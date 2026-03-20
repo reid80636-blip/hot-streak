@@ -3,450 +3,1063 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0A1A2F">
+    <meta name="theme-color" content="#FFF8F3">
     <meta name="description" content="FamSync - Family life, simplified. Keep your family organized with shared calendars, smart lists, AI-powered suggestions, and real-time coordination.">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>FamSync - Family Life, Simplified</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg: #0A1A2F;
-            --bg-card: #122240;
-            --bg-elevated: #1A2D4D;
-            --accent: #FF6B35;
-            --accent-light: #FF8F65;
-            --accent-glow: rgba(255, 107, 53, 0.15);
-            --teal: #2DD4A8;
-            --teal-glow: rgba(45, 212, 168, 0.12);
-            --blue: #4A9EFF;
-            --purple: #A78BFA;
-            --text: #FFFFFF;
-            --text-secondary: #94A3B8;
-            --text-muted: #64748B;
-            --border: rgba(255, 255, 255, 0.06);
-            --radius: 16px;
+            --cream: #FFF8F3;
+            --cream-dark: #FFF0E5;
+            --warm-white: #FFFDFB;
+            --coral: #FF6B4A;
+            --coral-light: #FF8A70;
+            --coral-deep: #E8553A;
+            --coral-glow: rgba(255, 107, 74, 0.1);
+            --coral-glow-strong: rgba(255, 107, 74, 0.18);
+            --sage: #4CAF82;
+            --sage-light: #6BC49A;
+            --sage-glow: rgba(76, 175, 130, 0.1);
+            --sky: #5B9CF5;
+            --sky-glow: rgba(91, 156, 245, 0.1);
+            --lavender: #9B8FE8;
+            --lavender-glow: rgba(155, 143, 232, 0.1);
+            --amber: #F5A623;
+            --amber-glow: rgba(245, 166, 35, 0.1);
+            --rose: #E8729A;
+            --rose-glow: rgba(232, 114, 154, 0.1);
+            --navy: #1E293B;
+            --navy-light: #334155;
+            --text: #1E293B;
+            --text-secondary: #64748B;
+            --text-muted: #94A3B8;
+            --border: rgba(0, 0, 0, 0.06);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+            --shadow-xl: 0 24px 60px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.05);
+            --radius: 20px;
+            --radius-sm: 12px;
         }
 
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--cream);
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.65;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideLeft {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideRight {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes morphBlob {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+            75% { border-radius: 60% 40% 60% 30% / 60% 40% 30% 70%; }
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+
         /* NAV */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 16px 32px;
-            background: rgba(10, 26, 47, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
+            padding: 14px 32px;
+            background: rgba(255, 248, 243, 0.8);
+            backdrop-filter: blur(24px) saturate(1.5);
+            -webkit-backdrop-filter: blur(24px) saturate(1.5);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
             display: flex; align-items: center; justify-content: space-between;
+            transition: padding 0.3s, box-shadow 0.3s;
+        }
+        nav.scrolled {
+            padding: 10px 32px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
         }
         .nav-brand {
-            font-size: 1.4rem; font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--accent-light));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem; font-weight: 400;
+            color: var(--coral);
+            text-decoration: none;
+            transition: transform 0.2s;
         }
-        .nav-links { display: flex; gap: 28px; list-style: none; }
+        .nav-brand:hover { transform: scale(1.02); }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
         .nav-links a {
             color: var(--text-secondary); text-decoration: none;
-            font-size: 0.9rem; font-weight: 500;
+            font-size: 0.88rem; font-weight: 500;
             transition: color 0.2s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute; bottom: -4px; left: 0; right: 0;
+            height: 2px; background: var(--coral);
+            transform: scaleX(0); transform-origin: center;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 1px;
         }
         .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { transform: scaleX(1); }
         .nav-cta {
-            background: var(--accent); color: #fff; border: none;
-            padding: 10px 22px; border-radius: 10px; font-weight: 600;
-            font-size: 0.9rem; cursor: pointer; text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
+            background: var(--coral); color: #fff; border: none;
+            padding: 10px 24px; border-radius: 50px; font-weight: 600;
+            font-size: 0.88rem; cursor: pointer; text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 12px rgba(255, 107, 74, 0.25);
         }
         .nav-cta:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(255, 107, 74, 0.35);
         }
+        .nav-cta:active { transform: translateY(0); }
 
         /* HERO */
         .hero {
-            padding: 160px 32px 100px;
+            padding: 160px 32px 80px;
             text-align: center;
             position: relative;
-            max-width: 900px; margin: 0 auto;
+            max-width: 1000px; margin: 0 auto;
+            overflow: visible;
         }
+
+        /* Animated background blobs */
+        .hero-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .hero-blob-1 {
+            width: 500px; height: 500px;
+            background: var(--coral-glow-strong);
+            top: -100px; right: -150px;
+            animation: morphBlob 12s ease-in-out infinite, floatSlow 8s ease-in-out infinite;
+        }
+        .hero-blob-2 {
+            width: 400px; height: 400px;
+            background: var(--sage-glow);
+            bottom: -50px; left: -150px;
+            animation: morphBlob 15s ease-in-out infinite reverse, floatSlow 10s ease-in-out infinite 2s;
+        }
+        .hero-blob-3 {
+            width: 300px; height: 300px;
+            background: var(--sky-glow);
+            top: 50px; left: 10%;
+            animation: morphBlob 10s ease-in-out infinite 3s, float 7s ease-in-out infinite;
+        }
+
         .hero-badge {
-            display: inline-block;
-            padding: 6px 16px; border-radius: 20px;
-            background: var(--accent-glow);
-            border: 1px solid rgba(255, 107, 53, 0.2);
-            color: var(--accent-light); font-size: 0.8rem; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 18px; border-radius: 50px;
+            background: var(--warm-white);
+            border: 1px solid var(--border);
+            color: var(--coral); font-size: 0.78rem; font-weight: 600;
             letter-spacing: 0.5px; text-transform: uppercase;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-sm);
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        }
+        .hero-badge-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--sage); animation: pulse 2s infinite;
         }
         .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.2rem);
-            font-weight: 800; line-height: 1.1;
-            margin-bottom: 20px;
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.8rem, 7vw, 5rem);
+            font-weight: 400; line-height: 1.08;
+            margin-bottom: 22px; letter-spacing: -0.02em;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
         }
-        .hero h1 span {
-            background: linear-gradient(135deg, var(--accent), var(--teal));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .hero h1 .accent {
+            color: var(--coral);
+            font-style: italic;
+            position: relative;
+        }
+        .hero h1 .accent::after {
+            content: '';
+            position: absolute; bottom: 2px; left: -4px; right: -4px;
+            height: 12px; background: var(--coral-glow-strong);
+            border-radius: 4px; z-index: -1;
         }
         .hero p {
-            font-size: 1.15rem; color: var(--text-secondary);
-            max-width: 560px; margin: 0 auto 36px;
+            font-size: 1.18rem; color: var(--text-secondary);
+            max-width: 520px; margin: 0 auto 40px;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
         }
-        .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .hero-buttons {
+            display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+        }
         .btn-primary {
-            background: var(--accent); color: #fff;
-            padding: 14px 32px; border-radius: 12px;
-            font-weight: 700; font-size: 1rem;
+            background: var(--coral); color: #fff;
+            padding: 15px 34px; border-radius: 50px;
+            font-weight: 600; font-size: 1rem;
             text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 16px rgba(255, 107, 74, 0.3);
+            position: relative; overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
         }
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(255, 107, 53, 0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(255, 107, 74, 0.4);
         }
+        .btn-primary:active { transform: translateY(-1px); }
         .btn-secondary {
-            background: var(--bg-card); color: var(--text);
-            padding: 14px 32px; border-radius: 12px;
+            background: var(--warm-white); color: var(--text);
+            padding: 15px 34px; border-radius: 50px;
             font-weight: 600; font-size: 1rem;
             text-decoration: none; border: 1px solid var(--border);
-            transition: background 0.2s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--shadow-sm);
         }
-        .btn-secondary:hover { background: var(--bg-elevated); }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(0,0,0,0.1);
+        }
 
-        /* GLOW ORB */
-        .hero::before {
-            content: '';
-            position: absolute; top: 80px; left: 50%; transform: translateX(-50%);
-            width: 600px; height: 400px;
-            background: radial-gradient(ellipse, rgba(255, 107, 53, 0.08) 0%, transparent 70%);
-            pointer-events: none;
+        /* PHONE HERO */
+        .hero-phone-container {
+            margin-top: 60px;
+            perspective: 1000px;
+            animation: scaleIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+        .hero-phone {
+            width: 280px; height: 570px;
+            background: #000;
+            border-radius: 44px;
+            border: 4px solid #333;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.15),
+                0 10px 30px rgba(0,0,0,0.1),
+                inset 0 0 0 1px rgba(255,255,255,0.1);
+            transform: rotateX(2deg);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-phone:hover { transform: rotateX(0deg) translateY(-8px); }
+        .phone-notch {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 120px; height: 28px;
+            background: #000; border-radius: 0 0 18px 18px;
+            z-index: 5;
+        }
+        .phone-screen {
+            position: absolute; inset: 4px;
+            border-radius: 40px;
+            background: linear-gradient(180deg, #FFF8F3 0%, #FFF0E5 100%);
+            padding: 48px 18px 18px;
+            display: flex; flex-direction: column; gap: 10px;
+            overflow: hidden;
+        }
+        .ps-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 4px;
+        }
+        .ps-greeting { font-size: 1rem; font-weight: 700; color: var(--navy); }
+        .ps-avatar {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--coral), var(--coral-light));
+        }
+        .ps-sub { font-size: 0.6rem; color: var(--text-secondary); margin-bottom: 6px; }
+        .ps-card {
+            background: white;
+            border-radius: 14px; padding: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.04);
+            animation: fadeUp 0.5s ease both;
+        }
+        .ps-card-header {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+        }
+        .ps-dot {
+            width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+        }
+        .ps-card .title { font-size: 0.68rem; font-weight: 600; color: var(--navy); }
+        .ps-card .sub { font-size: 0.55rem; color: var(--text-secondary); }
+        .ps-foxy {
+            background: linear-gradient(135deg, #FFF5EE, #FFF0E5);
+            border: 1px solid rgba(255, 107, 74, 0.15);
+        }
+        .ps-foxy .title { color: var(--coral); font-size: 0.62rem; }
+        .ps-foxy .sub { color: var(--navy); font-size: 0.55rem; }
+        .ps-tabs {
+            display: flex; justify-content: space-around;
+            margin-top: auto; padding-top: 8px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        .ps-tab {
+            display: flex; flex-direction: column; align-items: center; gap: 2px;
+            font-size: 0.45rem; color: var(--text-muted); font-weight: 500;
+        }
+        .ps-tab.active { color: var(--coral); }
+        .ps-tab-icon {
+            width: 20px; height: 20px; border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.6rem;
+        }
+
+        /* FLOATING ELEMENTS around phone */
+        .float-element {
+            position: absolute;
+            background: white;
+            border-radius: 16px;
+            padding: 12px 16px;
+            box-shadow: var(--shadow-lg);
+            font-size: 0.78rem; font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+            white-space: nowrap;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .float-1 {
+            top: 20%; left: -40px;
+            animation: float 5s ease-in-out infinite, fadeIn 1s 1s both;
+        }
+        .float-2 {
+            top: 45%; right: -50px;
+            animation: float 6s ease-in-out infinite 1.5s, fadeIn 1s 1.2s both;
+        }
+        .float-3 {
+            bottom: 20%; left: -30px;
+            animation: float 5.5s ease-in-out infinite 0.8s, fadeIn 1s 1.4s both;
+        }
+        .float-icon {
+            width: 32px; height: 32px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; flex-shrink: 0;
         }
 
         /* SECTIONS */
-        section { padding: 100px 32px; }
+        section { padding: 100px 32px; position: relative; }
         .section-header {
-            text-align: center; max-width: 600px;
-            margin: 0 auto 60px;
+            text-align: center; max-width: 580px;
+            margin: 0 auto 64px;
         }
-        .section-header .label {
-            color: var(--accent); font-size: 0.8rem;
-            font-weight: 700; text-transform: uppercase;
-            letter-spacing: 1.5px; margin-bottom: 12px;
+        .section-label {
+            display: inline-block;
+            padding: 6px 14px; border-radius: 50px;
+            font-size: 0.75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 16px;
         }
+        .label-coral { background: var(--coral-glow); color: var(--coral); }
+        .label-sage { background: var(--sage-glow); color: var(--sage); }
+        .label-sky { background: var(--sky-glow); color: var(--sky); }
         .section-header h2 {
-            font-size: clamp(1.8rem, 4vw, 2.6rem);
-            font-weight: 800; margin-bottom: 14px;
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.9rem, 4vw, 2.8rem);
+            font-weight: 400; margin-bottom: 14px;
+            letter-spacing: -0.01em;
         }
         .section-header p { color: var(--text-secondary); font-size: 1.05rem; }
 
         /* FEATURES GRID */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px; max-width: 1100px; margin: 0 auto;
         }
         .feature-card {
-            background: var(--bg-card);
+            background: var(--warm-white);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 32px;
-            transition: transform 0.25s, border-color 0.25s;
+            padding: 32px 28px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative; overflow: hidden;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 3px; border-radius: 3px 3px 0 0;
+            opacity: 0; transition: opacity 0.4s;
         }
         .feature-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
         }
+        .feature-card:hover::before { opacity: 1; }
         .feature-icon {
-            width: 48px; height: 48px;
-            border-radius: 12px;
+            width: 52px; height: 52px;
+            border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; margin-bottom: 18px;
+            font-size: 1.4rem; margin-bottom: 20px;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .feature-card:hover .feature-icon { transform: scale(1.1) rotate(-3deg); }
         .feature-card h3 {
-            font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;
+            font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;
         }
-        .feature-card p { color: var(--text-secondary); font-size: 0.92rem; }
+        .feature-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.55; }
 
-        .icon-calendar { background: var(--accent-glow); }
-        .icon-ai { background: var(--teal-glow); }
-        .icon-lists { background: rgba(74, 158, 255, 0.12); }
-        .icon-location { background: rgba(167, 139, 250, 0.12); }
-        .icon-meals { background: rgba(251, 191, 36, 0.12); }
-        .icon-family { background: rgba(244, 114, 182, 0.12); }
+        .fc-calendar .feature-icon { background: var(--coral-glow); }
+        .fc-calendar::before { background: var(--coral); }
+        .fc-ai .feature-icon { background: var(--sage-glow); }
+        .fc-ai::before { background: var(--sage); }
+        .fc-lists .feature-icon { background: var(--sky-glow); }
+        .fc-lists::before { background: var(--sky); }
+        .fc-location .feature-icon { background: var(--lavender-glow); }
+        .fc-location::before { background: var(--lavender); }
+        .fc-meals .feature-icon { background: var(--amber-glow); }
+        .fc-meals::before { background: var(--amber); }
+        .fc-family .feature-icon { background: var(--rose-glow); }
+        .fc-family::before { background: var(--rose); }
 
-        /* SHOWCASE */
+        /* SHOWCASE SECTIONS */
+        .showcase-section {
+            padding: 80px 32px;
+        }
+        .showcase-section.alt-bg {
+            background: var(--warm-white);
+        }
         .showcase {
             max-width: 1100px; margin: 0 auto;
             display: grid; grid-template-columns: 1fr 1fr;
-            gap: 60px; align-items: center;
+            gap: 80px; align-items: center;
         }
-        .showcase-text .label {
-            color: var(--teal); font-size: 0.8rem;
-            font-weight: 700; text-transform: uppercase;
-            letter-spacing: 1.5px; margin-bottom: 12px;
-        }
+        .showcase.reverse { direction: rtl; }
+        .showcase.reverse > * { direction: ltr; }
+        .showcase-text .section-label { margin-bottom: 14px; }
         .showcase-text h2 {
-            font-size: clamp(1.6rem, 3vw, 2.2rem);
-            font-weight: 800; margin-bottom: 16px;
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+            font-weight: 400; margin-bottom: 16px;
         }
         .showcase-text p {
-            color: var(--text-secondary); font-size: 1rem; margin-bottom: 24px;
+            color: var(--text-secondary); font-size: 1rem;
+            margin-bottom: 28px; line-height: 1.7;
         }
-        .showcase-list { list-style: none; }
+        .showcase-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
         .showcase-list li {
-            padding: 10px 0; color: var(--text-secondary);
-            font-size: 0.95rem; display: flex; align-items: center; gap: 10px;
+            color: var(--text-secondary);
+            font-size: 0.92rem; display: flex; align-items: flex-start; gap: 12px;
+            line-height: 1.5;
         }
-        .showcase-list li::before {
-            content: '';
-            width: 6px; height: 6px; border-radius: 50%;
-            background: var(--teal); flex-shrink: 0;
-        }
-        .showcase-visual {
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 40px; min-height: 380px;
+        .showcase-list-icon {
+            width: 24px; height: 24px; border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
-        }
-        .phone-mockup {
-            width: 220px; height: 440px;
-            background: #000;
-            border-radius: 36px;
-            border: 3px solid #333;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-        .phone-screen {
-            position: absolute; inset: 8px;
-            border-radius: 28px;
-            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            padding: 20px 16px;
-            display: flex; flex-direction: column; gap: 10px;
-        }
-        .phone-status { text-align: center; font-size: 0.55rem; color: #888; padding-bottom: 8px; }
-        .phone-greeting { font-size: 0.8rem; font-weight: 700; color: #fff; }
-        .phone-sub { font-size: 0.55rem; color: #94A3B8; margin-bottom: 4px; }
-        .phone-card-mini {
-            background: rgba(255,255,255,0.06);
-            border-radius: 10px; padding: 10px;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-        .phone-card-mini .title { font-size: 0.6rem; font-weight: 600; color: #fff; }
-        .phone-card-mini .sub { font-size: 0.5rem; color: #94A3B8; margin-top: 2px; }
-        .phone-dot {
-            width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px;
+            font-size: 0.7rem; flex-shrink: 0; margin-top: 1px;
         }
 
-        /* STATS */
-        .stats {
-            display: flex; justify-content: center; gap: 60px;
-            max-width: 800px; margin: 0 auto;
+        /* VISUAL CARDS */
+        .showcase-visual {
+            position: relative;
+        }
+        .visual-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        .visual-card::before {
+            content: '';
+            position: absolute; top: -50%; right: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(ellipse at 70% 30%, var(--coral-glow) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .vc-header {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem; margin-bottom: 16px; color: var(--navy);
+        }
+        .vc-event {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px; border-radius: 12px;
+            background: var(--cream); margin-bottom: 8px;
+            transition: transform 0.3s;
+        }
+        .vc-event:hover { transform: translateX(4px); }
+        .vc-event-dot {
+            width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+        }
+        .vc-event-info .name { font-size: 0.82rem; font-weight: 600; }
+        .vc-event-info .time { font-size: 0.7rem; color: var(--text-muted); }
+
+        /* FOXY CHAT VISUAL */
+        .chat-visual {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+        }
+        .chat-bubble {
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            max-width: 85%;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .chat-user {
+            background: var(--coral);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-foxy {
+            background: var(--cream);
+            color: var(--navy);
+            border-bottom-left-radius: 4px;
+        }
+        .chat-foxy-header {
+            display: flex; align-items: center; gap: 6px;
+            margin-bottom: 8px;
+        }
+        .foxy-avatar {
+            width: 24px; height: 24px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--sage), var(--sage-light));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.65rem; color: white;
+        }
+        .foxy-name { font-size: 0.72rem; font-weight: 600; color: var(--sage); }
+        .typing-dots {
+            display: flex; gap: 4px; padding: 8px 0;
+        }
+        .typing-dots span {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--text-muted);
+            animation: pulse 1.4s infinite;
+        }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        /* TRUST / STATS */
+        .trust-section {
             padding: 60px 32px;
+        }
+        .trust-grid {
+            display: flex; justify-content: center; gap: 48px;
+            max-width: 900px; margin: 0 auto;
             flex-wrap: wrap;
         }
-        .stat { text-align: center; }
-        .stat-number {
-            font-size: 2.4rem; font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--teal));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .trust-item {
+            text-align: center;
+            padding: 28px 20px;
+            min-width: 160px;
         }
-        .stat-label { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; margin-top: 4px; }
+        .trust-number {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.6rem; font-weight: 400;
+            color: var(--coral);
+            margin-bottom: 4px;
+        }
+        .trust-label {
+            color: var(--text-muted);
+            font-size: 0.85rem; font-weight: 500;
+        }
+
+        /* HOW IT WORKS */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px; max-width: 900px; margin: 0 auto;
+        }
+        .step {
+            text-align: center;
+            padding: 24px;
+            position: relative;
+        }
+        .step-number {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: var(--coral);
+            color: white;
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.2rem;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 16px rgba(255, 107, 74, 0.25);
+        }
+        .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+        .step p { color: var(--text-secondary); font-size: 0.88rem; }
+        .step-connector {
+            position: absolute; top: 46px; right: -16px;
+            width: 32px; height: 2px;
+            background: linear-gradient(90deg, var(--coral), transparent);
+        }
 
         /* CTA */
         .cta-section {
-            text-align: center;
             padding: 80px 32px 120px;
+            text-align: center;
         }
         .cta-box {
-            max-width: 700px; margin: 0 auto;
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
-            border: 1px solid var(--border);
-            border-radius: 24px; padding: 60px 40px;
+            max-width: 720px; margin: 0 auto;
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            border-radius: 32px; padding: 72px 48px;
             position: relative; overflow: hidden;
+            box-shadow: var(--shadow-xl);
         }
         .cta-box::before {
             content: '';
-            position: absolute; top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(ellipse at center, rgba(255,107,53,0.06) 0%, transparent 60%);
+            position: absolute; top: -40%; right: -20%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(255,107,74,0.15) 0%, transparent 60%);
+            animation: morphBlob 15s ease-in-out infinite;
             pointer-events: none;
         }
-        .cta-box h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
-        .cta-box p { color: var(--text-secondary); margin-bottom: 28px; font-size: 1.05rem; }
+        .cta-box::after {
+            content: '';
+            position: absolute; bottom: -30%; left: -10%;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(76,175,130,0.1) 0%, transparent 60%);
+            animation: morphBlob 12s ease-in-out infinite reverse;
+            pointer-events: none;
+        }
+        .cta-box h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 400; margin-bottom: 14px;
+            color: white; position: relative;
+        }
+        .cta-box p {
+            color: rgba(255,255,255,0.7); margin-bottom: 32px;
+            font-size: 1.05rem; position: relative;
+        }
+        .cta-box .btn-primary {
+            background: white; color: var(--coral);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: relative;
+            font-size: 1.05rem; padding: 16px 38px;
+        }
+        .cta-box .btn-primary:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .cta-box .btn-primary::before { display: none; }
 
         /* FOOTER */
         footer {
-            padding: 40px 32px;
+            padding: 48px 32px;
             border-top: 1px solid var(--border);
             text-align: center;
+            background: var(--warm-white);
+        }
+        .footer-brand {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.3rem; color: var(--coral);
+            margin-bottom: 16px;
         }
         .footer-links {
             display: flex; justify-content: center; gap: 28px;
-            list-style: none; margin-bottom: 16px; flex-wrap: wrap;
+            list-style: none; margin-bottom: 20px; flex-wrap: wrap;
         }
         .footer-links a {
             color: var(--text-muted); text-decoration: none;
             font-size: 0.85rem; font-weight: 500;
             transition: color 0.2s;
         }
-        .footer-links a:hover { color: var(--text-secondary); }
-        .footer-copy { color: var(--text-muted); font-size: 0.8rem; }
+        .footer-links a:hover { color: var(--text); }
+        .footer-copy { color: var(--text-muted); font-size: 0.78rem; }
 
         /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .steps-grid { grid-template-columns: repeat(2, 1fr); }
+            .step-connector { display: none; }
+        }
         @media (max-width: 768px) {
             nav { padding: 12px 20px; }
             .nav-links { display: none; }
-            section { padding: 60px 20px; }
-            .hero { padding: 120px 20px 60px; }
+            section, .showcase-section { padding: 60px 20px; }
+            .hero { padding: 130px 20px 60px; }
+            .features-grid { grid-template-columns: 1fr; }
             .showcase { grid-template-columns: 1fr; gap: 40px; }
-            .showcase-visual { order: -1; min-height: 300px; }
-            .stats { gap: 32px; }
-            .cta-box { padding: 40px 24px; }
+            .showcase.reverse { direction: ltr; }
+            .showcase-visual { order: -1; }
+            .steps-grid { grid-template-columns: 1fr; max-width: 360px; }
+            .trust-grid { gap: 16px; }
+            .trust-item { min-width: 120px; padding: 20px 12px; }
+            .cta-box { padding: 48px 24px; border-radius: 24px; }
+            .float-element { display: none; }
+            .hero-phone { width: 240px; height: 490px; }
         }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="nav-brand">FamSync</div>
+    <a href="index.html" class="nav-brand">FamSync</a>
     <ul class="nav-links">
         <li><a href="#features">Features</a></li>
-        <li><a href="#ai">AI Assistant</a></li>
-        <li><a href="#download">Download</a></li>
+        <li><a href="#foxy">Foxy AI</a></li>
+        <li><a href="#how">How It Works</a></li>
         <li><a href="support.html">Support</a></li>
     </ul>
     <a href="#download" class="nav-cta">Get the App</a>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-    <div class="hero-badge">Available on the App Store</div>
-    <h1>Family life, <span>simplified.</span></h1>
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="hero-blob hero-blob-3"></div>
+
+    <div class="hero-badge"><span class="hero-badge-dot"></span> Now on the App Store</div>
+    <h1>Family life,<br><span class="accent">simplified.</span></h1>
     <p>One app to keep your whole family organized. Shared calendars, smart lists, meal planning, and an AI assistant that actually knows your family.</p>
     <div class="hero-buttons">
         <a href="#download" class="btn-primary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
             Download Free
         </a>
-        <a href="#features" class="btn-secondary">See Features</a>
+        <a href="#features" class="btn-secondary">Explore Features</a>
     </div>
-</section>
 
-<div class="stats">
-    <div class="stat">
-        <div class="stat-number">5</div>
-        <div class="stat-label">Tabs, Zero Clutter</div>
-    </div>
-    <div class="stat">
-        <div class="stat-number">AI</div>
-        <div class="stat-label">Powered by Foxy</div>
-    </div>
-    <div class="stat">
-        <div class="stat-number">Real-Time</div>
-        <div class="stat-label">Family Sync</div>
-    </div>
-</div>
-
-<section id="features">
-    <div class="section-header">
-        <div class="label">Features</div>
-        <h2>Everything your family needs in one place</h2>
-        <p>From morning routines to dinner plans, FamSync handles the details so you can focus on what matters.</p>
-    </div>
-    <div class="features-grid">
-        <div class="feature-card">
-            <div class="feature-icon icon-calendar">&#128197;</div>
-            <h3>Shared Family Calendar</h3>
-            <p>Month, week, and day views with color-coded events per family member. Sync with Google Calendar and Apple Calendar automatically.</p>
+    <!-- Phone Mockup -->
+    <div class="hero-phone-container" style="position: relative; display: inline-block;">
+        <div class="float-element float-1">
+            <div class="float-icon" style="background: var(--coral-glow); color: var(--coral);">&#128197;</div>
+            <span style="color: var(--text-secondary); font-size: 0.75rem;">Soccer at 3:30</span>
         </div>
-        <div class="feature-card">
-            <div class="feature-icon icon-ai">&#129418;</div>
-            <h3>Foxy AI Assistant</h3>
-            <p>Your family's personal AI. Ask Foxy to plan dinner, find activities nearby, create events, or manage your grocery list with a simple conversation.</p>
+        <div class="float-element float-2">
+            <div class="float-icon" style="background: var(--sage-glow); color: var(--sage);">&#129418;</div>
+            <span style="color: var(--text-secondary); font-size: 0.75rem;">Try the Thai place!</span>
         </div>
-        <div class="feature-card">
-            <div class="feature-icon icon-lists">&#128203;</div>
-            <h3>Smart Lists</h3>
-            <p>Grocery lists, to-do lists, and custom lists your whole family can edit in real time. Assign tasks with priorities and due dates.</p>
+        <div class="float-element float-3">
+            <div class="float-icon" style="background: var(--sky-glow); color: var(--sky);">&#9989;</div>
+            <span style="color: var(--text-secondary); font-size: 0.75rem;">Groceries updated</span>
         </div>
-        <div class="feature-card">
-            <div class="feature-icon icon-location">&#128205;</div>
-            <h3>Family Location</h3>
-            <p>See where everyone is with real-time location sharing and actual drive time estimates so you always know when to expect each other.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon icon-meals">&#127858;</div>
-            <h3>Meal Planning</h3>
-            <p>Plan your weekly meals, import recipes, and scan your fridge to see what you have. Ingredients go straight to your grocery list.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon icon-family">&#128106;</div>
-            <h3>Family Coordination</h3>
-            <p>Chore rotations, event comments, activity feeds, and a daily briefing keep everyone in the loop without the group chat chaos.</p>
-        </div>
-    </div>
-</section>
-
-<section id="ai" style="background: linear-gradient(180deg, transparent 0%, rgba(45, 212, 168, 0.03) 50%, transparent 100%);">
-    <div class="showcase">
-        <div class="showcase-text">
-            <div class="label">Meet Foxy</div>
-            <h2>An AI assistant that knows your family</h2>
-            <p>Foxy integrates with your calendar, lists, and family members to give suggestions that actually make sense for your life.</p>
-            <ul class="showcase-list">
-                <li>Create events and tasks through natural conversation</li>
-                <li>Get dinner ideas based on what's in your fridge</li>
-                <li>Find nearby restaurants, activities, and gift ideas</li>
-                <li>Morning briefings with your family's day at a glance</li>
-                <li>Voice input for hands-free planning</li>
-            </ul>
-        </div>
-        <div class="showcase-visual">
-            <div class="phone-mockup">
-                <div class="phone-screen">
-                    <div class="phone-status">9:41 AM</div>
-                    <div class="phone-greeting">Good morning!</div>
-                    <div class="phone-sub">Here's your family's day</div>
-                    <div class="phone-card-mini">
-                        <div class="title"><span class="phone-dot" style="background:#FF6B35;"></span>Soccer Practice</div>
-                        <div class="sub">3:30 PM - Emma</div>
+        <div class="hero-phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+                <div class="ps-header">
+                    <div>
+                        <div class="ps-greeting">Good morning!</div>
+                        <div class="ps-sub">Thursday, March 20</div>
                     </div>
-                    <div class="phone-card-mini">
-                        <div class="title"><span class="phone-dot" style="background:#4A9EFF;"></span>Dentist Appt</div>
-                        <div class="sub">10:00 AM - Dad</div>
+                    <div class="ps-avatar"></div>
+                </div>
+                <div class="ps-card" style="animation-delay: 0.8s;">
+                    <div class="ps-card-header">
+                        <div class="ps-dot" style="background: var(--coral);"></div>
+                        <div>
+                            <div class="title">Soccer Practice</div>
+                            <div class="sub">3:30 PM - Emma</div>
+                        </div>
                     </div>
-                    <div class="phone-card-mini">
-                        <div class="title"><span class="phone-dot" style="background:#2DD4A8;"></span>Grocery Run</div>
-                        <div class="sub">12 items on your list</div>
+                </div>
+                <div class="ps-card" style="animation-delay: 1s;">
+                    <div class="ps-card-header">
+                        <div class="ps-dot" style="background: var(--sky);"></div>
+                        <div>
+                            <div class="title">Dentist Appointment</div>
+                            <div class="sub">10:00 AM - Dad</div>
+                        </div>
                     </div>
-                    <div class="phone-card-mini" style="background: rgba(45,212,168,0.1); border-color: rgba(45,212,168,0.2);">
-                        <div class="title" style="color: #2DD4A8;">Foxy says</div>
-                        <div class="sub">"Try the new Thai place on Oak St for dinner tonight!"</div>
+                </div>
+                <div class="ps-card" style="animation-delay: 1.2s;">
+                    <div class="ps-card-header">
+                        <div class="ps-dot" style="background: var(--sage);"></div>
+                        <div>
+                            <div class="title">Grocery Run</div>
+                            <div class="sub">12 items on your list</div>
+                        </div>
                     </div>
+                </div>
+                <div class="ps-card ps-foxy" style="animation-delay: 1.4s;">
+                    <div class="ps-card-header">
+                        <div class="ps-dot" style="background: var(--sage);"></div>
+                        <div>
+                            <div class="title">Foxy suggests</div>
+                            <div class="sub">Try the new Thai place on Oak St tonight!</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ps-tabs">
+                    <div class="ps-tab active"><div class="ps-tab-icon">&#127968;</div>Home</div>
+                    <div class="ps-tab"><div class="ps-tab-icon">&#128197;</div>Cal</div>
+                    <div class="ps-tab"><div class="ps-tab-icon">&#129418;</div>Foxy</div>
+                    <div class="ps-tab"><div class="ps-tab-icon">&#128203;</div>Lists</div>
+                    <div class="ps-tab"><div class="ps-tab-icon">&#128100;</div>Profile</div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- TRUST NUMBERS -->
+<div class="trust-section">
+    <div class="trust-grid">
+        <div class="trust-item reveal">
+            <div class="trust-number">5</div>
+            <div class="trust-label">Powerful Tabs</div>
+        </div>
+        <div class="trust-item reveal reveal-delay-1">
+            <div class="trust-number">AI</div>
+            <div class="trust-label">Powered by Foxy</div>
+        </div>
+        <div class="trust-item reveal reveal-delay-2">
+            <div class="trust-number">Real-Time</div>
+            <div class="trust-label">Family Sync</div>
+        </div>
+        <div class="trust-item reveal reveal-delay-3">
+            <div class="trust-number">Free</div>
+            <div class="trust-label">To Get Started</div>
+        </div>
+    </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+    <div class="section-header reveal">
+        <span class="section-label label-coral">Features</span>
+        <h2>Everything your family needs, one tap away</h2>
+        <p>From morning routines to dinner plans, FamSync handles the details so you can focus on what matters.</p>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card fc-calendar reveal reveal-delay-1">
+            <div class="feature-icon">&#128197;</div>
+            <h3>Shared Family Calendar</h3>
+            <p>Month, week, and day views with color-coded events per family member. Syncs with Google Calendar and Apple Calendar.</p>
+        </div>
+        <div class="feature-card fc-ai reveal reveal-delay-2">
+            <div class="feature-icon">&#129418;</div>
+            <h3>Foxy AI Assistant</h3>
+            <p>Your family's personal AI. Ask Foxy to plan dinner, find nearby activities, create events, or manage your grocery list.</p>
+        </div>
+        <div class="feature-card fc-lists reveal reveal-delay-3">
+            <div class="feature-icon">&#128203;</div>
+            <h3>Smart Lists</h3>
+            <p>Grocery lists, to-do lists, and custom lists your whole family can edit in real time with priorities and due dates.</p>
+        </div>
+        <div class="feature-card fc-location reveal reveal-delay-1">
+            <div class="feature-icon">&#128205;</div>
+            <h3>Family Location</h3>
+            <p>See where everyone is with real-time location sharing and actual drive time estimates between family members.</p>
+        </div>
+        <div class="feature-card fc-meals reveal reveal-delay-2">
+            <div class="feature-icon">&#127858;</div>
+            <h3>Meal Planning</h3>
+            <p>Plan weekly meals, import recipes, and scan your fridge. Ingredients go straight to your grocery list with one tap.</p>
+        </div>
+        <div class="feature-card fc-family reveal reveal-delay-3">
+            <div class="feature-icon">&#128106;</div>
+            <h3>Family Coordination</h3>
+            <p>Chore rotations, event comments, activity feeds, and a daily briefing keep everyone in sync without the group chat chaos.</p>
+        </div>
+    </div>
+</section>
+
+<!-- SHOWCASE: CALENDAR -->
+<div class="showcase-section alt-bg">
+    <div class="showcase">
+        <div class="showcase-text reveal">
+            <span class="section-label label-coral">Shared Calendar</span>
+            <h2>Your family's schedule, beautifully organized</h2>
+            <p>See everyone's events at a glance with color-coded calendars. Create events with voice, scan schedules from paper, and sync everything automatically.</p>
+            <ul class="showcase-list">
+                <li>
+                    <div class="showcase-list-icon" style="background: var(--coral-glow); color: var(--coral);">&#10003;</div>
+                    Color-coded events per family member
+                </li>
+                <li>
+                    <div class="showcase-list-icon" style="background: var(--coral-glow); color: var(--coral);">&#10003;</div>
+                    Google Calendar and Apple Calendar sync
+                </li>
+                <li>
+                    <div class="showcase-list-icon" style="background: var(--coral-glow); color: var(--coral);">&#10003;</div>
+                    Scan paper schedules with your camera
+                </li>
+                <li>
+                    <div class="showcase-list-icon" style="background: var(--coral-glow); color: var(--coral);">&#10003;</div>
+                    Recurring events and reminders
+                </li>
+            </ul>
+        </div>
+        <div class="showcase-visual reveal reveal-delay-2">
+            <div class="visual-card">
+                <div class="vc-header">Today's Schedule</div>
+                <div class="vc-event">
+                    <div class="vc-event-dot" style="background: var(--coral);"></div>
+                    <div class="vc-event-info">
+                        <div class="name">School Drop-off</div>
+                        <div class="time">7:45 AM - Mom</div>
+                    </div>
+                </div>
+                <div class="vc-event">
+                    <div class="vc-event-dot" style="background: var(--sky);"></div>
+                    <div class="vc-event-info">
+                        <div class="name">Team Meeting</div>
+                        <div class="time">9:00 AM - Dad</div>
+                    </div>
+                </div>
+                <div class="vc-event">
+                    <div class="vc-event-dot" style="background: var(--sage);"></div>
+                    <div class="vc-event-info">
+                        <div class="name">Piano Lesson</div>
+                        <div class="time">4:00 PM - Emma</div>
+                    </div>
+                </div>
+                <div class="vc-event">
+                    <div class="vc-event-dot" style="background: var(--amber);"></div>
+                    <div class="vc-event-info">
+                        <div class="name">Family Dinner</div>
+                        <div class="time">6:30 PM - Everyone</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SHOWCASE: FOXY AI -->
+<div id="foxy" class="showcase-section">
+    <div class="showcase reverse">
+        <div class="showcase-text reveal">
+            <span class="section-label label-sage">Meet Foxy</span>
+            <h2>An AI assistant that knows your family</h2>
+            <p>Foxy connects to your calendar, lists, and family data to give suggestions that actually make sense for your life. Just ask.</p>
+            <ul class="showcase-list">
+                <li>
+                    <div class="showcase-list-icon" style="background: var(--sage-glow); color: var(--sage);">&#10003;</div>
+                    Create events and tasks through conversation
+                </li>
+                <li>
+                    <div class="showcase-list-icon" style="background: var(--sage-glow); color: var(--sage);">&#10003;</div>
+                    Dinner ideas based on what's in your fridge
+                </li>
+                <li>
+                    <div class="showcase-list-icon" style="background: var(--sage-glow); color: var(--sage);">&#10003;</div>
+                    Find nearby restaurants, activities, and gifts
+                </li>
+                <li>
+                    <div class="showcase-list-icon" style="background: var(--sage-glow); color: var(--sage);">&#10003;</div>
+                    Voice input for hands-free planning
+                </li>
+            </ul>
+        </div>
+        <div class="showcase-visual reveal reveal-delay-2">
+            <div class="chat-visual">
+                <div class="chat-foxy-header">
+                    <div class="foxy-avatar">&#129418;</div>
+                    <span class="foxy-name">Foxy</span>
+                </div>
+                <div class="chat-bubble chat-user">What should we do for dinner tonight?</div>
+                <div class="chat-bubble chat-foxy">Based on what's in your fridge, you could make a quick stir fry! You have chicken, bell peppers, and rice. Want me to find a recipe?</div>
+                <div class="chat-bubble chat-user">Sure! And add soy sauce to the grocery list</div>
+                <div class="chat-bubble chat-foxy">Done! I added soy sauce to your grocery list and found a 20-minute chicken stir fry recipe. I also noticed Emma has soccer at 5 - dinner at 6:30 should work perfectly.</div>
+                <div class="typing-dots">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background: var(--warm-white);">
+    <div class="section-header reveal">
+        <span class="section-label label-sky">Get Started</span>
+        <h2>Up and running in minutes</h2>
+        <p>Getting your family synced takes less time than making a grocery list.</p>
+    </div>
+    <div class="steps-grid">
+        <div class="step reveal reveal-delay-1">
+            <div class="step-number">1</div>
+            <div class="step-connector"></div>
+            <h3>Create Your Family</h3>
+            <p>Sign up and set up your family group with a unique code to share.</p>
+        </div>
+        <div class="step reveal reveal-delay-2">
+            <div class="step-number">2</div>
+            <div class="step-connector"></div>
+            <h3>Invite Members</h3>
+            <p>Share your family code so everyone can join and start adding events and lists.</p>
+        </div>
+        <div class="step reveal reveal-delay-3">
+            <div class="step-number">3</div>
+            <h3>Stay in Sync</h3>
+            <p>Calendars update in real time. Foxy handles the rest with smart daily briefings.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
 <section id="download" class="cta-section">
-    <div class="cta-box">
-        <h2>Ready to simplify family life?</h2>
+    <div class="cta-box reveal">
+        <h2>Ready to simplify<br>family life?</h2>
         <p>Download FamSync free and get your family on the same page.</p>
-        <a href="#" class="btn-primary" style="font-size: 1.1rem; padding: 16px 36px;">
+        <a href="#" class="btn-primary">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
             Download on the App Store
         </a>
@@ -454,6 +1067,7 @@
 </section>
 
 <footer>
+    <div class="footer-brand">FamSync</div>
     <ul class="footer-links">
         <li><a href="support.html">Support</a></li>
         <li><a href="support.html#privacy">Privacy Policy</a></li>
@@ -462,6 +1076,38 @@
     </ul>
     <p class="footer-copy">&copy; 2026 FamSync. All rights reserved.</p>
 </footer>
+
+<script>
+// Scroll reveal animation
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Nav scroll effect
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// Smooth parallax on phone hover
+const phoneContainer = document.querySelector('.hero-phone-container');
+if (phoneContainer && window.innerWidth > 768) {
+    document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 8;
+        const y = (e.clientY / window.innerHeight - 0.5) * 8;
+        const phone = phoneContainer.querySelector('.hero-phone');
+        if (phone) {
+            phone.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+        }
+    });
+}
+</script>
 
 </body>
 </html>
