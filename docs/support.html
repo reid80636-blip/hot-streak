@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#FFF8F3">
+    <meta name="theme-color" content="#0C0F1A">
     <meta name="description" content="FamSync Support - Get help with your family coordination app.">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>FamSync - Support</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,27 +14,32 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --cream: #FFF8F3;
-            --cream-dark: #FFF0E5;
-            --warm-white: #FFFDFB;
+            --bg: #0C0F1A;
+            --bg-raised: #131729;
+            --bg-card: #1A1F35;
+            --bg-card-hover: #1F2540;
+            --bg-elevated: #242A45;
+            --surface: rgba(255, 255, 255, 0.03);
+            --surface-hover: rgba(255, 255, 255, 0.06);
             --coral: #FF6B4A;
             --coral-light: #FF8A70;
-            --coral-glow: rgba(255, 107, 74, 0.1);
+            --coral-glow: rgba(255, 107, 74, 0.12);
+            --coral-glow-strong: rgba(255, 107, 74, 0.2);
             --sage: #4CAF82;
-            --sage-glow: rgba(76, 175, 130, 0.1);
+            --sage-light: #6BC49A;
+            --sage-glow: rgba(76, 175, 130, 0.12);
             --sky: #5B9CF5;
-            --sky-glow: rgba(91, 156, 245, 0.1);
+            --sky-glow: rgba(91, 156, 245, 0.12);
             --lavender: #9B8FE8;
-            --lavender-glow: rgba(155, 143, 232, 0.1);
-            --navy: #1E293B;
-            --navy-light: #334155;
-            --text: #1E293B;
-            --text-secondary: #64748B;
-            --text-muted: #94A3B8;
-            --border: rgba(0, 0, 0, 0.06);
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
-            --shadow-lg: 0 12px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+            --lavender-glow: rgba(155, 143, 232, 0.12);
+            --text: #F1F3F8;
+            --text-secondary: #8A91A8;
+            --text-muted: #565E78;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.1);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.35);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.45);
             --radius: 20px;
         }
 
@@ -41,10 +47,17 @@
 
         body {
             font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--cream);
+            background: var(--bg);
             color: var(--text);
             line-height: 1.65;
             -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            pointer-events: none; z-index: 9999; opacity: 0.018;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
         /* ANIMATIONS */
@@ -52,13 +65,17 @@
             from { opacity: 0; transform: translateY(24px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes morphBlob {
-            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-            50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
-        }
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.6; }
             50% { transform: scale(1.05); opacity: 1; }
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 74, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(255, 107, 74, 0.2); }
+        }
+        @keyframes morphBlob {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
         }
 
         .reveal {
@@ -69,20 +86,23 @@
         .reveal-delay-1 { transition-delay: 0.1s; }
         .reveal-delay-2 { transition-delay: 0.15s; }
         .reveal-delay-3 { transition-delay: 0.2s; }
-        .reveal-delay-4 { transition-delay: 0.25s; }
 
         /* NAV */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
             padding: 14px 32px;
-            background: rgba(255, 248, 243, 0.8);
-            backdrop-filter: blur(24px) saturate(1.5);
-            -webkit-backdrop-filter: blur(24px) saturate(1.5);
-            border-bottom: 1px solid rgba(0,0,0,0.04);
+            background: rgba(12, 15, 26, 0.75);
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            border-bottom: 1px solid var(--border);
             display: flex; align-items: center; justify-content: space-between;
-            transition: padding 0.3s, box-shadow 0.3s;
+            transition: padding 0.3s, box-shadow 0.3s, background 0.3s;
         }
-        nav.scrolled { padding: 10px 32px; box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+        nav.scrolled {
+            padding: 10px 32px;
+            background: rgba(12, 15, 26, 0.92);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+        }
         .nav-brand {
             font-family: 'DM Serif Display', serif;
             font-size: 1.5rem; color: var(--coral);
@@ -108,9 +128,9 @@
             padding: 10px 24px; border-radius: 50px; font-weight: 600;
             font-size: 0.88rem; text-decoration: none;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 2px 12px rgba(255, 107, 74, 0.25);
+            box-shadow: 0 2px 16px rgba(255, 107, 74, 0.3);
         }
-        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(255, 107, 74, 0.35); }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(255, 107, 74, 0.4); }
 
         /* HEADER */
         .page-header {
@@ -121,8 +141,8 @@
         .page-header::before {
             content: '';
             position: absolute; top: 60px; left: 50%; transform: translateX(-50%);
-            width: 500px; height: 300px;
-            background: radial-gradient(ellipse, var(--coral-glow) 0%, transparent 70%);
+            width: 600px; height: 350px;
+            background: radial-gradient(ellipse, rgba(255,107,74,0.08) 0%, transparent 65%);
             pointer-events: none; filter: blur(40px);
         }
         .page-header h1 {
@@ -136,12 +156,11 @@
             animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
         }
 
-        /* CONTENT */
         .content { max-width: 800px; margin: 0 auto; padding: 0 32px 100px; }
 
         /* CONTACT CARD */
         .contact-card {
-            background: white;
+            background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 44px 36px; margin-bottom: 56px;
@@ -157,39 +176,42 @@
         .contact-card::before {
             content: '';
             position: absolute; top: 0; left: 0; right: 0;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, var(--coral), var(--coral-light), var(--sage));
+        }
+        .contact-card::after {
+            content: '';
+            position: absolute; top: -50%; right: -30%;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255,107,74,0.04) 0%, transparent 60%);
+            pointer-events: none;
+            animation: morphBlob 12s ease-in-out infinite;
         }
         .contact-icon {
             width: 56px; height: 56px; border-radius: 16px;
             background: var(--coral-glow);
             display: flex; align-items: center; justify-content: center;
             font-size: 1.5rem; margin: 0 auto 18px;
+            position: relative;
         }
         .contact-card h2 {
             font-family: 'DM Serif Display', serif;
             font-size: 1.4rem; font-weight: 400; margin-bottom: 8px;
+            position: relative;
         }
-        .contact-card p { color: var(--text-secondary); margin-bottom: 24px; font-size: 0.95rem; }
+        .contact-card > p { color: var(--text-secondary); margin-bottom: 24px; font-size: 0.95rem; position: relative; }
         .contact-email {
             display: inline-flex; align-items: center; gap: 8px;
             background: var(--coral); color: #fff;
             padding: 13px 30px; border-radius: 50px;
             font-weight: 600; text-decoration: none;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 16px rgba(255, 107, 74, 0.25);
+            box-shadow: 0 4px 20px rgba(255, 107, 74, 0.3);
+            position: relative;
         }
         .contact-email:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(255, 107, 74, 0.35);
-        }
-        .contact-methods {
-            display: flex; justify-content: center; gap: 16px;
-            margin-top: 20px; flex-wrap: wrap;
-        }
-        .contact-alt {
-            color: var(--text-muted); font-size: 0.82rem;
-            display: flex; align-items: center; gap: 4px;
+            box-shadow: 0 8px 32px rgba(255, 107, 74, 0.4);
         }
 
         /* QUICK HELP */
@@ -198,18 +220,18 @@
             gap: 16px; margin-bottom: 56px;
         }
         .quick-card {
-            background: white;
+            background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 24px 20px;
             text-align: center;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: default;
         }
         .quick-card:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow-md);
-            border-color: transparent;
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
         }
         .quick-icon {
             width: 44px; height: 44px; border-radius: 12px;
@@ -228,22 +250,21 @@
         }
         .faq-section > h2 .icon {
             width: 36px; height: 36px; border-radius: 10px;
-            background: var(--sky-glow);
             display: flex; align-items: center; justify-content: center;
             font-size: 1rem;
         }
         .faq-item {
             margin-bottom: 12px;
-            background: white;
+            background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 14px;
             overflow: hidden;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
-        .faq-item:hover { border-color: rgba(0,0,0,0.1); }
+        .faq-item:hover { border-color: var(--border-hover); }
         .faq-item.open {
             box-shadow: var(--shadow-md);
-            border-color: rgba(255, 107, 74, 0.2);
+            border-color: rgba(255, 107, 74, 0.15);
         }
         .faq-question {
             padding: 18px 24px;
@@ -253,10 +274,10 @@
             user-select: none;
             transition: background 0.2s;
         }
-        .faq-question:hover { background: rgba(0,0,0,0.01); }
+        .faq-question:hover { background: var(--surface); }
         .faq-toggle {
             width: 28px; height: 28px; border-radius: 50%;
-            background: var(--cream);
+            background: var(--surface);
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0; margin-left: 12px;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -266,9 +287,7 @@
             stroke: var(--text-muted); stroke-width: 2;
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .faq-item.open .faq-toggle {
-            background: var(--coral-glow);
-        }
+        .faq-item.open .faq-toggle { background: var(--coral-glow); }
         .faq-item.open .faq-toggle svg {
             transform: rotate(45deg);
             stroke: var(--coral);
@@ -283,7 +302,7 @@
             color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65;
         }
 
-        /* LEGAL SECTIONS */
+        /* LEGAL */
         .legal-section { margin-bottom: 56px; }
         .legal-section h2 {
             font-family: 'DM Serif Display', serif;
@@ -304,7 +323,7 @@
             background: var(--sage); animation: pulse 2s infinite;
         }
         .legal-card {
-            background: white;
+            background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 32px;
@@ -312,16 +331,13 @@
         }
         .legal-card h3 {
             font-size: 1rem; font-weight: 700; margin: 24px 0 10px;
-            color: var(--navy);
         }
         .legal-card h3:first-child { margin-top: 0; }
         .legal-card p, .legal-card li {
             color: var(--text-secondary); font-size: 0.9rem;
             margin-bottom: 10px; line-height: 1.65;
         }
-        .legal-card ul {
-            padding-left: 0; margin-bottom: 12px; list-style: none;
-        }
+        .legal-card ul { padding-left: 0; margin-bottom: 12px; list-style: none; }
         .legal-card li {
             margin-bottom: 8px; padding-left: 20px; position: relative;
         }
@@ -332,20 +348,18 @@
             background: var(--coral-glow);
             border: 2px solid var(--coral);
         }
-        .legal-card strong { color: var(--navy); }
-        .legal-card a { color: var(--coral); text-decoration: none; font-weight: 500; }
+        .legal-card strong { color: var(--text); }
+        .legal-card a { color: var(--coral-light); text-decoration: none; font-weight: 500; }
         .legal-card a:hover { text-decoration: underline; }
 
         /* BACK TO TOP */
-        .back-top {
-            display: flex; justify-content: center; margin-bottom: 40px;
-        }
+        .back-top { display: flex; justify-content: center; margin-bottom: 40px; }
         .back-top a {
             display: inline-flex; align-items: center; gap: 6px;
             color: var(--text-muted); text-decoration: none;
             font-size: 0.85rem; font-weight: 500;
             padding: 10px 20px; border-radius: 50px;
-            background: white; border: 1px solid var(--border);
+            background: var(--bg-card); border: 1px solid var(--border);
             transition: all 0.3s;
         }
         .back-top a:hover {
@@ -358,7 +372,7 @@
             padding: 48px 32px;
             border-top: 1px solid var(--border);
             text-align: center;
-            background: var(--warm-white);
+            background: var(--bg-raised);
         }
         .footer-brand {
             font-family: 'DM Serif Display', serif;
@@ -373,7 +387,7 @@
             color: var(--text-muted); text-decoration: none;
             font-size: 0.85rem; font-weight: 500; transition: color 0.2s;
         }
-        .footer-links a:hover { color: var(--text); }
+        .footer-links a:hover { color: var(--text-secondary); }
         .footer-copy { color: var(--text-muted); font-size: 0.78rem; }
 
         @media (max-width: 768px) {
@@ -406,7 +420,6 @@
 
 <div class="content">
 
-    <!-- CONTACT -->
     <div id="contact" class="contact-card reveal">
         <div class="contact-icon">&#128140;</div>
         <h2>We're here for your family</h2>
@@ -417,7 +430,6 @@
         </a>
     </div>
 
-    <!-- QUICK HELP -->
     <div class="quick-help">
         <div class="quick-card reveal reveal-delay-1">
             <div class="quick-icon" style="background: var(--coral-glow);">&#128197;</div>
@@ -436,92 +448,43 @@
         </div>
     </div>
 
-    <!-- FAQ -->
     <div id="faq" class="faq-section reveal">
         <h2><span class="icon" style="background: var(--sky-glow);">&#10068;</span> Frequently Asked Questions</h2>
 
         <div class="faq-item">
-            <div class="faq-question">
-                What is FamSync?
-                <span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-            </div>
-            <div class="faq-answer"><div class="faq-answer-inner">
-                FamSync is a family coordination app that brings your calendars, to-do lists, grocery lists, meal plans, and more into one shared space. It includes an AI assistant called Foxy that can help plan your day, suggest meals, and keep everyone on track.
-            </div></div>
+            <div class="faq-question">What is FamSync?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">FamSync is a family coordination app that brings your calendars, to-do lists, grocery lists, meal plans, and more into one shared space. It includes an AI assistant called Foxy that can help plan your day, suggest meals, and keep everyone on track.</div></div>
         </div>
-
         <div class="faq-item">
-            <div class="faq-question">
-                Is FamSync free to use?
-                <span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-            </div>
-            <div class="faq-answer"><div class="faq-answer-inner">
-                FamSync is free to download with core features at no cost. Some premium features like advanced AI suggestions, meal planning, and expanded family member slots are available through an optional subscription.
-            </div></div>
+            <div class="faq-question">Is FamSync free to use?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">FamSync is free to download with core features at no cost. Some premium features like advanced AI suggestions, meal planning, and expanded family member slots are available through an optional subscription.</div></div>
         </div>
-
         <div class="faq-item">
-            <div class="faq-question">
-                How do I invite family members?
-                <span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-            </div>
-            <div class="faq-answer"><div class="faq-answer-inner">
-                Go to the Profile tab and tap "Invite Members." You'll get a unique family code that your family members can use to join your family group when they sign up or from their own Profile tab.
-            </div></div>
+            <div class="faq-question">How do I invite family members?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">Go to the Profile tab and tap "Invite Members." You'll get a unique family code that your family members can use to join your family group when they sign up or from their own Profile tab.</div></div>
         </div>
-
         <div class="faq-item">
-            <div class="faq-question">
-                Can I sync with Google Calendar or Apple Calendar?
-                <span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-            </div>
-            <div class="faq-answer"><div class="faq-answer-inner">
-                Yes! FamSync supports syncing with both Google Calendar and Apple Calendar. Go to Profile > Connected Calendars to set up the integration. Events will sync automatically in both directions.
-            </div></div>
+            <div class="faq-question">Can I sync with Google Calendar or Apple Calendar?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">Yes! FamSync supports syncing with both Google Calendar and Apple Calendar. Go to Profile > Connected Calendars to set up the integration. Events will sync automatically in both directions.</div></div>
         </div>
-
         <div class="faq-item">
-            <div class="faq-question">
-                Who is Foxy?
-                <span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-            </div>
-            <div class="faq-answer"><div class="faq-answer-inner">
-                Foxy is FamSync's built-in AI assistant. You can chat with Foxy to create events, add items to your grocery list, get dinner suggestions, find nearby activities, and more. Foxy knows your family's schedule and preferences to give personalized suggestions.
-            </div></div>
+            <div class="faq-question">Who is Foxy?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">Foxy is FamSync's built-in AI assistant. You can chat with Foxy to create events, add items to your grocery list, get dinner suggestions, find nearby activities, and more. Foxy knows your family's schedule and preferences to give personalized suggestions.</div></div>
         </div>
-
         <div class="faq-item">
-            <div class="faq-question">
-                How does location sharing work?
-                <span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-            </div>
-            <div class="faq-answer"><div class="faq-answer-inner">
-                FamSync uses location sharing to show family members on a map and calculate real drive times. Location sharing is completely optional and can be toggled on or off at any time from your Profile settings. Location data is only shared within your family group.
-            </div></div>
+            <div class="faq-question">How does location sharing work?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">FamSync uses location sharing to show family members on a map and calculate real drive times. Location sharing is completely optional and can be toggled on or off at any time from your Profile settings. Location data is only shared within your family group.</div></div>
         </div>
-
         <div class="faq-item">
-            <div class="faq-question">
-                How do I cancel my subscription?
-                <span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-            </div>
-            <div class="faq-answer"><div class="faq-answer-inner">
-                You can manage or cancel your subscription through your Apple ID settings. Go to Settings > your name > Subscriptions on your iPhone. You'll keep access to premium features until the end of your billing period.
-            </div></div>
+            <div class="faq-question">How do I cancel my subscription?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">You can manage or cancel your subscription through your Apple ID settings. Go to Settings > your name > Subscriptions on your iPhone. You'll keep access to premium features until the end of your billing period.</div></div>
         </div>
-
         <div class="faq-item">
-            <div class="faq-question">
-                What devices are supported?
-                <span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-            </div>
-            <div class="faq-answer"><div class="faq-answer-inner">
-                FamSync is currently available for iPhone running iOS 16 or later. We're working on expanding to iPad and additional platforms in the future.
-            </div></div>
+            <div class="faq-question">What devices are supported?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">FamSync is currently available for iPhone running iOS 16 or later. We're working on expanding to iPad and additional platforms in the future.</div></div>
         </div>
     </div>
 
-    <!-- PRIVACY -->
     <div id="privacy" class="legal-section reveal">
         <h2><span class="icon" style="background: var(--sage-glow);">&#128274;</span> Privacy Policy</h2>
         <p class="updated">Last updated: March 2026</p>
@@ -534,7 +497,6 @@
                 <li><strong>Location data:</strong> If you enable location sharing, your device location is collected and shared with your family group members. You can disable this at any time.</li>
                 <li><strong>Usage data:</strong> Basic analytics about app usage to help us improve the experience.</li>
             </ul>
-
             <h3>How We Use Your Information</h3>
             <ul>
                 <li>To provide and maintain the FamSync service</li>
@@ -543,10 +505,8 @@
                 <li>To send you relevant notifications about family events and updates</li>
                 <li>To improve the app experience based on aggregate usage patterns</li>
             </ul>
-
             <h3>Data Storage & Security</h3>
             <p>Your data is stored securely using Firebase (Google Cloud) with encryption in transit and at rest. We do not sell your personal data to third parties. Family data is only accessible to members of your family group.</p>
-
             <h3>Third-Party Services</h3>
             <ul>
                 <li><strong>Firebase:</strong> Authentication, database, and cloud services (Google)</li>
@@ -554,20 +514,17 @@
                 <li><strong>Mistral AI:</strong> Powers the Foxy AI assistant (conversation context is sent for processing)</li>
                 <li><strong>Apple MapKit:</strong> Location search and driving directions</li>
             </ul>
-
             <h3>Your Rights</h3>
             <p>You can request deletion of your account and all associated data at any time by contacting us at <a href="mailto:support@hotstreak.info">support@hotstreak.info</a>. You can also export your data or modify your information within the app's Profile settings.</p>
         </div>
     </div>
 
-    <!-- TERMS -->
     <div id="terms" class="legal-section reveal">
         <h2><span class="icon" style="background: var(--lavender-glow);">&#128220;</span> Terms of Service</h2>
         <p class="updated">Last updated: March 2026</p>
         <div class="legal-card">
             <h3>Acceptance of Terms</h3>
             <p>By downloading or using FamSync, you agree to these Terms of Service. If you do not agree, please do not use the app.</p>
-
             <h3>Use of Service</h3>
             <p>FamSync is designed for personal, non-commercial use to help families coordinate their schedules and activities. You agree to:</p>
             <ul>
@@ -576,22 +533,16 @@
                 <li>Not attempt to access other users' data outside of your family group</li>
                 <li>Be responsible for maintaining the security of your account</li>
             </ul>
-
             <h3>Subscriptions & Payments</h3>
             <p>Some features require a premium subscription. Subscriptions are billed through the Apple App Store and are subject to Apple's terms. Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current billing period.</p>
-
             <h3>AI Features</h3>
             <p>The Foxy AI assistant provides suggestions based on your family's data. AI-generated content is for informational purposes only and should not be relied upon as professional advice. We are not responsible for actions taken based on AI suggestions.</p>
-
             <h3>Content & Data</h3>
             <p>You retain ownership of all content you create in FamSync. By using the service, you grant us a limited license to store, process, and display your content to provide the service to you and your family group members.</p>
-
             <h3>Limitation of Liability</h3>
             <p>FamSync is provided "as is" without warranties of any kind. We are not liable for any missed events, scheduling conflicts, or other issues arising from use of the app.</p>
-
             <h3>Changes to Terms</h3>
             <p>We may update these terms from time to time. Continued use of the app after changes constitutes acceptance of the new terms.</p>
-
             <h3>Contact</h3>
             <p>For questions about these terms, contact us at <a href="mailto:support@hotstreak.info">support@hotstreak.info</a>.</p>
         </div>
@@ -618,21 +569,16 @@
 </footer>
 
 <script>
-// Scroll reveal
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// Nav scroll
 const nav = document.querySelector('nav');
 window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
-// FAQ accordion
 document.querySelectorAll('.faq-question').forEach(q => {
     q.addEventListener('click', () => {
         const item = q.parentElement;
