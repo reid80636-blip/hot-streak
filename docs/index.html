@@ -13,12 +13,16 @@
   <meta property="og:title" content="FamSync: Family Calendar">
   <meta property="og:description" content="One shared calendar, chores, groceries, dinner, and a live map of who's home. Reminders that ring like a real call. Free for up to 4 people.">
   <meta property="og:url" content="https://hotstreak.info/">
-  <meta property="og:image" content="https://hotstreak.info/img/icon-512.png">
+  <meta property="og:image" content="https://hotstreak.info/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="apple-itunes-app" content="app-id=6760918495">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -48,8 +52,22 @@
       <a href="#pricing">Pricing</a>
       <a href="support.html">Support</a>
     </nav>
-    <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Get the app</a>
+    <div class="nav-right">
+      <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Get the app</a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
   </div>
+  <nav class="menu" id="menu" aria-label="Menu">
+    <a href="#tour">Tour</a>
+    <a href="#remind">Remind</a>
+    <a href="#calendar">Calendar</a>
+    <a href="#foxy">Foxy</a>
+    <a href="#pricing">Pricing</a>
+    <a href="support.html">Support</a>
+    <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Get the app</a>
+  </nav>
 </header>
 
 <main>
@@ -139,24 +157,30 @@
 <!-- ============ TOUR ============ -->
 <section class="section" id="tour">
   <div class="wrap">
-    <div class="section-head">
-      <h2 class="display">Every tab, one household.</h2>
-      <p class="lede">These are the real screens. Warm, dark, and quiet enough to check before coffee.</p>
+    <div class="shelf-top">
+      <div class="section-head">
+        <h2 class="display">Every tab, one household.</h2>
+        <p class="lede">These are the real screens. Warm, dark, and quiet enough to check before coffee.</p>
+      </div>
+      <div class="shelf-nav">
+        <button type="button" id="shelf-prev" aria-label="Previous screens"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
+        <button type="button" id="shelf-next" aria-label="Next screens"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
     </div>
-    <ul class="shelf" aria-label="App screens">
-      <li><figure><div class="phone fade"><img src="img/digest.webp" alt="Morning briefing screen with weather and the day's summary" loading="lazy" width="720" height="1565"></div><figcaption><b>Morning briefing</b><p>The day ahead: events, weather, clashes, and the one thing to handle first.</p></figcaption></figure></li>
-      <li><figure><div class="phone fade"><img src="img/calendar_day.webp" alt="Calendar day view with a 24-hour ring and agenda" loading="lazy" width="720" height="1565"></div><figcaption><b>Calendar</b><p>Everyone at a glance, or filter to one person. Day, week, and month.</p></figcaption></figure></li>
-      <li><figure><div class="phone fade"><img src="img/lists.webp" alt="To do screen with a next-up card, chores awaiting approval, and overdue tasks" loading="lazy" width="720" height="1565"></div><figcaption><b>To do and chores</b><p>Swipe right to finish, left for tomorrow. Kids earn rewards for chores.</p></figcaption></figure></li>
-      <li><figure><div class="phone fade"><img src="img/meals.webp" alt="Meals screen showing this week's dinners and recipes" loading="lazy" width="720" height="1565"></div><figcaption><b>Meals</b><p>A week of dinners, planned around what your family likes. Ingredients go straight to the grocery list.</p></figcaption></figure></li>
-      <li><figure><div class="phone fade"><img src="img/map.webp" alt="Family map showing who is home and who is driving" loading="lazy" width="720" height="1565"></div><figcaption><b>Family map</b><p>Who's home, who's driving, and how long until they're back.</p></figcaption></figure></li>
-      <li><figure><div class="phone fade"><img src="img/foxy.webp" alt="Setting up with Foxy, a guided chat that configures the app" loading="lazy" width="720" height="1565"></div><figcaption><b>Foxy sets it up</b><p>A few questions, one tap each. Foxy does the rest.</p></figcaption></figure></li>
+    <ul class="shelf" id="shelf" aria-label="App screens">
+      <li class="reveal" style="--i:0"><figure><div class="phone fade"><img src="img/digest.webp" alt="Morning briefing screen with weather and the day's summary" loading="lazy" width="720" height="1565"></div><figcaption><b>Morning briefing</b><p>The day ahead: events, weather, clashes, and the one thing to handle first.</p></figcaption></figure></li>
+      <li class="reveal" style="--i:1"><figure><div class="phone fade"><img src="img/calendar_day.webp" alt="Calendar day view with a 24-hour ring and agenda" loading="lazy" width="720" height="1565"></div><figcaption><b>Calendar</b><p>Everyone at a glance, or filter to one person. Day, week, and month.</p></figcaption></figure></li>
+      <li class="reveal" style="--i:2"><figure><div class="phone fade"><img src="img/lists.webp" alt="To do screen with a next-up card, chores awaiting approval, and overdue tasks" loading="lazy" width="720" height="1565"></div><figcaption><b>To do and chores</b><p>Swipe right to finish, left for tomorrow. Kids earn rewards for chores.</p></figcaption></figure></li>
+      <li class="reveal" style="--i:3"><figure><div class="phone fade"><img src="img/meals.webp" alt="Meals screen showing this week's dinners and recipes" loading="lazy" width="720" height="1565"></div><figcaption><b>Meals</b><p>A week of dinners, planned around what your family likes. Ingredients go straight to the grocery list.</p></figcaption></figure></li>
+      <li class="reveal" style="--i:4"><figure><div class="phone fade"><img src="img/map.webp" alt="Family map showing who is home and who is driving" loading="lazy" width="720" height="1565"></div><figcaption><b>Family map</b><p>Who's home, who's driving, and how long until they're back.</p></figcaption></figure></li>
+      <li class="reveal" style="--i:5"><figure><div class="phone fade"><img src="img/foxy.webp" alt="Setting up with Foxy, a guided chat that configures the app" loading="lazy" width="720" height="1565"></div><figcaption><b>Foxy sets it up</b><p>A few questions, one tap each. Foxy does the rest.</p></figcaption></figure></li>
     </ul>
     <p class="shelf-hint"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Scroll sideways to see more</p>
   </div>
 </section>
 
 <!-- ============ REMIND ============ -->
-<section class="section dark" id="remind">
+<section class="section dark panel" id="remind">
   <div class="wrap feature">
     <div class="feature-copy">
       <h2 class="display">Banners get swiped away. A call gets answered.</h2>
@@ -173,7 +197,7 @@
         <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Hold to talk</b><span>Say it in your own voice and it plays when they pick up.</span></div></li>
       </ul>
     </div>
-    <div class="feature-media call-stage">
+    <div class="feature-media call-stage reveal">
       <div class="call-rings" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="call" role="img" aria-label="An incoming Reminder Call that says Leave for practice now, from Mom">
         <div class="from">FamSync Reminder Call</div>
@@ -202,14 +226,14 @@
       </ul>
     </div>
     <div class="feature-media pair">
-      <div class="phone fade"><img src="img/calendar_week.webp" alt="Week view with a lane for each family member" loading="lazy" width="720" height="1565"></div>
-      <div class="phone fade"><img src="img/calendar_month.webp" alt="Month view with colored dots for each person's events" loading="lazy" width="720" height="1565"></div>
+      <div class="phone fade reveal"><img src="img/calendar_week.webp" alt="Week view with a lane for each family member" loading="lazy" width="720" height="1565"></div>
+      <div class="phone fade reveal" style="--i:1"><img src="img/calendar_month.webp" alt="Month view with colored dots for each person's events" loading="lazy" width="720" height="1565"></div>
     </div>
   </div>
 </section>
 
 <!-- ============ FOXY ============ -->
-<section class="section band" id="foxy">
+<section class="section band panel" id="foxy">
   <div class="wrap feature">
     <div class="feature-copy">
       <h2 class="display">Type it the way you'd say it.</h2>
@@ -222,7 +246,7 @@
       </ul>
     </div>
     <div class="feature-media">
-      <div class="chat" id="chat" aria-live="polite">
+      <div class="chat reveal" id="chat" aria-live="polite">
         <div class="chat-head"><div class="fox">🦊</div><div><b>Foxy</b><small>Online</small></div></div>
         <div class="bubble me" id="chat-me"><span id="typed"></span><span class="caret" id="caret"></span></div>
         <div class="bubble fox" id="chat-fox">Got it. Here's what I've prepared. Add it, or change anything first.</div>
@@ -251,7 +275,7 @@
       </ul>
     </div>
     <div class="feature-media">
-      <div class="phone fade" style="width: min(330px, 100%); margin-inline: auto;"><img src="img/map.webp" alt="Family map with member cards showing who is driving and who is home" loading="lazy" width="720" height="1565"></div>
+      <div class="phone fade reveal" style="width: min(330px, 100%); margin-inline: auto;"><img src="img/map.webp" alt="Family map with member cards showing who is driving and who is home" loading="lazy" width="720" height="1565"></div>
       <div class="drive" role="img" aria-label="Drive summary for Kara: 14 minutes, 9.7 miles, top speed 34, phone picked up 0 times">
         <div class="t"><i>K</i>Kara parked at 4:52 PM</div>
         <h4>School to home</h4>
@@ -328,7 +352,7 @@
 </section>
 
 <!-- ============ FAQ ============ -->
-<section class="section band" id="faq">
+<section class="section band panel" id="faq">
   <div class="wrap">
     <div class="section-head">
       <h2 class="display">Questions, answered.</h2>
@@ -367,7 +391,7 @@
 </section>
 
 <!-- ============ CLOSING ============ -->
-<section class="dark closing" id="download">
+<section class="dark closing panel" id="download">
   <div class="wrap">
     <img class="brand-mark" src="img/icon-180.png" alt="" width="84" height="84">
     <h2 class="display">Get your household on the same page.</h2>
@@ -378,6 +402,8 @@
     </a>
   </div>
 </section>
+
+<div class="sticky-cta" id="sticky-cta"><a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Download free on the App Store</a></div>
 
 </main>
 
@@ -399,6 +425,56 @@
   var nav = document.getElementById('nav');
   var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 8); };
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Mobile menu
+  var menuBtn = document.getElementById('menu-btn'), menu = document.getElementById('menu');
+  var setMenu = function (open) { menu.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', String(open)); menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); };
+  menuBtn.addEventListener('click', function () { setMenu(!menu.classList.contains('open')); });
+  menu.addEventListener('click', function (e) { if (e.target.closest('a')) { setMenu(false); } });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setMenu(false); } });
+
+  // Shelf arrows
+  var shelf = document.getElementById('shelf');
+  var step = function (dir) { var w = shelf.firstElementChild.getBoundingClientRect().width + 28; shelf.scrollBy({ left: dir * w * 2, behavior: reduce ? 'auto' : 'smooth' }); };
+  document.getElementById('shelf-prev').addEventListener('click', function () { step(-1); });
+  document.getElementById('shelf-next').addEventListener('click', function () { step(1); });
+
+  // Reveal once
+  if ('IntersectionObserver' in window) {
+    var rio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } });
+    }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { rio.observe(el); });
+
+    // Sticky download bar on phones, once the hero button has scrolled away
+    var sticky = document.getElementById('sticky-cta'), heroCta = document.querySelector('.hero-cta');
+    var sio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { sticky.classList.toggle('show', !e.isIntersecting && e.boundingClientRect.top < 0); });
+    }, { threshold: 0 });
+    sio.observe(heroCta);
+    var closing = document.getElementById('download');
+    var cio = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) { sticky.classList.remove('show'); sio.disconnect(); } }); }, { threshold: 0.2 });
+    cio.observe(closing);
+  } else {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // Hero phone follows the pointer a little (mouse only)
+  var stage = document.querySelector('.hero-stage'), phone = stage && stage.querySelector('.phone');
+  if (phone && !reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    phone.addEventListener('animationend', function () {
+      phone.style.animation = 'none'; phone.style.opacity = '1'; stage.classList.add('tilt');
+      var rect;
+      stage.addEventListener('pointermove', function (e) {
+        rect = rect || stage.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width - 0.5, y = (e.clientY - rect.top) / rect.height - 0.5;
+        phone.style.transform = 'rotateY(' + (x * 9) + 'deg) rotateX(' + (-y * 7) + 'deg) translateY(' + (-y * 6) + 'px)';
+      });
+      stage.addEventListener('pointerleave', function () { phone.style.transform = ''; rect = null; });
+      window.addEventListener('resize', function () { rect = null; });
+    }, { once: true });
+  }
 
   // Foxy demo: types the request once the chat scrolls into view, then Foxy replies.
   var chat = document.getElementById('chat');
