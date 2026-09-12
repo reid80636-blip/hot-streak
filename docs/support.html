@@ -1,593 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0C0F1A">
-    <meta name="description" content="FamSync Support - Get help with your family coordination app.">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>FamSync - Support</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg: #0C0F1A;
-            --bg-raised: #131729;
-            --bg-card: #1A1F35;
-            --bg-card-hover: #1F2540;
-            --bg-elevated: #242A45;
-            --surface: rgba(255, 255, 255, 0.03);
-            --surface-hover: rgba(255, 255, 255, 0.06);
-            --coral: #FF6B4A;
-            --coral-light: #FF8A70;
-            --coral-glow: rgba(255, 107, 74, 0.12);
-            --coral-glow-strong: rgba(255, 107, 74, 0.2);
-            --sage: #4CAF82;
-            --sage-light: #6BC49A;
-            --sage-glow: rgba(76, 175, 130, 0.12);
-            --sky: #5B9CF5;
-            --sky-glow: rgba(91, 156, 245, 0.12);
-            --lavender: #9B8FE8;
-            --lavender-glow: rgba(155, 143, 232, 0.12);
-            --text: #F1F3F8;
-            --text-secondary: #8A91A8;
-            --text-muted: #565E78;
-            --border: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(255, 255, 255, 0.1);
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.35);
-            --shadow-lg: 0 12px 40px rgba(0,0,0,0.45);
-            --radius: 20px;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.65;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body::before {
-            content: '';
-            position: fixed; inset: 0;
-            pointer-events: none; z-index: 9999; opacity: 0.018;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        }
-
-        /* ANIMATIONS */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 74, 0.1); }
-            50% { box-shadow: 0 0 40px rgba(255, 107, 74, 0.2); }
-        }
-        @keyframes morphBlob {
-            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-            50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
-        }
-
-        .reveal {
-            opacity: 0; transform: translateY(24px);
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.15s; }
-        .reveal-delay-3 { transition-delay: 0.2s; }
-
-        /* NAV */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 14px 32px;
-            background: rgba(12, 15, 26, 0.75);
-            backdrop-filter: blur(24px) saturate(1.4);
-            -webkit-backdrop-filter: blur(24px) saturate(1.4);
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between;
-            transition: padding 0.3s, box-shadow 0.3s, background 0.3s;
-        }
-        nav.scrolled {
-            padding: 10px 32px;
-            background: rgba(12, 15, 26, 0.92);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
-        }
-        .nav-brand {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.5rem; color: var(--coral);
-            text-decoration: none; transition: transform 0.2s;
-        }
-        .nav-brand:hover { transform: scale(1.02); }
-        .nav-links { display: flex; gap: 32px; list-style: none; }
-        .nav-links a {
-            color: var(--text-secondary); text-decoration: none;
-            font-size: 0.88rem; font-weight: 500;
-            transition: color 0.2s; position: relative;
-        }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-            height: 2px; background: var(--coral);
-            transform: scaleX(0); transform-origin: center;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .nav-links a:hover { color: var(--text); }
-        .nav-links a:hover::after { transform: scaleX(1); }
-        .nav-cta {
-            background: var(--coral); color: #fff; border: none;
-            padding: 10px 24px; border-radius: 50px; font-weight: 600;
-            font-size: 0.88rem; text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 2px 16px rgba(255, 107, 74, 0.3);
-        }
-        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(255, 107, 74, 0.4); }
-
-        /* HEADER */
-        .page-header {
-            padding: 150px 32px 60px;
-            text-align: center; max-width: 700px; margin: 0 auto;
-            position: relative;
-        }
-        .page-header::before {
-            content: '';
-            position: absolute; top: 60px; left: 50%; transform: translateX(-50%);
-            width: 600px; height: 350px;
-            background: radial-gradient(ellipse, rgba(255,107,74,0.08) 0%, transparent 65%);
-            pointer-events: none; filter: blur(40px);
-        }
-        .page-header h1 {
-            font-family: 'DM Serif Display', serif;
-            font-size: clamp(2.2rem, 5vw, 3.2rem);
-            font-weight: 400; margin-bottom: 14px;
-            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-        }
-        .page-header p {
-            color: var(--text-secondary); font-size: 1.08rem;
-            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-        }
-
-        .content { max-width: 800px; margin: 0 auto; padding: 0 32px 100px; }
-
-        /* CONTACT CARD */
-        .contact-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 44px 36px; margin-bottom: 56px;
-            text-align: center;
-            box-shadow: var(--shadow-md);
-            position: relative; overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .contact-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-        .contact-card::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--coral), var(--coral-light), var(--sage));
-        }
-        .contact-card::after {
-            content: '';
-            position: absolute; top: -50%; right: -30%;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(255,107,74,0.04) 0%, transparent 60%);
-            pointer-events: none;
-            animation: morphBlob 12s ease-in-out infinite;
-        }
-        .contact-icon {
-            width: 56px; height: 56px; border-radius: 16px;
-            background: var(--coral-glow);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; margin: 0 auto 18px;
-            position: relative;
-        }
-        .contact-card h2 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.4rem; font-weight: 400; margin-bottom: 8px;
-            position: relative;
-        }
-        .contact-card > p { color: var(--text-secondary); margin-bottom: 24px; font-size: 0.95rem; position: relative; }
-        .contact-email {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: var(--coral); color: #fff;
-            padding: 13px 30px; border-radius: 50px;
-            font-weight: 600; text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 20px rgba(255, 107, 74, 0.3);
-            position: relative;
-        }
-        .contact-email:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(255, 107, 74, 0.4);
-        }
-
-        /* QUICK HELP */
-        .quick-help {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 16px; margin-bottom: 56px;
-        }
-        .quick-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px 20px;
-            text-align: center;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .quick-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--border-hover);
-            background: var(--bg-card-hover);
-        }
-        .quick-icon {
-            width: 44px; height: 44px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; margin: 0 auto 12px;
-        }
-        .quick-card h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
-        .quick-card p { color: var(--text-secondary); font-size: 0.78rem; }
-
-        /* FAQ */
-        .faq-section { margin-bottom: 56px; }
-        .faq-section > h2 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.6rem; font-weight: 400; margin-bottom: 28px;
-            display: flex; align-items: center; gap: 12px;
-        }
-        .faq-section > h2 .icon {
-            width: 36px; height: 36px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1rem;
-        }
-        .faq-item {
-            margin-bottom: 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        .faq-item:hover { border-color: var(--border-hover); }
-        .faq-item.open {
-            box-shadow: var(--shadow-md);
-            border-color: rgba(255, 107, 74, 0.15);
-        }
-        .faq-question {
-            padding: 18px 24px;
-            font-weight: 600; font-size: 0.95rem;
-            cursor: pointer; display: flex;
-            align-items: center; justify-content: space-between;
-            user-select: none;
-            transition: background 0.2s;
-        }
-        .faq-question:hover { background: var(--surface); }
-        .faq-toggle {
-            width: 28px; height: 28px; border-radius: 50%;
-            background: var(--surface);
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0; margin-left: 12px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .faq-toggle svg {
-            width: 14px; height: 14px;
-            stroke: var(--text-muted); stroke-width: 2;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .faq-item.open .faq-toggle { background: var(--coral-glow); }
-        .faq-item.open .faq-toggle svg {
-            transform: rotate(45deg);
-            stroke: var(--coral);
-        }
-        .faq-answer {
-            max-height: 0; overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .faq-item.open .faq-answer { max-height: 300px; }
-        .faq-answer-inner {
-            padding: 0 24px 20px;
-            color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65;
-        }
-
-        /* LEGAL */
-        .legal-section { margin-bottom: 56px; }
-        .legal-section h2 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.6rem; font-weight: 400; margin-bottom: 6px;
-            display: flex; align-items: center; gap: 12px;
-        }
-        .legal-section h2 .icon {
-            width: 36px; height: 36px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1rem;
-        }
-        .legal-section .updated {
-            color: var(--text-muted); font-size: 0.8rem; margin-bottom: 24px;
-            display: flex; align-items: center; gap: 6px;
-        }
-        .legal-section .updated::before {
-            content: ''; width: 6px; height: 6px; border-radius: 50%;
-            background: var(--sage); animation: pulse 2s infinite;
-        }
-        .legal-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 32px;
-            box-shadow: var(--shadow-sm);
-        }
-        .legal-card h3 {
-            font-size: 1rem; font-weight: 700; margin: 24px 0 10px;
-        }
-        .legal-card h3:first-child { margin-top: 0; }
-        .legal-card p, .legal-card li {
-            color: var(--text-secondary); font-size: 0.9rem;
-            margin-bottom: 10px; line-height: 1.65;
-        }
-        .legal-card ul { padding-left: 0; margin-bottom: 12px; list-style: none; }
-        .legal-card li {
-            margin-bottom: 8px; padding-left: 20px; position: relative;
-        }
-        .legal-card li::before {
-            content: '';
-            position: absolute; left: 0; top: 9px;
-            width: 6px; height: 6px; border-radius: 50%;
-            background: var(--coral-glow);
-            border: 2px solid var(--coral);
-        }
-        .legal-card strong { color: var(--text); }
-        .legal-card a { color: var(--coral-light); text-decoration: none; font-weight: 500; }
-        .legal-card a:hover { text-decoration: underline; }
-
-        /* BACK TO TOP */
-        .back-top { display: flex; justify-content: center; margin-bottom: 40px; }
-        .back-top a {
-            display: inline-flex; align-items: center; gap: 6px;
-            color: var(--text-muted); text-decoration: none;
-            font-size: 0.85rem; font-weight: 500;
-            padding: 10px 20px; border-radius: 50px;
-            background: var(--bg-card); border: 1px solid var(--border);
-            transition: all 0.3s;
-        }
-        .back-top a:hover {
-            color: var(--coral); border-color: rgba(255,107,74,0.2);
-            transform: translateY(-2px); box-shadow: var(--shadow-sm);
-        }
-
-        /* FOOTER */
-        footer {
-            padding: 48px 32px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            background: var(--bg-raised);
-        }
-        .footer-brand {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.3rem; color: var(--coral);
-            margin-bottom: 16px;
-        }
-        .footer-links {
-            display: flex; justify-content: center; gap: 28px;
-            list-style: none; margin-bottom: 20px; flex-wrap: wrap;
-        }
-        .footer-links a {
-            color: var(--text-muted); text-decoration: none;
-            font-size: 0.85rem; font-weight: 500; transition: color 0.2s;
-        }
-        .footer-links a:hover { color: var(--text-secondary); }
-        .footer-copy { color: var(--text-muted); font-size: 0.78rem; }
-
-        @media (max-width: 768px) {
-            nav { padding: 12px 20px; }
-            .nav-links { display: none; }
-            .page-header { padding: 120px 20px 40px; }
-            .content { padding: 0 20px 60px; }
-            .contact-card { padding: 32px 20px; }
-            .quick-help { grid-template-columns: 1fr; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F4F0E6">
+  <title>FamSync Support, Privacy Policy, and Terms</title>
+  <meta name="description" content="Get help with FamSync, read the privacy policy, and review the terms of service.">
+  <link rel="canonical" href="https://hotstreak.info/support">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<nav>
-    <a href="index.html" class="nav-brand">FamSync</a>
-    <ul class="nav-links">
-        <li><a href="index.html#features">Features</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#privacy">Privacy</a></li>
-    </ul>
-    <a href="index.html" class="nav-cta">Home</a>
-</nav>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="FamSync home">
+      <img src="img/icon-180.png" alt="" width="34" height="34">
+      FamSync
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="index.html">Home</a>
+      <a href="#faq">FAQ</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#terms">Terms</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Get the app</a>
+  </div>
+</header>
 
-<div class="page-header">
-    <h1>How can we help?</h1>
-    <p>Find answers to common questions or reach out to our team.</p>
-</div>
+<main>
 
-<div class="content">
+<section class="page-head" id="contact">
+  <div class="wrap">
+    <h1 class="display">How can we help?</h1>
+    <p class="lede" style="margin-top: 20px;">Found a bug, have a question, or want to suggest something? Email us and a person will reply, usually within a day.</p>
+    <div class="contact-card">
+      <div>
+        <b>support@hotstreak.info</b>
+        <span>Include your family code from the Home tab if it's about your account.</span>
+      </div>
+      <a class="btn btn-olive" href="mailto:support@hotstreak.info">Email support</a>
+    </div>
+    <nav class="subnav" aria-label="On this page">
+      <a href="#faq">Common questions</a>
+      <a href="#privacy">Privacy policy</a>
+      <a href="#terms">Terms of service</a>
+    </nav>
+  </div>
+</section>
 
-    <div id="contact" class="contact-card reveal">
-        <div class="contact-icon">&#128140;</div>
-        <h2>We're here for your family</h2>
-        <p>Have a question, found a bug, or want to suggest a feature? Our team responds within 24 hours.</p>
-        <a href="mailto:support@hotstreak.info" class="contact-email">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            support@hotstreak.info
-        </a>
+<section class="section band" id="faq" style="padding-top: clamp(48px, 6vw, 80px);">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="display">Common questions</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>What is FamSync?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">FamSync is a family organizer: one shared calendar with a color for every member, chores and grocery lists everyone can see, a meal planner, a live family map, and Foxy, your family's AI assistant. Reminders can ring a phone like a real call so they don't get missed.</div>
+      </details>
+      <details>
+        <summary>Is FamSync free?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">Yes, for up to four family members, with no ads. Premium covers eight people and adds Remind and Reminder Calls, unlimited Foxy, the Morning Digest, Apple and Google Calendar sync, calendar scanning, the Family Map with drive summaries, and the meal planner. It's $5.99 a month or $49.99 a year, each with a free trial.</div>
+      </details>
+      <details>
+        <summary>How do I invite family members?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">Your family code is on the Home tab. Send it, or show the QR code, and whoever enters it joins your family group with everything already shared.</div>
+      </details>
+      <details>
+        <summary>Can I sync with Google Calendar or Apple Calendar?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">Yes. Open the calendar hub from the Home tab or the Calendar tab and connect either one. Events sync in both directions. Each calendar has its own switch, and disconnecting removes what it brought in.</div>
+      </details>
+      <details>
+        <summary>Who is Foxy?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">Foxy is FamSync's built-in assistant. Type a request the way you'd say it and Foxy creates the event, sends the reminder, posts to the board, or plans dinner. Foxy always shows you what it prepared and waits for your approval before saving anything.</div>
+      </details>
+      <details>
+        <summary>How does location sharing work?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">Location sharing shows family members on the map, powers place alerts and drive summaries, and gives real drive times. It's optional, per person, can be turned off at any time from your profile, and is only visible inside your family group.</div>
+      </details>
+      <details>
+        <summary>How do I cancel my subscription?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">Subscriptions are billed through Apple. On your iPhone open Settings, tap your name, then Subscriptions, and cancel FamSync there. You keep Premium until the end of the current billing period.</div>
+      </details>
+      <details>
+        <summary>How do I delete my account?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">Go to the Profile tab and choose Delete account, or email <a href="mailto:support@hotstreak.info" style="text-decoration: underline; text-underline-offset: 3px;">support@hotstreak.info</a> and we'll remove your account and all associated data.</div>
+      </details>
+      <details>
+        <summary>What devices are supported?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">iPhone running iOS 17 or later.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+
+    <div class="legal" id="privacy">
+      <h2 class="display">Privacy Policy</h2>
+      <p class="updated">Last updated: March 2026</p>
+
+      <h3>Information We Collect</h3>
+      <p>FamSync collects the following information to provide our service:</p>
+      <ul>
+        <li><strong>Account information:</strong> Name, email address, and profile photo when you create an account or sign in with Google.</li>
+        <li><strong>Family data:</strong> Calendar events, tasks, lists, and other content you create within the app. This data is shared with members of your family group.</li>
+        <li><strong>Location data:</strong> If you enable location sharing, your device location is collected and shared with your family group members. You can disable this at any time.</li>
+        <li><strong>Usage data:</strong> Basic analytics about app usage to help us improve the experience.</li>
+      </ul>
+
+      <h3>How We Use Your Information</h3>
+      <ul>
+        <li>To provide and maintain the FamSync service</li>
+        <li>To sync your family's calendars, lists, and plans in real time</li>
+        <li>To power AI features through our AI provider (conversation data is processed but not stored by the AI provider)</li>
+        <li>To send you relevant notifications about family events and updates</li>
+        <li>To improve the app experience based on aggregate usage patterns</li>
+      </ul>
+
+      <h3>Data Storage &amp; Security</h3>
+      <p>Your data is stored securely using Firebase (Google Cloud) with encryption in transit and at rest. We do not sell your personal data to third parties. Family data is only accessible to members of your family group.</p>
+
+      <h3>Third-Party Services</h3>
+      <ul>
+        <li><strong>Firebase:</strong> Authentication, database, and cloud services (Google)</li>
+        <li><strong>Google Sign-In:</strong> Optional authentication method</li>
+        <li><strong>Mistral AI:</strong> Powers the Foxy AI assistant (conversation context is sent for processing)</li>
+        <li><strong>Apple MapKit:</strong> Location search and driving directions</li>
+      </ul>
+
+      <h3>Your Rights</h3>
+      <p>You can request deletion of your account and all associated data at any time by contacting us at <a href="mailto:support@hotstreak.info">support@hotstreak.info</a>. You can also export your data or modify your information within the app's Profile settings.</p>
     </div>
 
-    <div class="quick-help">
-        <div class="quick-card reveal reveal-delay-1">
-            <div class="quick-icon" style="background: var(--coral-glow);">&#128197;</div>
-            <h3>Calendar Help</h3>
-            <p>Syncing, events, and scheduling</p>
-        </div>
-        <div class="quick-card reveal reveal-delay-2">
-            <div class="quick-icon" style="background: var(--sage-glow);">&#129418;</div>
-            <h3>Foxy AI</h3>
-            <p>Tips for your AI assistant</p>
-        </div>
-        <div class="quick-card reveal reveal-delay-3">
-            <div class="quick-icon" style="background: var(--lavender-glow);">&#128101;</div>
-            <h3>Family Setup</h3>
-            <p>Invites, members, and groups</p>
-        </div>
+    <div class="legal" id="terms">
+      <h2 class="display">Terms of Service</h2>
+      <p class="updated">Last updated: March 2026</p>
+
+      <h3>Acceptance of Terms</h3>
+      <p>By downloading or using FamSync, you agree to these Terms of Service. If you do not agree, please do not use the app.</p>
+
+      <h3>Use of Service</h3>
+      <p>FamSync is designed for personal, non-commercial use to help families coordinate their schedules and activities. You agree to:</p>
+      <ul>
+        <li>Provide accurate information when creating your account</li>
+        <li>Not use the service for any unlawful purpose</li>
+        <li>Not attempt to access other users' data outside of your family group</li>
+        <li>Be responsible for maintaining the security of your account</li>
+      </ul>
+
+      <h3>Subscriptions &amp; Payments</h3>
+      <p>Some features require a premium subscription. Subscriptions are billed through the Apple App Store and are subject to Apple's terms. Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current billing period.</p>
+
+      <h3>AI Features</h3>
+      <p>The Foxy AI assistant provides suggestions based on your family's data. AI-generated content is for informational purposes only and should not be relied upon as professional advice. We are not responsible for actions taken based on AI suggestions.</p>
+
+      <h3>Content &amp; Data</h3>
+      <p>You retain ownership of all content you create in FamSync. By using the service, you grant us a limited license to store, process, and display your content to provide the service to you and your family group members.</p>
+
+      <h3>Limitation of Liability</h3>
+      <p>FamSync is provided "as is" without warranties of any kind. We are not liable for any missed events, scheduling conflicts, or other issues arising from use of the app.</p>
+
+      <h3>Changes to Terms</h3>
+      <p>We may update these terms from time to time. Continued use of the app after changes constitutes acceptance of the new terms.</p>
+
+      <h3>Contact</h3>
+      <p>For questions about these terms, contact us at <a href="mailto:support@hotstreak.info">support@hotstreak.info</a>.</p>
     </div>
 
-    <div id="faq" class="faq-section reveal">
-        <h2><span class="icon" style="background: var(--sky-glow);">&#10068;</span> Frequently Asked Questions</h2>
+  </div>
+</section>
 
-        <div class="faq-item">
-            <div class="faq-question">What is FamSync?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">FamSync is a family coordination app that brings your calendars, to-do lists, grocery lists, meal plans, and more into one shared space. It includes an AI assistant called Foxy that can help plan your day, suggest meals, and keep everyone on track.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">Is FamSync free to use?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">FamSync is free to download with core features at no cost. Some premium features like advanced AI suggestions, meal planning, and expanded family member slots are available through an optional subscription.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">How do I invite family members?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">Go to the Profile tab and tap "Invite Members." You'll get a unique family code that your family members can use to join your family group when they sign up or from their own Profile tab.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">Can I sync with Google Calendar or Apple Calendar?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">Yes! FamSync supports syncing with both Google Calendar and Apple Calendar. Go to Profile > Connected Calendars to set up the integration. Events will sync automatically in both directions.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">Who is Foxy?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">Foxy is FamSync's built-in AI assistant. You can chat with Foxy to create events, add items to your grocery list, get dinner suggestions, find nearby activities, and more. Foxy knows your family's schedule and preferences to give personalized suggestions.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">How does location sharing work?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">FamSync uses location sharing to show family members on a map and calculate real drive times. Location sharing is completely optional and can be toggled on or off at any time from your Profile settings. Location data is only shared within your family group.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">How do I cancel my subscription?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">You can manage or cancel your subscription through your Apple ID settings. Go to Settings > your name > Subscriptions on your iPhone. You'll keep access to premium features until the end of your billing period.</div></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">What devices are supported?<span class="faq-toggle"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>
-            <div class="faq-answer"><div class="faq-answer-inner">FamSync is currently available for iPhone running iOS 16 or later. We're working on expanding to iPad and additional platforms in the future.</div></div>
-        </div>
-    </div>
+</main>
 
-    <div id="privacy" class="legal-section reveal">
-        <h2><span class="icon" style="background: var(--sage-glow);">&#128274;</span> Privacy Policy</h2>
-        <p class="updated">Last updated: March 2026</p>
-        <div class="legal-card">
-            <h3>Information We Collect</h3>
-            <p>FamSync collects the following information to provide our service:</p>
-            <ul>
-                <li><strong>Account information:</strong> Name, email address, and profile photo when you create an account or sign in with Google.</li>
-                <li><strong>Family data:</strong> Calendar events, tasks, lists, and other content you create within the app. This data is shared with members of your family group.</li>
-                <li><strong>Location data:</strong> If you enable location sharing, your device location is collected and shared with your family group members. You can disable this at any time.</li>
-                <li><strong>Usage data:</strong> Basic analytics about app usage to help us improve the experience.</li>
-            </ul>
-            <h3>How We Use Your Information</h3>
-            <ul>
-                <li>To provide and maintain the FamSync service</li>
-                <li>To sync your family's calendars, lists, and plans in real time</li>
-                <li>To power AI features through our AI provider (conversation data is processed but not stored by the AI provider)</li>
-                <li>To send you relevant notifications about family events and updates</li>
-                <li>To improve the app experience based on aggregate usage patterns</li>
-            </ul>
-            <h3>Data Storage & Security</h3>
-            <p>Your data is stored securely using Firebase (Google Cloud) with encryption in transit and at rest. We do not sell your personal data to third parties. Family data is only accessible to members of your family group.</p>
-            <h3>Third-Party Services</h3>
-            <ul>
-                <li><strong>Firebase:</strong> Authentication, database, and cloud services (Google)</li>
-                <li><strong>Google Sign-In:</strong> Optional authentication method</li>
-                <li><strong>Mistral AI:</strong> Powers the Foxy AI assistant (conversation context is sent for processing)</li>
-                <li><strong>Apple MapKit:</strong> Location search and driving directions</li>
-            </ul>
-            <h3>Your Rights</h3>
-            <p>You can request deletion of your account and all associated data at any time by contacting us at <a href="mailto:support@hotstreak.info">support@hotstreak.info</a>. You can also export your data or modify your information within the app's Profile settings.</p>
-        </div>
-    </div>
-
-    <div id="terms" class="legal-section reveal">
-        <h2><span class="icon" style="background: var(--lavender-glow);">&#128220;</span> Terms of Service</h2>
-        <p class="updated">Last updated: March 2026</p>
-        <div class="legal-card">
-            <h3>Acceptance of Terms</h3>
-            <p>By downloading or using FamSync, you agree to these Terms of Service. If you do not agree, please do not use the app.</p>
-            <h3>Use of Service</h3>
-            <p>FamSync is designed for personal, non-commercial use to help families coordinate their schedules and activities. You agree to:</p>
-            <ul>
-                <li>Provide accurate information when creating your account</li>
-                <li>Not use the service for any unlawful purpose</li>
-                <li>Not attempt to access other users' data outside of your family group</li>
-                <li>Be responsible for maintaining the security of your account</li>
-            </ul>
-            <h3>Subscriptions & Payments</h3>
-            <p>Some features require a premium subscription. Subscriptions are billed through the Apple App Store and are subject to Apple's terms. Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current billing period.</p>
-            <h3>AI Features</h3>
-            <p>The Foxy AI assistant provides suggestions based on your family's data. AI-generated content is for informational purposes only and should not be relied upon as professional advice. We are not responsible for actions taken based on AI suggestions.</p>
-            <h3>Content & Data</h3>
-            <p>You retain ownership of all content you create in FamSync. By using the service, you grant us a limited license to store, process, and display your content to provide the service to you and your family group members.</p>
-            <h3>Limitation of Liability</h3>
-            <p>FamSync is provided "as is" without warranties of any kind. We are not liable for any missed events, scheduling conflicts, or other issues arising from use of the app.</p>
-            <h3>Changes to Terms</h3>
-            <p>We may update these terms from time to time. Continued use of the app after changes constitutes acceptance of the new terms.</p>
-            <h3>Contact</h3>
-            <p>For questions about these terms, contact us at <a href="mailto:support@hotstreak.info">support@hotstreak.info</a>.</p>
-        </div>
-    </div>
-
-    <div class="back-top">
-        <a href="#">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-            Back to top
-        </a>
-    </div>
-</div>
-
-<footer>
-    <div class="footer-brand">FamSync</div>
-    <ul class="footer-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#privacy">Privacy Policy</a></li>
-        <li><a href="#terms">Terms of Service</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-    <p class="footer-copy">&copy; 2026 FamSync. All rights reserved.</p>
+<footer class="footer">
+  <div class="wrap footer-in">
+    <a class="brand" href="index.html" style="font-size: 19px;"><img src="img/icon-180.png" alt="" width="28" height="28" style="width:28px;height:28px;">FamSync</a>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="index.html">Home</a>
+      <a href="#faq">FAQ</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#terms">Terms</a>
+      <a href="mailto:support@hotstreak.info">Contact</a>
+    </nav>
+    <span>© 2026 FamSync</span>
+  </div>
 </footer>
 
 <script>
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-const nav = document.querySelector('nav');
-window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-}, { passive: true });
-
-document.querySelectorAll('.faq-question').forEach(q => {
-    q.addEventListener('click', () => {
-        const item = q.parentElement;
-        const wasOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-        if (!wasOpen) item.classList.add('open');
-    });
-});
+(function () {
+  var nav = document.getElementById('nav');
+  var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 8); };
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+})();
 </script>
-
 </body>
 </html>

@@ -1,967 +1,430 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0C0F1A">
-    <meta name="description" content="FamSync - Family life, simplified. Keep your family organized with shared calendars, smart lists, AI-powered suggestions, and real-time coordination.">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>FamSync - Family Life, Simplified</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg: #0C0F1A;
-            --bg-raised: #131729;
-            --bg-card: #1A1F35;
-            --bg-card-hover: #1F2540;
-            --bg-elevated: #242A45;
-            --surface: rgba(255, 255, 255, 0.03);
-            --surface-hover: rgba(255, 255, 255, 0.06);
-            --coral: #FF6B4A;
-            --coral-light: #FF8A70;
-            --coral-deep: #E8553A;
-            --coral-glow: rgba(255, 107, 74, 0.12);
-            --coral-glow-strong: rgba(255, 107, 74, 0.2);
-            --sage: #4CAF82;
-            --sage-light: #6BC49A;
-            --sage-glow: rgba(76, 175, 130, 0.12);
-            --sky: #5B9CF5;
-            --sky-glow: rgba(91, 156, 245, 0.12);
-            --lavender: #9B8FE8;
-            --lavender-glow: rgba(155, 143, 232, 0.12);
-            --amber: #F5A623;
-            --amber-glow: rgba(245, 166, 35, 0.12);
-            --rose: #E8729A;
-            --rose-glow: rgba(232, 114, 154, 0.12);
-            --text: #F1F3F8;
-            --text-secondary: #8A91A8;
-            --text-muted: #565E78;
-            --border: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(255, 255, 255, 0.1);
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.35);
-            --shadow-lg: 0 12px 40px rgba(0,0,0,0.45);
-            --shadow-xl: 0 24px 60px rgba(0,0,0,0.5);
-            --radius: 20px;
-            --radius-sm: 12px;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.65;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* ANIMATIONS */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.92); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(2deg); }
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
-        @keyframes shimmer {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
-        }
-        @keyframes morphBlob {
-            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-            25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
-            50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
-            75% { border-radius: 60% 40% 60% 30% / 60% 40% 30% 70%; }
-        }
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 74, 0.15); }
-            50% { box-shadow: 0 0 40px rgba(255, 107, 74, 0.25); }
-        }
-
-        .reveal {
-            opacity: 0; transform: translateY(30px);
-            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
-        .reveal-delay-5 { transition-delay: 0.5s; }
-
-        /* GRAIN OVERLAY */
-        body::before {
-            content: '';
-            position: fixed; inset: 0;
-            pointer-events: none; z-index: 9999; opacity: 0.018;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        }
-
-        /* NAV */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 14px 32px;
-            background: rgba(12, 15, 26, 0.75);
-            backdrop-filter: blur(24px) saturate(1.4);
-            -webkit-backdrop-filter: blur(24px) saturate(1.4);
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between;
-            transition: padding 0.3s, box-shadow 0.3s, background 0.3s;
-        }
-        nav.scrolled {
-            padding: 10px 32px;
-            background: rgba(12, 15, 26, 0.92);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
-        }
-        .nav-brand {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.5rem; color: var(--coral);
-            text-decoration: none; transition: transform 0.2s;
-        }
-        .nav-brand:hover { transform: scale(1.02); }
-        .nav-links { display: flex; gap: 32px; list-style: none; }
-        .nav-links a {
-            color: var(--text-secondary); text-decoration: none;
-            font-size: 0.88rem; font-weight: 500;
-            transition: color 0.2s; position: relative;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute; bottom: -4px; left: 0; right: 0;
-            height: 2px; background: var(--coral);
-            transform: scaleX(0); transform-origin: center;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 1px;
-        }
-        .nav-links a:hover { color: var(--text); }
-        .nav-links a:hover::after { transform: scaleX(1); }
-        .nav-cta {
-            background: var(--coral); color: #fff; border: none;
-            padding: 10px 24px; border-radius: 50px; font-weight: 600;
-            font-size: 0.88rem; cursor: pointer; text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 2px 16px rgba(255, 107, 74, 0.3);
-        }
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 28px rgba(255, 107, 74, 0.4);
-        }
-
-        /* HERO */
-        .hero {
-            padding: 160px 32px 80px;
-            text-align: center;
-            position: relative;
-            max-width: 1000px; margin: 0 auto;
-        }
-        .hero-blob {
-            position: absolute; border-radius: 50%;
-            filter: blur(100px); pointer-events: none; opacity: 0.4;
-        }
-        .hero-blob-1 {
-            width: 600px; height: 500px;
-            background: rgba(255, 107, 74, 0.12);
-            top: -100px; right: -200px;
-            animation: morphBlob 12s ease-in-out infinite, floatSlow 8s ease-in-out infinite;
-        }
-        .hero-blob-2 {
-            width: 450px; height: 400px;
-            background: rgba(76, 175, 130, 0.08);
-            bottom: -50px; left: -200px;
-            animation: morphBlob 15s ease-in-out infinite reverse, floatSlow 10s ease-in-out infinite 2s;
-        }
-        .hero-blob-3 {
-            width: 350px; height: 300px;
-            background: rgba(91, 156, 245, 0.06);
-            top: 80px; left: 5%;
-            animation: morphBlob 10s ease-in-out infinite 3s, float 7s ease-in-out infinite;
-        }
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 8px 18px; border-radius: 50px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--coral-light); font-size: 0.78rem; font-weight: 600;
-            letter-spacing: 0.5px; text-transform: uppercase;
-            margin-bottom: 28px;
-            box-shadow: var(--shadow-sm);
-            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-        }
-        .hero-badge-dot {
-            width: 6px; height: 6px; border-radius: 50%;
-            background: var(--sage); animation: pulse 2s infinite;
-        }
-        .hero h1 {
-            font-family: 'DM Serif Display', serif;
-            font-size: clamp(2.8rem, 7vw, 5rem);
-            font-weight: 400; line-height: 1.08;
-            margin-bottom: 22px; letter-spacing: -0.02em;
-            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-        }
-        .hero h1 .accent {
-            color: var(--coral);
-            font-style: italic;
-            position: relative;
-        }
-        .hero h1 .accent::after {
-            content: '';
-            position: absolute; bottom: 4px; left: -4px; right: -4px;
-            height: 14px; background: var(--coral-glow-strong);
-            border-radius: 4px; z-index: -1;
-        }
-        .hero p {
-            font-size: 1.18rem; color: var(--text-secondary);
-            max-width: 520px; margin: 0 auto 40px;
-            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
-        }
-        .hero-buttons {
-            display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
-            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
-        }
-        .btn-primary {
-            background: var(--coral); color: #fff;
-            padding: 15px 34px; border-radius: 50px;
-            font-weight: 600; font-size: 1rem;
-            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 20px rgba(255, 107, 74, 0.35);
-            position: relative; overflow: hidden;
-        }
-        .btn-primary::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
-            background-size: 200% 100%;
-            animation: shimmer 3s infinite;
-        }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 36px rgba(255, 107, 74, 0.45);
-        }
-        .btn-secondary {
-            background: var(--bg-card); color: var(--text);
-            padding: 15px 34px; border-radius: 50px;
-            font-weight: 600; font-size: 1rem;
-            text-decoration: none; border: 1px solid var(--border);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: var(--shadow-sm);
-        }
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--border-hover);
-            background: var(--bg-card-hover);
-        }
-
-        /* PHONE HERO */
-        .hero-phone-container {
-            margin-top: 60px;
-            perspective: 1000px;
-            animation: scaleIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
-            position: relative; display: inline-block;
-        }
-        .hero-phone {
-            width: 280px; height: 570px;
-            background: #000;
-            border-radius: 44px;
-            border: 3px solid #2A2A2E;
-            position: relative;
-            overflow: hidden;
-            margin: 0 auto;
-            box-shadow:
-                0 30px 80px rgba(0,0,0,0.5),
-                0 0 0 1px rgba(255,255,255,0.05),
-                inset 0 0 0 1px rgba(255,255,255,0.05);
-            transform: rotateX(2deg);
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .hero-phone:hover { transform: rotateX(0deg) translateY(-8px); }
-        .phone-notch {
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 120px; height: 28px;
-            background: #000; border-radius: 0 0 18px 18px;
-            z-index: 5;
-        }
-        .phone-screen {
-            position: absolute; inset: 4px;
-            border-radius: 40px;
-            background: linear-gradient(180deg, #141828 0%, #0F1220 100%);
-            padding: 48px 18px 18px;
-            display: flex; flex-direction: column; gap: 10px;
-            overflow: hidden;
-        }
-        .ps-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 4px;
-        }
-        .ps-greeting { font-size: 1rem; font-weight: 700; color: #fff; }
-        .ps-avatar {
-            width: 32px; height: 32px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--coral), var(--coral-light));
-        }
-        .ps-sub { font-size: 0.6rem; color: var(--text-muted); margin-bottom: 6px; }
-        .ps-card {
-            background: rgba(255,255,255,0.04);
-            border-radius: 14px; padding: 12px;
-            border: 1px solid rgba(255,255,255,0.06);
-            animation: fadeUp 0.5s ease both;
-        }
-        .ps-card-header {
-            display: flex; align-items: center; gap: 8px; margin-bottom: 2px;
-        }
-        .ps-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-        .ps-card .title { font-size: 0.68rem; font-weight: 600; color: #fff; }
-        .ps-card .sub { font-size: 0.55rem; color: var(--text-muted); }
-        .ps-foxy {
-            background: rgba(76, 175, 130, 0.08);
-            border: 1px solid rgba(76, 175, 130, 0.15);
-        }
-        .ps-foxy .title { color: var(--sage-light); }
-        .ps-tabs {
-            display: flex; justify-content: space-around;
-            margin-top: auto; padding-top: 8px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-        .ps-tab {
-            display: flex; flex-direction: column; align-items: center; gap: 2px;
-            font-size: 0.45rem; color: var(--text-muted); font-weight: 500;
-        }
-        .ps-tab.active { color: var(--coral); }
-        .ps-tab-icon { font-size: 0.6rem; }
-
-        /* FLOATING ELEMENTS */
-        .float-element {
-            position: absolute;
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 12px 16px;
-            box-shadow: var(--shadow-lg);
-            font-size: 0.78rem; font-weight: 600;
-            display: flex; align-items: center; gap: 8px;
-            white-space: nowrap;
-            border: 1px solid var(--border);
-        }
-        .float-1 {
-            top: 20%; left: -40px;
-            animation: float 5s ease-in-out infinite, fadeIn 1s 1s both;
-        }
-        .float-2 {
-            top: 45%; right: -50px;
-            animation: float 6s ease-in-out infinite 1.5s, fadeIn 1s 1.2s both;
-        }
-        .float-3 {
-            bottom: 20%; left: -30px;
-            animation: float 5.5s ease-in-out infinite 0.8s, fadeIn 1s 1.4s both;
-        }
-        .float-icon {
-            width: 32px; height: 32px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.9rem; flex-shrink: 0;
-        }
-        .float-element span { color: var(--text-secondary); font-size: 0.75rem; }
-
-        /* SECTIONS */
-        section { padding: 100px 32px; position: relative; }
-        .section-header {
-            text-align: center; max-width: 580px;
-            margin: 0 auto 64px;
-        }
-        .section-label {
-            display: inline-block;
-            padding: 6px 14px; border-radius: 50px;
-            font-size: 0.75rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 1px;
-            margin-bottom: 16px;
-        }
-        .label-coral { background: var(--coral-glow); color: var(--coral-light); }
-        .label-sage { background: var(--sage-glow); color: var(--sage-light); }
-        .label-sky { background: var(--sky-glow); color: var(--sky); }
-        .section-header h2 {
-            font-family: 'DM Serif Display', serif;
-            font-size: clamp(1.9rem, 4vw, 2.8rem);
-            font-weight: 400; margin-bottom: 14px;
-            letter-spacing: -0.01em;
-        }
-        .section-header p { color: var(--text-secondary); font-size: 1.05rem; }
-
-        /* FEATURES GRID */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px; max-width: 1100px; margin: 0 auto;
-        }
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 32px 28px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative; overflow: hidden;
-        }
-        .feature-card::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0;
-            height: 3px; border-radius: 3px 3px 0 0;
-            opacity: 0; transition: opacity 0.4s;
-        }
-        .feature-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--border-hover);
-            background: var(--bg-card-hover);
-        }
-        .feature-card:hover::before { opacity: 1; }
-        .feature-icon {
-            width: 52px; height: 52px;
-            border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; margin-bottom: 20px;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .feature-card:hover .feature-icon { transform: scale(1.1) rotate(-3deg); }
-        .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-        .feature-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.55; }
-
-        .fc-calendar .feature-icon { background: var(--coral-glow); }
-        .fc-calendar::before { background: var(--coral); }
-        .fc-ai .feature-icon { background: var(--sage-glow); }
-        .fc-ai::before { background: var(--sage); }
-        .fc-lists .feature-icon { background: var(--sky-glow); }
-        .fc-lists::before { background: var(--sky); }
-        .fc-location .feature-icon { background: var(--lavender-glow); }
-        .fc-location::before { background: var(--lavender); }
-        .fc-meals .feature-icon { background: var(--amber-glow); }
-        .fc-meals::before { background: var(--amber); }
-        .fc-family .feature-icon { background: var(--rose-glow); }
-        .fc-family::before { background: var(--rose); }
-
-        /* SHOWCASE SECTIONS */
-        .showcase-section { padding: 80px 32px; }
-        .showcase-section.alt-bg { background: var(--bg-raised); }
-        .showcase {
-            max-width: 1100px; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 80px; align-items: center;
-        }
-        .showcase.reverse { direction: rtl; }
-        .showcase.reverse > * { direction: ltr; }
-        .showcase-text h2 {
-            font-family: 'DM Serif Display', serif;
-            font-size: clamp(1.7rem, 3.5vw, 2.4rem);
-            font-weight: 400; margin-bottom: 16px;
-        }
-        .showcase-text p {
-            color: var(--text-secondary); font-size: 1rem;
-            margin-bottom: 28px; line-height: 1.7;
-        }
-        .showcase-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-        .showcase-list li {
-            color: var(--text-secondary);
-            font-size: 0.92rem; display: flex; align-items: flex-start; gap: 12px;
-            line-height: 1.5;
-        }
-        .showcase-list-icon {
-            width: 24px; height: 24px; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.7rem; flex-shrink: 0; margin-top: 1px;
-        }
-
-        /* VISUAL CARDS */
-        .visual-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 32px;
-            box-shadow: var(--shadow-lg);
-            position: relative; overflow: hidden;
-        }
-        .visual-card::before {
-            content: '';
-            position: absolute; top: -50%; right: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(ellipse at 70% 30%, rgba(255,107,74,0.04) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        .vc-header {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.1rem; margin-bottom: 16px;
-        }
-        .vc-event {
-            display: flex; align-items: center; gap: 12px;
-            padding: 12px; border-radius: 12px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            margin-bottom: 8px;
-            transition: transform 0.3s, background 0.3s;
-        }
-        .vc-event:hover { transform: translateX(4px); background: var(--surface-hover); }
-        .vc-event-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-        .vc-event-info .name { font-size: 0.82rem; font-weight: 600; }
-        .vc-event-info .time { font-size: 0.7rem; color: var(--text-muted); }
-
-        /* FOXY CHAT VISUAL */
-        .chat-visual {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: var(--shadow-lg);
-        }
-        .chat-bubble {
-            padding: 12px 16px;
-            border-radius: 16px;
-            font-size: 0.85rem;
-            max-width: 85%;
-            margin-bottom: 10px;
-            line-height: 1.5;
-        }
-        .chat-user {
-            background: var(--coral);
-            color: white;
-            margin-left: auto;
-            border-bottom-right-radius: 4px;
-        }
-        .chat-foxy {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text);
-            border-bottom-left-radius: 4px;
-        }
-        .chat-foxy-header {
-            display: flex; align-items: center; gap: 6px;
-            margin-bottom: 8px;
-        }
-        .foxy-avatar {
-            width: 24px; height: 24px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--sage), var(--sage-light));
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.65rem; color: white;
-        }
-        .foxy-name { font-size: 0.72rem; font-weight: 600; color: var(--sage-light); }
-        .typing-dots { display: flex; gap: 4px; padding: 8px 0; }
-        .typing-dots span {
-            width: 6px; height: 6px; border-radius: 50%;
-            background: var(--text-muted);
-            animation: pulse 1.4s infinite;
-        }
-        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-        /* TRUST STATS */
-        .trust-section { padding: 60px 32px; }
-        .trust-grid {
-            display: flex; justify-content: center; gap: 48px;
-            max-width: 900px; margin: 0 auto; flex-wrap: wrap;
-        }
-        .trust-item { text-align: center; padding: 28px 20px; min-width: 160px; }
-        .trust-number {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2.6rem; color: var(--coral);
-            margin-bottom: 4px;
-        }
-        .trust-label { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
-
-        /* HOW IT WORKS */
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px; max-width: 900px; margin: 0 auto;
-        }
-        .step { text-align: center; padding: 24px; position: relative; }
-        .step-number {
-            width: 48px; height: 48px;
-            border-radius: 50%;
-            background: var(--coral);
-            color: white;
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.2rem;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 16px;
-            box-shadow: 0 4px 20px rgba(255, 107, 74, 0.3);
-        }
-        .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
-        .step p { color: var(--text-secondary); font-size: 0.88rem; }
-        .step-connector {
-            position: absolute; top: 46px; right: -16px;
-            width: 32px; height: 2px;
-            background: linear-gradient(90deg, var(--coral-glow-strong), transparent);
-        }
-
-        /* CTA */
-        .cta-section { padding: 80px 32px 120px; text-align: center; }
-        .cta-box {
-            max-width: 720px; margin: 0 auto;
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
-            border: 1px solid var(--border);
-            border-radius: 32px; padding: 72px 48px;
-            position: relative; overflow: hidden;
-            box-shadow: var(--shadow-xl);
-            animation: glow 4s ease-in-out infinite;
-        }
-        .cta-box::before {
-            content: '';
-            position: absolute; top: -40%; right: -20%;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(255,107,74,0.08) 0%, transparent 60%);
-            animation: morphBlob 15s ease-in-out infinite;
-            pointer-events: none;
-        }
-        .cta-box::after {
-            content: '';
-            position: absolute; bottom: -30%; left: -10%;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(76,175,130,0.05) 0%, transparent 60%);
-            animation: morphBlob 12s ease-in-out infinite reverse;
-            pointer-events: none;
-        }
-        .cta-box h2 {
-            font-family: 'DM Serif Display', serif;
-            font-size: clamp(1.8rem, 4vw, 2.6rem);
-            font-weight: 400; margin-bottom: 14px;
-            position: relative;
-        }
-        .cta-box p {
-            color: var(--text-secondary); margin-bottom: 32px;
-            font-size: 1.05rem; position: relative;
-        }
-        .cta-box .btn-primary {
-            font-size: 1.05rem; padding: 16px 38px;
-            position: relative;
-        }
-
-        /* FOOTER */
-        footer {
-            padding: 48px 32px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            background: var(--bg-raised);
-        }
-        .footer-brand {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.3rem; color: var(--coral);
-            margin-bottom: 16px;
-        }
-        .footer-links {
-            display: flex; justify-content: center; gap: 28px;
-            list-style: none; margin-bottom: 20px; flex-wrap: wrap;
-        }
-        .footer-links a {
-            color: var(--text-muted); text-decoration: none;
-            font-size: 0.85rem; font-weight: 500;
-            transition: color 0.2s;
-        }
-        .footer-links a:hover { color: var(--text-secondary); }
-        .footer-copy { color: var(--text-muted); font-size: 0.78rem; }
-
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .features-grid { grid-template-columns: repeat(2, 1fr); }
-            .steps-grid { grid-template-columns: repeat(2, 1fr); }
-            .step-connector { display: none; }
-        }
-        @media (max-width: 768px) {
-            nav { padding: 12px 20px; }
-            .nav-links { display: none; }
-            section, .showcase-section { padding: 60px 20px; }
-            .hero { padding: 130px 20px 60px; }
-            .features-grid { grid-template-columns: 1fr; }
-            .showcase { grid-template-columns: 1fr; gap: 40px; }
-            .showcase.reverse { direction: ltr; }
-            .showcase-visual { order: -1; }
-            .steps-grid { grid-template-columns: 1fr; max-width: 360px; }
-            .trust-grid { gap: 16px; }
-            .trust-item { min-width: 120px; padding: 20px 12px; }
-            .cta-box { padding: 48px 24px; border-radius: 24px; }
-            .float-element { display: none; }
-            .hero-phone { width: 240px; height: 490px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F4F0E6">
+  <title>FamSync: the family calendar your household will actually use</title>
+  <meta name="description" content="FamSync is one shared calendar for the whole family, with chores, grocery lists, a meal planner, a live family map, and Foxy, your family's AI assistant. Reminders that ring like a real call. Free for up to 4 people. No ads, ever.">
+  <link rel="canonical" href="https://hotstreak.info/">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FamSync: Family Calendar">
+  <meta property="og:description" content="One shared calendar, chores, groceries, dinner, and a live map of who's home. Reminders that ring like a real call. Free for up to 4 people.">
+  <meta property="og:url" content="https://hotstreak.info/">
+  <meta property="og:image" content="https://hotstreak.info/img/icon-512.png">
+  <meta name="apple-itunes-app" content="app-id=6760918495">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "FamSync: Family Calendar",
+    "operatingSystem": "iOS 17.0 or later",
+    "applicationCategory": "LifestyleApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "url": "https://hotstreak.info/",
+    "installUrl": "https://apps.apple.com/us/app/famsync-family-calendar/id6760918495"
+  }
+  </script>
 </head>
 <body>
 
-<nav>
-    <a href="index.html" class="nav-brand">FamSync</a>
-    <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#foxy">Foxy AI</a></li>
-        <li><a href="#how">How It Works</a></li>
-        <li><a href="support.html">Support</a></li>
-    </ul>
-    <a href="#download" class="nav-cta">Get the App</a>
-</nav>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="FamSync home">
+      <img src="img/icon-180.png" alt="" width="34" height="34">
+      FamSync
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#tour">Tour</a>
+      <a href="#remind">Remind</a>
+      <a href="#calendar">Calendar</a>
+      <a href="#foxy">Foxy</a>
+      <a href="#pricing">Pricing</a>
+      <a href="support.html">Support</a>
+    </nav>
+    <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Get the app</a>
+  </div>
+</header>
 
+<main>
+
+<!-- ============ HERO ============ -->
 <section class="hero">
-    <div class="hero-blob hero-blob-1"></div>
-    <div class="hero-blob hero-blob-2"></div>
-    <div class="hero-blob hero-blob-3"></div>
-
-    <div class="hero-badge"><span class="hero-badge-dot"></span> Now on the App Store</div>
-    <h1>Family life,<br><span class="accent">simplified.</span></h1>
-    <p>One app to keep your whole family organized. Shared calendars, smart lists, meal planning, and an AI assistant that actually knows your family.</p>
-    <div class="hero-buttons">
-        <a href="#download" class="btn-primary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            Download Free
+  <div class="wrap hero-grid">
+    <div>
+      <h1 class="display">The family calendar your household will actually use.</h1>
+      <p class="lede">One shared calendar with a color for every person. Chores, groceries, and dinner everyone can see. A live map of who's home. And when something matters, FamSync rings their phone.</p>
+      <div class="hero-cta">
+        <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.9zM14.1 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg>
+          Download free on the App Store
         </a>
-        <a href="#features" class="btn-secondary">Explore Features</a>
+        <a class="btn btn-ghost" href="#tour">See every screen</a>
+      </div>
+      <ul class="hero-facts">
+        <li>Free for up to 4 people</li>
+        <li>No ads, ever</li>
+        <li>iPhone, iOS 17 and up</li>
+      </ul>
     </div>
 
-    <div class="hero-phone-container">
-        <div class="float-element float-1">
-            <div class="float-icon" style="background: var(--coral-glow);">&#128197;</div>
-            <span>Soccer at 3:30</span>
-        </div>
-        <div class="float-element float-2">
-            <div class="float-icon" style="background: var(--sage-glow);">&#129418;</div>
-            <span>Try the Thai place!</span>
-        </div>
-        <div class="float-element float-3">
-            <div class="float-icon" style="background: var(--sky-glow);">&#9989;</div>
-            <span>Groceries updated</span>
-        </div>
-        <div class="hero-phone">
-            <div class="phone-notch"></div>
-            <div class="phone-screen">
-                <div class="ps-header">
-                    <div>
-                        <div class="ps-greeting">Good morning!</div>
-                        <div class="ps-sub">Thursday, March 20</div>
-                    </div>
-                    <div class="ps-avatar"></div>
-                </div>
-                <div class="ps-card" style="animation-delay: 0.8s;">
-                    <div class="ps-card-header">
-                        <div class="ps-dot" style="background: var(--coral);"></div>
-                        <div><div class="title">Soccer Practice</div><div class="sub">3:30 PM - Emma</div></div>
-                    </div>
-                </div>
-                <div class="ps-card" style="animation-delay: 1s;">
-                    <div class="ps-card-header">
-                        <div class="ps-dot" style="background: var(--sky);"></div>
-                        <div><div class="title">Dentist Appointment</div><div class="sub">10:00 AM - Dad</div></div>
-                    </div>
-                </div>
-                <div class="ps-card" style="animation-delay: 1.2s;">
-                    <div class="ps-card-header">
-                        <div class="ps-dot" style="background: var(--sage);"></div>
-                        <div><div class="title">Grocery Run</div><div class="sub">12 items on your list</div></div>
-                    </div>
-                </div>
-                <div class="ps-card ps-foxy" style="animation-delay: 1.4s;">
-                    <div class="ps-card-header">
-                        <div class="ps-dot" style="background: var(--sage);"></div>
-                        <div><div class="title">Foxy suggests</div><div class="sub">Try the new Thai place on Oak St tonight!</div></div>
-                    </div>
-                </div>
-                <div class="ps-tabs">
-                    <div class="ps-tab active"><div class="ps-tab-icon">&#127968;</div>Home</div>
-                    <div class="ps-tab"><div class="ps-tab-icon">&#128197;</div>Cal</div>
-                    <div class="ps-tab"><div class="ps-tab-icon">&#129418;</div>Foxy</div>
-                    <div class="ps-tab"><div class="ps-tab-icon">&#128203;</div>Lists</div>
-                    <div class="ps-tab"><div class="ps-tab-icon">&#128100;</div>Profile</div>
-                </div>
+    <div class="hero-stage">
+      <div class="hero-glow"></div>
+
+      <div class="phone">
+        <div class="screen" aria-label="FamSync home screen">
+          <div class="s-island"></div>
+          <div class="s-status"><span>9:41</span><span class="sig"><i></i><i></i><i class="bat"></i></span></div>
+          <div class="s-greet">Good morning, Reid</div>
+          <div class="s-date">Saturday, September 12 &nbsp; 76° and clear</div>
+          <div class="s-label">TODAY</div>
+
+          <div class="s-card">
+            <div class="s-card-title">Your briefing <small>7:02 AM</small></div>
+            <div class="s-temp"><b>76°</b><span>Clear &nbsp; H 81° &nbsp; L 55°</span></div>
+            <div class="s-hours">
+              <div><i style="--h:30px"></i>8 AM</div>
+              <div><i style="--h:34px"></i>9</div>
+              <div><i style="--h:38px"></i>10</div>
+              <div><i style="--h:40px"></i>11</div>
+              <div><i style="--h:40px"></i>12</div>
+              <div><i style="--h:36px"></i>1 PM</div>
+              <div><i style="--h:30px"></i>2</div>
+              <div><i style="--h:24px"></i>3</div>
             </div>
+            <p class="s-brief">Four things on today and two to do. Next up is the school run at 7:45. Everyone's free 12 to 3 if the day should hold something else. Dinner is at Nana's.</p>
+            <div class="s-chip"><i></i>Swim practice needs a ride home</div>
+            <div class="s-btn">Read the full briefing</div>
+          </div>
+
+          <div class="s-card">
+            <div class="s-row"><time>7:45</time><span class="disc" style="--c: var(--rose)"></span><em>School run</em><small>Kara</small></div>
+            <div class="s-row"><time>10:30</time><span class="disc" style="--c: var(--sage-light)"></span><em>Dentist</em><small>Reid</small></div>
+            <div class="s-row"><time>4:00</time><span class="disc" style="--c: var(--lavender)"></span><em>Swim practice</em><small>Mason</small></div>
+            <div class="s-row"><time>6:30</time><span class="disc" style="--c: var(--amber)"></span><em>Dinner at Nana's</em><small>Everyone</small></div>
+          </div>
+
+          <div class="s-tabs" aria-hidden="true">
+            <span class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>Home</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg></span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 3v18M4 3v6a3 3 0 0 0 6 0V3M17 3c-2 0-3 3-3 6 0 2 1 3 3 3v9"/></svg></span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4z"/></svg></span>
+          </div>
         </div>
+      </div>
+
+      <div class="notice notice-call" role="presentation">
+        <div class="dot">📞</div>
+        <div><strong>Leave for practice</strong><span>Reminder Call, ringing Mason now</span></div>
+      </div>
+      <div class="notice notice-place" role="presentation">
+        <div class="dot">📍</div>
+        <div><strong>Kara arrived at School</strong><span>8:02 AM, 11 min drive</span></div>
+      </div>
+      <div class="notice notice-foxy" role="presentation">
+        <div class="dot">🦊</div>
+        <div><strong>Added to the calendar</strong><span>Soccer every Tuesday at 4 until June</span></div>
+      </div>
     </div>
+  </div>
 </section>
 
-<div class="trust-section">
-    <div class="trust-grid">
-        <div class="trust-item reveal"><div class="trust-number">5</div><div class="trust-label">Powerful Tabs</div></div>
-        <div class="trust-item reveal reveal-delay-1"><div class="trust-number">AI</div><div class="trust-label">Powered by Foxy</div></div>
-        <div class="trust-item reveal reveal-delay-2"><div class="trust-number">Real-Time</div><div class="trust-label">Family Sync</div></div>
-        <div class="trust-item reveal reveal-delay-3"><div class="trust-number">Free</div><div class="trust-label">To Get Started</div></div>
+<!-- ============ TOUR ============ -->
+<section class="section" id="tour">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="display">Every tab, one household.</h2>
+      <p class="lede">These are the real screens. Warm, dark, and quiet enough to check before coffee.</p>
     </div>
-</div>
-
-<section id="features">
-    <div class="section-header reveal">
-        <span class="section-label label-coral">Features</span>
-        <h2>Everything your family needs, one tap away</h2>
-        <p>From morning routines to dinner plans, FamSync handles the details so you can focus on what matters.</p>
-    </div>
-    <div class="features-grid">
-        <div class="feature-card fc-calendar reveal reveal-delay-1">
-            <div class="feature-icon">&#128197;</div>
-            <h3>Shared Family Calendar</h3>
-            <p>Month, week, and day views with color-coded events per family member. Syncs with Google Calendar and Apple Calendar.</p>
-        </div>
-        <div class="feature-card fc-ai reveal reveal-delay-2">
-            <div class="feature-icon">&#129418;</div>
-            <h3>Foxy AI Assistant</h3>
-            <p>Your family's personal AI. Ask Foxy to plan dinner, find nearby activities, create events, or manage your grocery list.</p>
-        </div>
-        <div class="feature-card fc-lists reveal reveal-delay-3">
-            <div class="feature-icon">&#128203;</div>
-            <h3>Smart Lists</h3>
-            <p>Grocery lists, to-do lists, and custom lists your whole family can edit in real time with priorities and due dates.</p>
-        </div>
-        <div class="feature-card fc-location reveal reveal-delay-1">
-            <div class="feature-icon">&#128205;</div>
-            <h3>Family Location</h3>
-            <p>See where everyone is with real-time location sharing and actual drive time estimates between family members.</p>
-        </div>
-        <div class="feature-card fc-meals reveal reveal-delay-2">
-            <div class="feature-icon">&#127858;</div>
-            <h3>Meal Planning</h3>
-            <p>Plan weekly meals, import recipes, and scan your fridge. Ingredients go straight to your grocery list with one tap.</p>
-        </div>
-        <div class="feature-card fc-family reveal reveal-delay-3">
-            <div class="feature-icon">&#128106;</div>
-            <h3>Family Coordination</h3>
-            <p>Chore rotations, event comments, activity feeds, and a daily briefing keep everyone in sync without the group chat chaos.</p>
-        </div>
-    </div>
-</section>
-
-<div class="showcase-section alt-bg">
-    <div class="showcase">
-        <div class="showcase-text reveal">
-            <span class="section-label label-coral">Shared Calendar</span>
-            <h2>Your family's schedule, beautifully organized</h2>
-            <p>See everyone's events at a glance with color-coded calendars. Create events with voice, scan schedules from paper, and sync everything automatically.</p>
-            <ul class="showcase-list">
-                <li><div class="showcase-list-icon" style="background: var(--coral-glow); color: var(--coral);">&#10003;</div>Color-coded events per family member</li>
-                <li><div class="showcase-list-icon" style="background: var(--coral-glow); color: var(--coral);">&#10003;</div>Google Calendar and Apple Calendar sync</li>
-                <li><div class="showcase-list-icon" style="background: var(--coral-glow); color: var(--coral);">&#10003;</div>Scan paper schedules with your camera</li>
-                <li><div class="showcase-list-icon" style="background: var(--coral-glow); color: var(--coral);">&#10003;</div>Recurring events and reminders</li>
-            </ul>
-        </div>
-        <div class="showcase-visual reveal reveal-delay-2">
-            <div class="visual-card">
-                <div class="vc-header">Today's Schedule</div>
-                <div class="vc-event"><div class="vc-event-dot" style="background: var(--coral);"></div><div class="vc-event-info"><div class="name">School Drop-off</div><div class="time">7:45 AM - Mom</div></div></div>
-                <div class="vc-event"><div class="vc-event-dot" style="background: var(--sky);"></div><div class="vc-event-info"><div class="name">Team Meeting</div><div class="time">9:00 AM - Dad</div></div></div>
-                <div class="vc-event"><div class="vc-event-dot" style="background: var(--sage);"></div><div class="vc-event-info"><div class="name">Piano Lesson</div><div class="time">4:00 PM - Emma</div></div></div>
-                <div class="vc-event"><div class="vc-event-dot" style="background: var(--amber);"></div><div class="vc-event-info"><div class="name">Family Dinner</div><div class="time">6:30 PM - Everyone</div></div></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="foxy" class="showcase-section">
-    <div class="showcase reverse">
-        <div class="showcase-text reveal">
-            <span class="section-label label-sage">Meet Foxy</span>
-            <h2>An AI assistant that knows your family</h2>
-            <p>Foxy connects to your calendar, lists, and family data to give suggestions that actually make sense for your life. Just ask.</p>
-            <ul class="showcase-list">
-                <li><div class="showcase-list-icon" style="background: var(--sage-glow); color: var(--sage);">&#10003;</div>Create events and tasks through conversation</li>
-                <li><div class="showcase-list-icon" style="background: var(--sage-glow); color: var(--sage);">&#10003;</div>Dinner ideas based on what's in your fridge</li>
-                <li><div class="showcase-list-icon" style="background: var(--sage-glow); color: var(--sage);">&#10003;</div>Find nearby restaurants, activities, and gifts</li>
-                <li><div class="showcase-list-icon" style="background: var(--sage-glow); color: var(--sage);">&#10003;</div>Voice input for hands-free planning</li>
-            </ul>
-        </div>
-        <div class="showcase-visual reveal reveal-delay-2">
-            <div class="chat-visual">
-                <div class="chat-foxy-header">
-                    <div class="foxy-avatar">&#129418;</div>
-                    <span class="foxy-name">Foxy</span>
-                </div>
-                <div class="chat-bubble chat-user">What should we do for dinner tonight?</div>
-                <div class="chat-bubble chat-foxy">Based on what's in your fridge, you could make a quick stir fry! You have chicken, bell peppers, and rice. Want me to find a recipe?</div>
-                <div class="chat-bubble chat-user">Sure! And add soy sauce to the grocery list</div>
-                <div class="chat-bubble chat-foxy">Done! I added soy sauce to your grocery list and found a 20-minute chicken stir fry recipe. I also noticed Emma has soccer at 5 - dinner at 6:30 should work perfectly.</div>
-                <div class="typing-dots"><span></span><span></span><span></span></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<section id="how" style="background: var(--bg-raised);">
-    <div class="section-header reveal">
-        <span class="section-label label-sky">Get Started</span>
-        <h2>Up and running in minutes</h2>
-        <p>Getting your family synced takes less time than making a grocery list.</p>
-    </div>
-    <div class="steps-grid">
-        <div class="step reveal reveal-delay-1">
-            <div class="step-number">1</div>
-            <div class="step-connector"></div>
-            <h3>Create Your Family</h3>
-            <p>Sign up and set up your family group with a unique code to share.</p>
-        </div>
-        <div class="step reveal reveal-delay-2">
-            <div class="step-number">2</div>
-            <div class="step-connector"></div>
-            <h3>Invite Members</h3>
-            <p>Share your family code so everyone can join and start adding events and lists.</p>
-        </div>
-        <div class="step reveal reveal-delay-3">
-            <div class="step-number">3</div>
-            <h3>Stay in Sync</h3>
-            <p>Calendars update in real time. Foxy handles the rest with smart daily briefings.</p>
-        </div>
-    </div>
-</section>
-
-<section id="download" class="cta-section">
-    <div class="cta-box reveal">
-        <h2>Ready to simplify<br>family life?</h2>
-        <p>Download FamSync free and get your family on the same page.</p>
-        <a href="#" class="btn-primary" style="font-size: 1.05rem; padding: 16px 38px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            Download on the App Store
-        </a>
-    </div>
-</section>
-
-<footer>
-    <div class="footer-brand">FamSync</div>
-    <ul class="footer-links">
-        <li><a href="support.html">Support</a></li>
-        <li><a href="support.html#privacy">Privacy Policy</a></li>
-        <li><a href="support.html#terms">Terms of Service</a></li>
-        <li><a href="support.html#contact">Contact</a></li>
+    <ul class="shelf" aria-label="App screens">
+      <li><figure><div class="phone fade"><img src="img/digest.webp" alt="Morning briefing screen with weather and the day's summary" loading="lazy" width="720" height="1565"></div><figcaption><b>Morning briefing</b><p>The day ahead: events, weather, clashes, and the one thing to handle first.</p></figcaption></figure></li>
+      <li><figure><div class="phone fade"><img src="img/calendar_day.webp" alt="Calendar day view with a 24-hour ring and agenda" loading="lazy" width="720" height="1565"></div><figcaption><b>Calendar</b><p>Everyone at a glance, or filter to one person. Day, week, and month.</p></figcaption></figure></li>
+      <li><figure><div class="phone fade"><img src="img/lists.webp" alt="To do screen with a next-up card, chores awaiting approval, and overdue tasks" loading="lazy" width="720" height="1565"></div><figcaption><b>To do and chores</b><p>Swipe right to finish, left for tomorrow. Kids earn rewards for chores.</p></figcaption></figure></li>
+      <li><figure><div class="phone fade"><img src="img/meals.webp" alt="Meals screen showing this week's dinners and recipes" loading="lazy" width="720" height="1565"></div><figcaption><b>Meals</b><p>A week of dinners, planned around what your family likes. Ingredients go straight to the grocery list.</p></figcaption></figure></li>
+      <li><figure><div class="phone fade"><img src="img/map.webp" alt="Family map showing who is home and who is driving" loading="lazy" width="720" height="1565"></div><figcaption><b>Family map</b><p>Who's home, who's driving, and how long until they're back.</p></figcaption></figure></li>
+      <li><figure><div class="phone fade"><img src="img/foxy.webp" alt="Setting up with Foxy, a guided chat that configures the app" loading="lazy" width="720" height="1565"></div><figcaption><b>Foxy sets it up</b><p>A few questions, one tap each. Foxy does the rest.</p></figcaption></figure></li>
     </ul>
-    <p class="footer-copy">&copy; 2026 FamSync. All rights reserved.</p>
+    <p class="shelf-hint"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Scroll sideways to see more</p>
+  </div>
+</section>
+
+<!-- ============ REMIND ============ -->
+<section class="section dark" id="remind">
+  <div class="wrap feature">
+    <div class="feature-copy">
+      <h2 class="display">Banners get swiped away. A call gets answered.</h2>
+      <p class="lede">Tell one person or the whole family something and it lands on their phone as a banner they'll actually see. For the things that matter, FamSync rings them like a real call. From the lock screen, even on silent, even with the app closed.</p>
+      <ul class="says" aria-label="Things you can send">
+        <li>Leave for practice.</li>
+        <li>Come home.</li>
+        <li>Dinner's ready.</li>
+        <li>Don't forget the permission slip.</li>
+      </ul>
+      <ul class="points">
+        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Send it now, or schedule it</b><span>Set it for 3:40 and get on with your day.</span></div></li>
+        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Reminder Calls for events</b><span>Choose which events call you: only the ones you mark, the big ones, or everything.</span></div></li>
+        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Hold to talk</b><span>Say it in your own voice and it plays when they pick up.</span></div></li>
+      </ul>
+    </div>
+    <div class="feature-media call-stage">
+      <div class="call-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="call" role="img" aria-label="An incoming Reminder Call that says Leave for practice now, from Mom">
+        <div class="from">FamSync Reminder Call</div>
+        <div class="what">Leave for practice now</div>
+        <div class="who"><i>K</i>from Kara</div>
+        <div class="actions">
+          <div class="decline"><b><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></b>Decline</div>
+          <div class="accept"><b><svg viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></b>Answer</div>
+        </div>
+        <div class="silent">Rings even on silent</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALENDAR ============ -->
+<section class="section" id="calendar">
+  <div class="wrap feature flip">
+    <div class="feature-copy">
+      <h2 class="display">See the whole family at a glance.</h2>
+      <p class="lede">Every person gets a color. Filter to one of them or see everyone. Add events, reminders, and notes, and never miss a pickup, practice, or appointment again.</p>
+      <ul class="points">
+        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Repeats that work the way you'd expect</b><span>Every Tuesday and Thursday. Every other week. The first Monday of the month. A whole season in one go. Change one date or the whole series.</span></div></li>
+        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Apple Calendar and Google Calendar, both ways</b><span>Each calendar has its own switch. Disconnecting removes everything it brought in.</span></div></li>
+        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Snap a photo of the paper flyer</b><span>Team schedule, school calendar, birthday invitation. Foxy adds every date for you.</span></div></li>
+      </ul>
+    </div>
+    <div class="feature-media pair">
+      <div class="phone fade"><img src="img/calendar_week.webp" alt="Week view with a lane for each family member" loading="lazy" width="720" height="1565"></div>
+      <div class="phone fade"><img src="img/calendar_month.webp" alt="Month view with colored dots for each person's events" loading="lazy" width="720" height="1565"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOXY ============ -->
+<section class="section band" id="foxy">
+  <div class="wrap feature">
+    <div class="feature-copy">
+      <h2 class="display">Type it the way you'd say it.</h2>
+      <p class="lede">Foxy is your family's assistant. It knows the calendar, the lists, and who's where, so it can actually do the thing, not just talk about it. Foxy sets it up and waits for your approval before anything is saved.</p>
+      <ul class="says" aria-label="Things you can ask Foxy">
+        <li>Tell Kara to leave now.</li>
+        <li>Post on the board that the wifi password changed.</li>
+        <li>Ask everyone whether we want tacos or pasta.</li>
+        <li>What's for dinner this week?</li>
+      </ul>
+    </div>
+    <div class="feature-media">
+      <div class="chat" id="chat" aria-live="polite">
+        <div class="chat-head"><div class="fox">🦊</div><div><b>Foxy</b><small>Online</small></div></div>
+        <div class="bubble me" id="chat-me"><span id="typed"></span><span class="caret" id="caret"></span></div>
+        <div class="bubble fox" id="chat-fox">Got it. Here's what I've prepared. Add it, or change anything first.</div>
+        <div class="event-card" id="chat-card">
+          <b><i></i>Soccer practice</b>
+          <span>Tuesdays, 4:00 to 5:00 PM, Sept 15 through June 9</span>
+          <span>Mason, Pleasant Park, 14 min drive</span>
+          <div class="approve"><em>Add to calendar</em><em>Edit</em></div>
+        </div>
+        <div class="chat-input">Message Foxy<i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAP ============ -->
+<section class="section" id="map">
+  <div class="wrap feature flip">
+    <div class="feature-copy">
+      <h2 class="display">Know who's home, and how the drive went.</h2>
+      <p class="lede">See everyone in real time. Draw a circle around school, practice, or grandma's and get a note when someone arrives or leaves.</p>
+      <ul class="points">
+        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Every drive, logged on its own</b><span>Route, distance, top speed, and how many times the phone was picked up while the car was moving. A summary arrives when you park.</span></div></li>
+        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Teen drivers included</b><span>Parents get the same summary for new drivers, without asking.</span></div></li>
+        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Private to your family</b><span>Location is optional, per person, and only ever shared inside your family group.</span></div></li>
+      </ul>
+    </div>
+    <div class="feature-media">
+      <div class="phone fade" style="width: min(330px, 100%); margin-inline: auto;"><img src="img/map.webp" alt="Family map with member cards showing who is driving and who is home" loading="lazy" width="720" height="1565"></div>
+      <div class="drive" role="img" aria-label="Drive summary for Kara: 14 minutes, 9.7 miles, top speed 34, phone picked up 0 times">
+        <div class="t"><i>K</i>Kara parked at 4:52 PM</div>
+        <h4>School to home</h4>
+        <dl>
+          <div><dt>Time</dt><dd>14 min</dd></div>
+          <div><dt>Distance</dt><dd>9.7 mi</dd></div>
+          <div><dt>Top speed</dt><dd>34 mph</dd></div>
+          <div><dt>Pickups</dt><dd>0</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHORES + MEALS ============ -->
+<section class="section" id="more" style="padding-top: 0;">
+  <div class="wrap tiles">
+    <article class="tile">
+      <div>
+        <h3>Chores that get done.</h3>
+        <p>Assign chores, set due dates, and track completion. Kids earn rewards for finished tasks, and you approve with one tap. The whole family sees what's done and what's left.</p>
+      </div>
+      <div class="phone fade"><img src="img/lists.webp" alt="" loading="lazy" width="720" height="1565"></div>
+    </article>
+    <article class="tile">
+      <div>
+        <h3>Dinner, decided.</h3>
+        <p>Foxy builds a weekly meal plan around your family's tastes. Import recipes from photos, websites, or a picture of your fridge. The shared grocery list updates as you plan.</p>
+      </div>
+      <div class="phone fade"><img src="img/meals.webp" alt="" loading="lazy" width="720" height="1565"></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="display">Free for four. Premium for the whole tree.</h2>
+      <p class="lede">Start free. Add grandparents, co-parents, and a blended family on one calendar when you're ready.</p>
+    </div>
+    <div class="plans">
+      <div class="plan plan-free">
+        <h3>Free</h3>
+        <p class="who">Up to 4 family members</p>
+        <div class="price"><b>$0</b><span>forever</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Shared family calendar with a color per person</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Chores, to dos, and the shared grocery list</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Family board and event comments</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Foxy, with a daily limit on conversations</li>
+        </ul>
+        <a class="btn btn-olive" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Download free</a>
+        <p class="no-ads">No ads. Ever. Not in Free, not in Premium.</p>
+      </div>
+      <div class="plan plan-premium">
+        <h3>Premium</h3>
+        <p class="who">Up to 8 family members</p>
+        <div class="price"><b>$5.99</b><span>a month, after a 7-day free trial</span></div>
+        <div class="price" style="margin-top: 8px;"><b>$49.99</b><span>a year, after a 14-day free trial. Saves 30%.</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Remind anyone, by banner or by call</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Reminder Calls for events</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Unlimited Foxy conversations and the Morning Digest</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Apple and Google Calendar sync, and calendar scanning from photos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Family Map, drive summaries, and place alerts</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Meal planner and recipe import</li>
+        </ul>
+        <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Start the free trial</a>
+        <p class="fine">Billed through your Apple ID. Cancel any time in Settings; you keep Premium until the period ends.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section band" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="display">Questions, answered.</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>How do I invite my family?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">Create your family and you get a short code. Send it, and whoever enters it joins with the shared calendar, lists, and map already set up. You can also show a QR code from the Home tab.</div>
+      </details>
+      <details>
+        <summary>Does it work with the calendars we already use?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">Yes. Connect Apple Calendar and Google Calendar and events flow both ways. Each connected calendar has its own switch, and disconnecting one removes everything it brought in.</div>
+      </details>
+      <details>
+        <summary>How do Reminder Calls ring on silent?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">FamSync uses the same alarm and call mechanisms iPhone reserves for things that can't be missed. You choose who can call you and which events call, and you can turn it off per person at any time.</div>
+      </details>
+      <details>
+        <summary>Is location sharing required?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">No. Location is optional and per person. When it's on, it's only visible to your family group. Turn it off from your profile and the map simply stops showing you.</div>
+      </details>
+      <details>
+        <summary>What does Foxy do with our data?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">Foxy reads your family's calendar, lists, and locations to answer you, and sends the conversation to our AI provider for processing. That provider doesn't keep it. Nothing Foxy prepares is saved until you approve it. Details are in the <a href="support.html#privacy" style="text-decoration: underline; text-underline-offset: 3px;">privacy policy</a>.</div>
+      </details>
+      <details>
+        <summary>How do I cancel Premium?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">Subscriptions are billed through Apple. Open Settings on your iPhone, tap your name, then Subscriptions, and cancel FamSync there. You keep Premium until the end of the period you paid for.</div>
+      </details>
+      <details>
+        <summary>Which devices are supported?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
+        <div class="a">iPhone running iOS 17 or later. Every family member needs the app for shared features, and the free plan covers four people.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING ============ -->
+<section class="dark closing" id="download">
+  <div class="wrap">
+    <img class="brand-mark" src="img/icon-180.png" alt="" width="84" height="84">
+    <h2 class="display">Get your household on the same page.</h2>
+    <p class="lede">Free for up to four people. Set up in a few minutes with Foxy.</p>
+    <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.9zM14.1 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg>
+      Download free on the App Store
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-in">
+    <a class="brand" href="index.html" style="font-size: 19px;"><img src="img/icon-180.png" alt="" width="28" height="28" style="width:28px;height:28px;">FamSync</a>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="support.html">Support</a>
+      <a href="support.html#privacy">Privacy</a>
+      <a href="support.html#terms">Terms</a>
+      <a href="mailto:support@hotstreak.info">Contact</a>
+    </nav>
+    <span>© 2026 FamSync</span>
+  </div>
 </footer>
 
 <script>
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+(function () {
+  var nav = document.getElementById('nav');
+  var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 8); };
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-const nav = document.querySelector('nav');
-window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-}, { passive: true });
-
-const phoneContainer = document.querySelector('.hero-phone-container');
-if (phoneContainer && window.innerWidth > 768) {
-    document.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 8;
-        const y = (e.clientY / window.innerHeight - 0.5) * 8;
-        const phone = phoneContainer.querySelector('.hero-phone');
-        if (phone) phone.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
-    });
-}
+  // Foxy demo: types the request once the chat scrolls into view, then Foxy replies.
+  var chat = document.getElementById('chat');
+  if (!chat || !('IntersectionObserver' in window)) { return; }
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var me = document.getElementById('chat-me'), typed = document.getElementById('typed'), caret = document.getElementById('caret');
+  var fox = document.getElementById('chat-fox'), card = document.getElementById('chat-card');
+  var text = 'Soccer every Tuesday at 4 until June, for Mason.';
+  var played = false;
+  function play() {
+    if (played) { return; } played = true;
+    me.classList.add('in');
+    if (reduce) { typed.textContent = text; caret.remove(); fox.classList.add('in'); card.classList.add('in'); return; }
+    var i = 0;
+    var tick = function () {
+      typed.textContent = text.slice(0, ++i);
+      if (i < text.length) { setTimeout(tick, 28 + Math.random() * 40); }
+      else { setTimeout(function () { caret.remove(); fox.classList.add('in'); }, 500); setTimeout(function () { card.classList.add('in'); }, 1100); }
+    };
+    setTimeout(tick, 400);
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { play(); io.disconnect(); } });
+  }, { threshold: 0.45 });
+  io.observe(chat);
+})();
 </script>
-
 </body>
 </html>
