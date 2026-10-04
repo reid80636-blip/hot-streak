@@ -533,3 +533,17 @@ html.js .pair .phone.reveal:first-child { transform: translateY(52px); }
 .lost h1 { font-size: clamp(56px, 10vw, 120px); }
 .lost .lede { margin: 18px auto 0; }
 .lost .btn { margin-top: 30px; }
+
+/* ---------- full legal pages ---------- */
+.legal-page { padding-block: clamp(56px, 8vw, 100px); }
+.legal-page .legal h1 { font-size: clamp(42px, 6vw, 72px); margin-bottom: 10px; }
+.legal-page .legal h2 { font-family: inherit; font-weight: 600; font-size: 22px; letter-spacing: -0.01em; color: var(--ink); margin: 48px 0 10px; scroll-margin-top: 96px; }
+.legal-page .legal h3 { margin-top: 22px; }
+.legal p + p { margin-top: 12px; }
+.legal p + ul, .legal ul + p { margin-top: 12px; }
+.legal code { font-size: 14px; background: rgba(31,38,25,0.06); padding: 1px 6px; border-radius: 6px; }
+.legal-summary { margin-top: 20px; padding: 20px 24px; background: var(--cream-2); border-radius: 18px; }
+.legal-toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.legal-toc a { padding: 8px 14px; border-radius: 999px; background: rgba(31,38,25,0.06); font-size: 14px; font-weight: 500; color: var(--ink); text-decoration: none; }
+.legal-toc a:hover { background: rgba(31,38,25,0.1); }
+.nav-links a[aria-current="page"] { color: var(--ink); font-weight: 600; }
