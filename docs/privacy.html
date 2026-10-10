@@ -85,7 +85,7 @@
       <ul>
         <li><strong>Location and battery</strong>, if you turn on location sharing. See <a href="#location">Location</a> below.</li>
         <li><strong>Motion activity</strong> (iPhone only), if you allow it: your phone's own signal that you are driving, used on your device to start and stop drive tracking. The raw motion data stays on your device.</li>
-        <li><strong>Device and app data:</strong> a push-notification token so we can deliver reminders, your device type and operating system version, app version, time zone and language. On Android, Google Analytics for Firebase and Firebase Crashlytics record app usage events and crash reports so we can fix problems. They do not receive the content of your calendar, lists or messages.</li>
+        <li><strong>Device and app data:</strong> a push-notification token so we can deliver reminders, your device type and operating system version, app version, time zone and language. Google Analytics for Firebase records app usage events (such as which screens and features are used), and on Android Firebase Crashlytics records crash reports, so we can fix problems and improve FamSync. They do not receive the content of your calendar, lists or messages.</li>
         <li><strong>Purchases:</strong> if you subscribe, Apple or Google tells us which plan you have and whether it is active. We never see your card or bank details.</li>
       </ul>
       <h3>Phone features you can choose to connect</h3>
@@ -137,8 +137,8 @@
       <p><strong>Your family.</strong> What you add to your family space, and your location and battery level if you share them, is visible to the members of your family.</p>
       <p><strong>Service providers</strong> that process data for us under contract, only to run FamSync:</p>
       <ul>
-        <li><strong>Google Firebase and Google Cloud</strong> (United States): sign-in, database, file storage, push notifications and server functions. Android also uses Google Analytics for Firebase and Firebase Crashlytics.</li>
-        <li><strong>AI providers, Mistral AI and Groq</strong>: when you message Foxy, in the app or in a linked chat, your message and the family details needed to answer it are sent to generate a reply. They process the request and do not use it to train their models.</li>
+        <li><strong>Google Firebase and Google Cloud</strong> (United States): sign-in, database, file storage, push notifications and server functions, and Google Analytics for Firebase. Android also uses Firebase Crashlytics.</li>
+        <li><strong>AI providers, Mistral AI and Groq</strong>: when you message Foxy, your message and the family details needed to answer it are sent to generate a reply. They process the request and do not use it to train their models.</li>
         <li><strong>Maps and directions:</strong> Apple Maps and Google Places (iPhone), Google Maps Platform, OpenStreetMap and OSRM (Android). They receive search text and coordinates, not your name.</li>
         <li><strong>Lookup services Foxy uses:</strong> Open-Meteo (weather and air quality), Nager.Date (holidays), Frankfurter (currency), Free Dictionary API, TheMealDB (recipes), ESPN (scores), Open Trivia Database and icanhazdadjoke (fun), Wikipedia and DuckDuckGo (general facts). They receive only the words or place being looked up.</li>
         <li><strong>Apple and Google</strong> for in-app purchases and subscriptions.</li>
