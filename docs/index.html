@@ -1,525 +1,513 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#F4F0E6">
-  <title>FamSync: the family calendar your household will actually use</title>
-  <meta name="description" content="FamSync is one shared calendar for the whole family, with chores, grocery lists, a meal planner, a live family map, and Foxy, your family's AI assistant. Reminders that ring like a real call. Free for up to 4 people. No ads, ever.">
-  <link rel="canonical" href="https://hotstreak.info/">
-  <link rel="icon" type="image/png" href="img/favicon.png">
-  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="FamSync: Family Calendar">
-  <meta property="og:description" content="One shared calendar, chores, groceries, dinner, and a live map of who's home. Reminders that ring like a real call. Free for up to 4 people.">
-  <meta property="og:url" content="https://hotstreak.info/">
-  <meta property="og:image" content="https://hotstreak.info/img/og.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="apple-itunes-app" content="app-id=6760918495">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="guides.css">
-  <script>document.documentElement.classList.add('js');</script>
-  <script type="application/ld+json">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FamSync: Family Calendar, Chores, Groceries and Meal Plans</title>
+<meta name="description" content="One shared family calendar with a color for each person, plus chores with allowance, a grocery list that sorts itself by aisle, and dinners planned around your kids. Free for up to 4 people. No ads, ever.">
+<link rel="canonical" href="https://hotstreak.info/">
+<meta name="theme-color" content="#F7F2E8">
+<link rel="icon" type="image/png" href="/img/favicon.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta name="apple-itunes-app" content="app-id=6760918495">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FamSync">
+<meta property="og:title" content="FamSync: one calendar for the whole family">
+<meta property="og:description" content="A shared family calendar with chores, a grocery list sorted by aisle and dinners planned around your kids. Free for up to 4 people. No ads, ever.">
+<meta property="og:url" content="https://hotstreak.info/">
+<meta property="og:image" content="https://hotstreak.info/img/og-famsync.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FamSync: one calendar for the whole family. Calendar, chores, groceries and meals.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FamSync: one calendar for the whole family">
+<meta name="twitter:description" content="A shared family calendar with chores, a grocery list sorted by aisle and dinners planned around your kids. Free for up to 4 people. No ads, ever.">
+<meta name="twitter:image" content="https://hotstreak.info/img/og-famsync.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="/styles.css?v=3">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preload" as="image" href="/img/site/screen-home-lg.avif" type="image/avif" fetchpriority="high">
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "SoftwareApplication",
+ "@id": "https://hotstreak.info/#app",
+ "name": "FamSync: Family Calendar",
+ "alternateName": "FamSync",
+ "description": "A shared family calendar with a color for each person, chores with allowance, a grocery list sorted by aisle, a meal planner built around each kid, and a family map.",
+ "operatingSystem": "iOS 17.0 or later, iPadOS 17.0 or later",
+ "applicationCategory": "LifestyleApplication",
+ "applicationSubCategory": "Family organizer",
+ "url": "https://hotstreak.info/",
+ "installUrl": "https://apps.apple.com/us/app/famsync-family-calendar/id6760918495",
+ "sameAs": [
+  "https://apps.apple.com/us/app/famsync-family-calendar/id6760918495"
+ ],
+ "image": "https://hotstreak.info/img/og-famsync.jpg",
+ "screenshot": [
+  "https://hotstreak.info/img/site/screen-home.webp",
+  "https://hotstreak.info/img/site/screen-calendar.webp",
+  "https://hotstreak.info/img/site/screen-lists.webp"
+ ],
+ "offers": [
   {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "FamSync: Family Calendar",
-    "operatingSystem": "iOS 17.0 or later",
-    "applicationCategory": "LifestyleApplication",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "url": "https://hotstreak.info/",
-    "installUrl": "https://apps.apple.com/us/app/famsync-family-calendar/id6760918495"
+   "@type": "Offer",
+   "name": "Free (up to 4 people)",
+   "price": "0",
+   "priceCurrency": "USD"
+  },
+  {
+   "@type": "Offer",
+   "name": "Premium monthly (up to 8 people)",
+   "price": "5.99",
+   "priceCurrency": "USD"
+  },
+  {
+   "@type": "Offer",
+   "name": "Premium yearly (up to 8 people)",
+   "price": "49.99",
+   "priceCurrency": "USD"
   }
-  </script>
+ ],
+ "author": {
+  "@id": "https://hotstreak.info/#org"
+ },
+ "publisher": {
+  "@id": "https://hotstreak.info/#org"
+ }
+}</script>
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "@id": "https://hotstreak.info/#org",
+ "name": "Pixel Drift Studios",
+ "url": "https://hotstreak.info/",
+ "logo": "https://hotstreak.info/img/icon-512.png",
+ "email": "support@hotstreak.info",
+ "founder": {
+  "@type": "Person",
+  "name": "Reid",
+  "jobTitle": "Maker of FamSync"
+ },
+ "brand": {
+  "@type": "Brand",
+  "name": "FamSync"
+ },
+ "contactPoint": [
+  {
+   "@type": "ContactPoint",
+   "contactType": "customer support",
+   "email": "support@hotstreak.info"
+  },
+  {
+   "@type": "ContactPoint",
+   "contactType": "press",
+   "email": "reidwcoleman@gmail.com"
+  }
+ ]
+}</script>
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "WebSite",
+ "@id": "https://hotstreak.info/#site",
+ "name": "FamSync",
+ "url": "https://hotstreak.info/",
+ "publisher": {
+  "@id": "https://hotstreak.info/#org"
+ }
+}</script>
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Is FamSync really free?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. FamSync is free for families of up to 4 people, with the shared calendar, chores with allowance, the grocery list and phone-free profiles. Premium makes room for 8 and adds Foxy, Remind and Reminder Calls, the morning briefing, Apple and Google Calendar sync, calendar scanning, the family map and the meal planner. It's $5.99 a month or $49.99 a year, with a free trial for eligible new subscribers."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Are there ads?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. There are no ads in the free version or in Premium, and there won't be. Your family's data is never sold."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does it work with the calendars we already use?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes, with Premium. Connect Apple Calendar and Google Calendar and events flow both ways. Each connected calendar has its own switch, and disconnecting one removes everything it brought in."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does everyone need an iPhone?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "FamSync runs on iPhone and iPad with iOS 17 or later. Little kids and grandparents without a phone still get a profile and a color, so their chores, events and dinners show up for everyone else. FamSync isn't on Android yet."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do reminders ring when the phone is on silent?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Remind can send a message as a banner that breaks through Focus, or as a call. Calls use the same alarm and call features iPhone keeps for things that can't be missed, so they ring from the lock screen even on silent. You choose who can call you and which events call."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is location sharing required?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Location is optional and set per person. When it's on, it's only visible inside your family. Drive summaries are shown to the driver too, so a teen sees exactly what a parent sees."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the meal planner use AI?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No AI is needed. The planner works from what each person likes, dislikes and can't eat, and tells you why it picked each night. You can scan a recipe from a photo or paste a link, then send the missing ingredients to the grocery list."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What does Foxy do with our data?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Foxy reads your family's calendar, lists and locations to answer you, and sends the conversation to our AI provider for processing. That provider doesn't keep it. Nothing Foxy prepares is saved until you approve it. Details are in the privacy policy."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I cancel Premium?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Subscriptions are billed through Apple. Open Settings on your iPhone, tap your name, then Subscriptions, and cancel FamSync there. You keep Premium until the end of the period you paid for."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Who makes FamSync?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Reid, a parent and solo indie developer, under the name Pixel Drift Studios. There's no big company behind it."
+   }
+  }
+ ]
+}</script>
 </head>
 <body>
-
+<a class="skip" href="#main">Skip to content</a>
 <header class="nav" id="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href="index.html" aria-label="FamSync home">
-      <img src="img/icon-180.png" alt="" width="34" height="34">
-      FamSync
-    </a>
-    <nav class="nav-links" aria-label="Sections">
-      <a href="#tour">Tour</a>
-      <a href="#remind">Remind</a>
-      <a href="#calendar">Calendar</a>
-      <a href="#foxy">Foxy</a>
-      <a href="#pricing">Pricing</a>
-      <a href="support.html">Support</a>
-    </nav>
-    <div class="nav-right">
-      <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Get the app</a>
-      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
-    </div>
+  <div class="nav-in">
+    <a class="brand" href="/"><img src="/img/site/icon.webp" alt="" width="34" height="34">FamSync</a>
+    <nav class="nav-links" aria-label="Main"><a href="/#features">Features</a><a href="/#pricing">Pricing</a><a href="/blog/">Guides</a><a href="/press/">Press</a><a href="/support">Support</a></nav>
+    <a class="btn btn-ink btn-sm nav-cta" href="https://apps.apple.com/app/apple-store/id6760918495?pt=128668759&amp;ct=site-home&amp;mt=8">Get the app</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span></button>
   </div>
-  <nav class="menu" id="menu" aria-label="Menu">
-    <a href="#tour">Tour</a>
-    <a href="#remind">Remind</a>
-    <a href="#calendar">Calendar</a>
-    <a href="#foxy">Foxy</a>
-    <a href="#pricing">Pricing</a>
-    <a href="support.html">Support</a>
-    <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Get the app</a>
-  </nav>
 </header>
+<nav class="menu" id="menu" aria-label="Menu"><a href="/">Home</a><a href="/#features">Features</a><a href="/#pricing">Pricing</a><a href="/blog/">Guides</a><a href="/press/">Press</a><a href="/support">Support</a><a class="store" href="https://apps.apple.com/app/apple-store/id6760918495?pt=128668759&amp;ct=site-home&amp;mt=8"><img src="/img/site/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a></nav>
+<main id="main">
 
-<main>
-
-<!-- ============ HERO ============ -->
 <section class="hero">
   <div class="wrap hero-grid">
-    <div>
-      <h1 class="display">The family calendar your household will actually use.</h1>
-      <p class="lede">One shared calendar with a color for every person. Chores, groceries, and dinner everyone can see. A live map of who's home. And when something matters, FamSync rings their phone.</p>
-      <div class="hero-cta">
-        <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.9zM14.1 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg>
-          Download free on the App Store
-        </a>
-        <a class="btn btn-ghost" href="#tour">See every screen</a>
+    <div class="hero-copy">
+      <span class="eyebrow"><i></i>Family calendar for iPhone and iPad</span>
+      <h1 class="display">One calendar for <span class="mark">the whole family.</span></h1>
+      <p class="lede">Every practice, pickup and appointment in one place, with a color for each person. Chores, groceries and dinner live right next to it, so nobody has to ask what's happening.</p>
+      <div class="cta-row" data-cta-start>
+        <a class="store" href="https://apps.apple.com/app/apple-store/id6760918495?pt=128668759&amp;ct=site-home&amp;mt=8"><img src="/img/site/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
+        <a class="btn btn-paper btn-down" href="#features">See what it does<span class="nub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span></a>
       </div>
-      <ul class="hero-facts">
-        <li>Free for up to 4 people</li>
-        <li><a href="cozi-alternative/" style="text-decoration: underline; text-underline-offset: 3px;">No ads, ever</a></li>
-        <li>iPhone, iOS 17 and up</li>
-      </ul>
+      <p class="proof"><b>Trusted by 100+ families</b><span class="sep" aria-hidden="true"></span><span>Free for up to 4 people</span><span class="sep" aria-hidden="true"></span><span>No ads, ever</span></p>
     </div>
-
-    <div class="hero-stage">
-      <div class="hero-glow"></div>
-
-      <div class="phone">
-        <div class="screen" aria-label="FamSync home screen">
-          <div class="s-island"></div>
-          <div class="s-status"><span>9:41</span><span class="sig"><i></i><i></i><i class="bat"></i></span></div>
-          <div class="s-greet">Good morning, Reid</div>
-          <div class="s-date">Saturday, September 12 &nbsp; 76° and clear</div>
-          <div class="s-label">TODAY</div>
-
-          <div class="s-card">
-            <div class="s-card-title">Your briefing <small>7:02 AM</small></div>
-            <div class="s-temp"><b>76°</b><span>Clear &nbsp; H 81° &nbsp; L 55°</span></div>
-            <div class="s-hours">
-              <div><i style="--h:30px"></i>8 AM</div>
-              <div><i style="--h:34px"></i>9</div>
-              <div><i style="--h:38px"></i>10</div>
-              <div><i style="--h:40px"></i>11</div>
-              <div><i style="--h:40px"></i>12</div>
-              <div><i style="--h:36px"></i>1 PM</div>
-              <div><i style="--h:30px"></i>2</div>
-              <div><i style="--h:24px"></i>3</div>
-            </div>
-            <p class="s-brief">Four things on today and two to do. Next up is the school run at 7:45. Everyone's free 12 to 3 if the day should hold something else. Dinner is at Nana's.</p>
-            <div class="s-chip"><i></i>Swim practice needs a ride home</div>
-            <div class="s-btn">Read the full briefing</div>
-          </div>
-
-          <div class="s-card">
-            <div class="s-row"><time>7:45</time><span class="disc" style="--c: var(--rose)"></span><em>School run</em><small>Kara</small></div>
-            <div class="s-row"><time>10:30</time><span class="disc" style="--c: var(--sage-light)"></span><em>Dentist</em><small>Reid</small></div>
-            <div class="s-row"><time>4:00</time><span class="disc" style="--c: var(--lavender)"></span><em>Swim practice</em><small>Mason</small></div>
-            <div class="s-row"><time>6:30</time><span class="disc" style="--c: var(--amber)"></span><em>Dinner at Nana's</em><small>Everyone</small></div>
-          </div>
-
-          <div class="s-tabs" aria-hidden="true">
-            <span class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>Home</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg></span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 3v18M4 3v6a3 3 0 0 0 6 0V3M17 3c-2 0-3 3-3 6 0 2 1 3 3 3v9"/></svg></span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4z"/></svg></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="notice notice-call" role="presentation">
-        <div class="dot">📞</div>
-        <div><strong>Leave for practice</strong><span>Reminder Call, ringing Mason now</span></div>
-      </div>
-      <div class="notice notice-place" role="presentation">
-        <div class="dot">📍</div>
-        <div><strong>Kara arrived at School</strong><span>8:02 AM, 11 min drive</span></div>
-      </div>
-      <div class="notice notice-foxy" role="presentation">
-        <div class="dot">🦊</div>
-        <div><strong>Added to the calendar</strong><span>Soccer every Tuesday at 4 until June</span></div>
-      </div>
+    <div class="hero-art">
+      <div class="painting"><picture><source type="image/avif" srcset="/img/site/paint-kitchen.avif"><source media="(max-width: 700px)" srcset="/img/site/paint-kitchen-sm.webp"><img src="/img/site/paint-kitchen.webp" alt="" width="1600" height="1067" fetchpriority="high" decoding="async"></picture></div>
+      <div class="phone"><picture><source type="image/avif" srcset="/img/site/screen-home-lg.avif"><img src="/img/site/screen-home-lg.webp" alt="FamSync home screen: good morning, the family's status, a morning briefing with the next school run, and today's numbers" width="760" height="1651" fetchpriority="high" decoding="async"></picture></div>
     </div>
   </div>
 </section>
 
-<!-- ============ TOUR ============ -->
-<section class="section" id="tour">
+<section class="section-tight" style="padding-top: 0;" aria-label="The short version">
+  <div class="wrap"><div class="facts-strip"><div class="fact reveal" style="--i:0"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></span><div><b>No ads, ever</b><span>Not in Free, not in Premium.</span></div></div><div class="fact reveal" style="--i:1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.4-7 10-4-1.6-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><div><b>Your data is never sold</b><span>Only your family sees your family.</span></div></div><div class="fact reveal" style="--i:2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/><path d="M17 15l2 2 3-4"/></svg></span><div><b>Free for up to 4 people</b><span>Premium makes room for 8.</span></div></div><div class="fact reveal" style="--i:3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg></span><div><b>Apple + Google Calendar</b><span>Two-way sync with Premium.</span></div></div></div></div>
+</section>
+
+<section class="section" id="features" aria-labelledby="features-h">
   <div class="wrap">
-    <div class="shelf-top">
-      <div class="section-head">
-        <h2 class="display">Every tab, one household.</h2>
-        <p class="lede">These are the real screens. Warm, dark, and quiet enough to check before coffee.</p>
-      </div>
-      <div class="shelf-nav">
-        <button type="button" id="shelf-prev" aria-label="Previous screens"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
-        <button type="button" id="shelf-next" aria-label="Next screens"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      </div>
+    <div class="section-head reveal">
+      <h2 class="display" id="features-h">The whole week, <em>in one app.</em></h2>
+      <p class="lede">The calendar is the heart of it. Chores, groceries and dinner sit right beside it, so the kids open one app instead of four. These are real screens.</p>
     </div>
-    <ul class="shelf" id="shelf" aria-label="App screens">
-      <li class="reveal" style="--i:0"><figure><div class="phone fade"><img src="img/digest.webp" alt="Morning briefing screen with weather and the day's summary" loading="lazy" width="720" height="1565"></div><figcaption><b>Morning briefing</b><p>The day ahead: events, weather, clashes, and the one thing to handle first.</p></figcaption></figure></li>
-      <li class="reveal" style="--i:1"><figure><div class="phone fade"><img src="img/calendar_day.webp" alt="Calendar day view with a 24-hour ring and agenda" loading="lazy" width="720" height="1565"></div><figcaption><b>Calendar</b><p>Everyone at a glance, or filter to one person. Day, week, and month.</p></figcaption></figure></li>
-      <li class="reveal" style="--i:2"><figure><div class="phone fade"><img src="img/lists.webp" alt="To do screen with a next-up card, chores awaiting approval, and overdue tasks" loading="lazy" width="720" height="1565"></div><figcaption><b>To do and chores</b><p>Swipe right to finish, left for tomorrow. Kids earn rewards for chores.</p></figcaption></figure></li>
-      <li class="reveal" style="--i:3"><figure><div class="phone fade"><img src="img/meals.webp" alt="Meals screen showing this week's dinners and recipes" loading="lazy" width="720" height="1565"></div><figcaption><b>Meals</b><p>A week of dinners, planned around what your family likes. Ingredients go straight to the grocery list.</p></figcaption></figure></li>
-      <li class="reveal" style="--i:4"><figure><div class="phone fade"><img src="img/map.webp" alt="Family map showing who is home and who is driving" loading="lazy" width="720" height="1565"></div><figcaption><b>Family map</b><p>Who's home, who's driving, and how long until they're back.</p></figcaption></figure></li>
-      <li class="reveal" style="--i:5"><figure><div class="phone fade"><img src="img/foxy.webp" alt="Setting up with Foxy, a guided chat that configures the app" loading="lazy" width="720" height="1565"></div><figcaption><b>Foxy sets it up</b><p>A few questions, one tap each. Foxy does the rest.</p></figcaption></figure></li>
-    </ul>
-    <p class="shelf-hint"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Scroll sideways to see more</p>
-  </div>
-</section>
-
-<!-- ============ REMIND ============ -->
-<section class="section dark panel" id="remind">
-  <div class="wrap feature">
-    <div class="feature-copy">
-      <h2 class="display">Banners get swiped away. A call gets answered.</h2>
-      <p class="lede">Tell one person or the whole family something and it lands on their phone as a banner they'll actually see. For the things that matter, FamSync rings them like a real call. From the lock screen, even on silent, even with the app closed.</p>
-      <ul class="says" aria-label="Things you can send">
-        <li>Leave for practice.</li>
-        <li>Come home.</li>
-        <li>Dinner's ready.</li>
-        <li>Don't forget the permission slip.</li>
-      </ul>
-      <ul class="points">
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Send it now, or schedule it</b><span>Set it for 3:40 and get on with your day.</span></div></li>
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Reminder Calls for events</b><span>Choose which events call you: only the ones you mark, the big ones, or everything.</span></div></li>
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Hold to talk</b><span>Say it in your own voice and it plays when they pick up.</span></div></li>
-      </ul>
-    </div>
-    <div class="feature-media call-stage reveal">
-      <div class="call-rings" aria-hidden="true"><i></i><i></i><i></i></div>
-      <div class="call" role="img" aria-label="An incoming Reminder Call that says Leave for practice now, from Mom">
-        <div class="from">FamSync Reminder Call</div>
-        <div class="what">Leave for practice now</div>
-        <div class="who"><i>K</i>from Kara</div>
-        <div class="actions">
-          <div class="decline"><b><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></b>Decline</div>
-          <div class="accept"><b><svg viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></b>Answer</div>
-        </div>
-        <div class="silent">Rings even on silent</div>
-      </div>
+    <div class="bento">
+<article class="job w7 reveal">
+  <div class="shell"><div class="core">
+    <div class="job-copy"><span class="tag"><i></i>Free</span><h3>Every practice. One calendar.</h3><p>Practices, appointments and pickups on one calendar, with a color for each person. See everyone at once or just one kid. Free together finds the evenings nobody has plans.</p><div class="chips"><span class="chip" style="--c: var(--p-sage-w)">A color per person</span><span class="chip" style="--c: var(--p-teal-w)">Apple + Google, both ways</span><span class="chip" style="--c: var(--p-honey-w)">Snap a flyer into events</span></div></div>
+    <div class="job-shot" style="--h: 360px"><div class="phone"><img src="/img/site/screen-calendar.webp" alt="FamSync week calendar with a color for each family member and a clash flagged" width="600" height="1304" loading="lazy" decoding="async"></div></div>
+  </div></div>
+</article>
+<article class="job w5 reveal">
+  <div class="shell"><div class="core">
+    <div class="job-copy"><span class="tag"><i></i>Free</span><h3>Kids tick it off. You give the OK.</h3><p>Give each chore a due date and an allowance amount. FamSync keeps the streaks and a running total of what you owe.</p><div class="chips"><span class="chip" style="--c: var(--p-honey-w)">Allowance</span><span class="chip" style="--c: var(--p-coral-w)">Streaks</span><span class="chip" style="--c: var(--p-sage-w)">Parent OK</span></div></div>
+    <div class="job-shot" style="--h: 360px"><div class="phone"><img src="/img/site/screen-chores.webp" alt="Chore chart with a chore waiting for a parent's OK and this week's allowance total" width="600" height="1304" loading="lazy" decoding="async"></div></div>
+  </div></div>
+</article>
+<article class="job w5 reveal">
+  <div class="shell"><div class="core">
+    <div class="job-copy"><span class="tag"><i></i>Free</span><h3>The list sorts itself by aisle.</h3><p>One shared grocery list the whole family adds to. It groups by aisle, spots doubles and remembers what you buy again. Add hands-free with Siri.</p><div class="chips"><span class="chip" style="--c: var(--p-sage-w)">Sorted by aisle</span><span class="chip" style="--c: var(--p-lilac-w)">Spots doubles</span><span class="chip" style="--c: var(--p-teal-w)">Buy again</span></div></div>
+    <div class="job-shot" style="--h: 360px"><div class="phone"><img src="/img/site/screen-lists.webp" alt="Shared grocery list grouped by aisle, with a duplicate flagged and buy-again chips" width="600" height="1304" loading="lazy" decoding="async"></div></div>
+  </div></div>
+</article>
+<article class="job w7 reveal">
+  <div class="shell"><div class="core">
+    <div class="job-copy"><span class="tag prem"><i></i>Premium</span><h3>Dinner, decided.</h3><p>A week of dinners planned around what each person likes, dislikes and can't eat, kids included. No AI needed. Scan a recipe from a photo or paste a link, and the missing ingredients go to the list.</p><div class="chips"><span class="chip" style="--c: var(--p-coral-w)">Every kid fed</span><span class="chip" style="--c: var(--p-honey-w)">Allergies respected</span><span class="chip" style="--c: var(--p-sage-w)">Recipe scan</span></div></div>
+    <div class="job-shot" style="--h: 360px"><div class="phone"><img src="/img/site/screen-meals.webp" alt="Meal planner showing a week of dinners with which kid loves each one" width="600" height="1304" loading="lazy" decoding="async"></div></div>
+  </div></div>
+</article>
+<article class="job w4 reveal">
+  <div class="shell"><div class="core">
+    <div class="job-copy"><span class="tag prem"><i></i>Premium</span><h3>Just ask Foxy.</h3><p>Type it the way you'd say it. Foxy books it, moves it and reminds the right person, and checks with you before anything is saved.</p></div>
+    <div class="job-shot"><div class="phone"><img src="/img/site/screen-foxy.webp" alt="Family chat with Foxy moving an event and offering a reminder" width="600" height="1304" loading="lazy" decoding="async"></div></div>
+  </div></div>
+</article>
+<article class="job w4 reveal">
+  <div class="shell"><div class="core">
+    <div class="job-copy"><span class="tag prem"><i></i>Premium</span><h3>Three things before coffee.</h3><p>A morning briefing with leave-by times, the weather, and the one thing to sort first.</p></div>
+    <div class="job-shot"><div class="phone"><img src="/img/site/screen-digest.webp" alt="Morning briefing listing a dentist leave-by time, the school run and an overdue task" width="600" height="1304" loading="lazy" decoding="async"></div></div>
+  </div></div>
+</article>
+<article class="job w4 reveal">
+  <div class="shell"><div class="core">
+    <div class="job-copy"><span class="tag"><i></i>Free</span><h3>Room for everyone, phone or not.</h3><p>Grandparents, co-parents and little ones without a phone all get a place and a color. Family info and sitter notes keep allergies and doctors in one spot.</p></div>
+    <div class="job-shot"><div class="phone"><img src="/img/site/screen-family.webp" alt="Family members list with owner, admin, member and child roles" width="600" height="1304" loading="lazy" decoding="async"></div></div>
+  </div></div>
+</article>
     </div>
   </div>
 </section>
 
-<!-- ============ CALENDAR ============ -->
-<section class="section" id="calendar">
-  <div class="wrap feature flip">
-    <div class="feature-copy">
-      <h2 class="display">See the whole family at a glance.</h2>
-      <p class="lede">Every person gets a color. Filter to one of them or see everyone. Add events, reminders, and notes, and never miss a pickup, practice, or appointment again.</p>
-      <ul class="points">
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Repeats that work the way you'd expect</b><span>Every Tuesday and Thursday. Every other week. The first Monday of the month. A whole season in one go. Change one date or the whole series.</span></div></li>
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Apple Calendar and Google Calendar, both ways</b><span>Each calendar has its own switch. Disconnecting removes everything it brought in.</span></div></li>
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Snap a photo of the paper flyer</b><span>Team schedule, school calendar, birthday invitation. Foxy adds every date for you.</span></div></li>
+<section class="section band" id="remind" aria-labelledby="remind-h">
+  <div class="wrap spot">
+    <div class="spot-copy reveal">
+      <span class="tag prem"><i></i>Premium</span>
+      <h2 class="display" id="remind-h" style="margin-top:16px">Reminders they <span class="mark">can't miss.</span></h2>
+      <p class="lede">Banners get swiped away. Remind sends a message straight to their phone as a banner that breaks through Focus, or as a call that rings even on silent. Reminder Calls do the same for the events that matter.</p>
+      <ul class="says" aria-label="Things families send">
+        <li>Leave for practice now.</li><li>Dinner's ready.</li><li>Don't forget the permission slip.</li>
+      </ul>
+      <ul class="ticks">
+        <li><span><b>One person or everyone at once.</b> Pick who, say it, choose Notify or Call.</span></li>
+        <li><span><b>See who got it.</b> No more "I didn't see your text."</span></li>
       </ul>
     </div>
-    <div class="feature-media pair">
-      <div class="phone fade reveal"><img src="img/calendar_week.webp" alt="Week view with a lane for each family member" loading="lazy" width="720" height="1565"></div>
-      <div class="phone fade reveal" style="--i:1"><img src="img/calendar_month.webp" alt="Month view with colored dots for each person's events" loading="lazy" width="720" height="1565"></div>
+    <div class="spot-art reveal" style="--i:1">
+      <div class="painting"><img src="/img/site/paint-remind.webp" alt="" width="880" height="1019" loading="lazy" decoding="async"></div>
+      <div class="phone"><img src="/img/site/screen-remind.webp" alt="Remind screen: pick who, type the message, and choose Notify or Call, which rings even on silent" width="600" height="1304" loading="lazy" decoding="async"></div>
     </div>
   </div>
 </section>
 
-<!-- ============ FOXY ============ -->
-<section class="section band panel" id="foxy">
-  <div class="wrap feature">
-    <div class="feature-copy">
-      <h2 class="display">Type it the way you'd say it.</h2>
-      <p class="lede">Foxy is your family's assistant. It knows the calendar, the lists, and who's where, so it can actually do the thing, not just talk about it. Foxy sets it up and waits for your approval before anything is saved.</p>
-      <ul class="says" aria-label="Things you can ask Foxy">
-        <li>Tell Kara to leave now.</li>
-        <li>Post on the board that the wifi password changed.</li>
-        <li>Ask everyone whether we want tacos or pasta.</li>
-        <li>What's for dinner this week?</li>
+<section class="section" id="map" aria-labelledby="map-h">
+  <div class="wrap spot">
+    <div class="spot-art reveal">
+      <div class="painting"><img src="/img/site/paint-map.webp" alt="" width="880" height="1019" loading="lazy" decoding="async"></div>
+      <div class="phone"><img src="/img/site/screen-map.webp" alt="Family map showing Kara heading home at 34 mph, home in 9 minutes" width="600" height="1304" loading="lazy" decoding="async"></div>
+    </div>
+    <div class="spot-copy reveal" style="--i:1">
+      <span class="tag prem"><i></i>Premium</span>
+      <h2 class="display" id="map-h" style="margin-top:16px">Know they <span class="mark">got home.</span></h2>
+      <p class="lede">A live family map with ETAs like "home in 8 min", and an alert when someone arrives at or leaves school, practice or grandma's. No more "where are you?" texts.</p>
+      <ul class="ticks">
+        <li><span><b>A summary for every drive.</b> Route, distance, top speed, hard brakes and how often the phone was picked up.</span></li>
+        <li><span><b>Teens see it too.</b> The driver gets the same summary, so it's a shared view, not secret tracking.</span></li>
+        <li><span><b>Optional, per person.</b> Location is only ever shared inside your family.</span></li>
       </ul>
     </div>
-    <div class="feature-media">
-      <div class="chat reveal" id="chat" aria-live="polite">
-        <div class="chat-head"><div class="fox">🦊</div><div><b>Foxy</b><small>Online</small></div></div>
-        <div class="bubble me" id="chat-me"><span id="typed"></span><span class="caret" id="caret"></span></div>
-        <div class="bubble fox" id="chat-fox">Got it. Here's what I've prepared. Add it, or change anything first.</div>
-        <div class="event-card" id="chat-card">
-          <b><i></i>Soccer practice</b>
-          <span>Tuesdays, 4:00 to 5:00 PM, Sept 15 through June 9</span>
-          <span>Mason, Pleasant Park, 14 min drive</span>
-          <div class="approve"><em>Add to calendar</em><em>Edit</em></div>
-        </div>
-        <div class="chat-input">Message Foxy<i></i></div>
-      </div>
-    </div>
   </div>
 </section>
 
-<!-- ============ MAP ============ -->
-<section class="section" id="map">
-  <div class="wrap feature flip">
-    <div class="feature-copy">
-      <h2 class="display">Know who's home, and how the drive went.</h2>
-      <p class="lede">See everyone in real time. Draw a circle around school, practice, or grandma's and get a note when someone arrives or leaves.</p>
-      <ul class="points">
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Every drive, logged on its own</b><span>Route, distance, top speed, and how many times the phone was picked up while the car was moving. A summary arrives when you park.</span></div></li>
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Teen drivers included</b><span>Parents get the same summary for new drivers, without asking.</span></div></li>
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><div><b>Private to your family</b><span>Location is optional, per person, and only ever shared inside your family group.</span></div></li>
-      </ul>
+<section class="section band" id="maker" aria-labelledby="maker-h">
+  <div class="wrap maker">
+    <div class="reveal">
+      <h2 class="display" id="maker-h">Made by a parent, <em>not a big company.</em></h2>
+      <div class="shell" style="margin-top: 32px"><div class="core maker-card">
+        <div class="sig"><img src="/img/site/icon.webp" alt="" width="52" height="52" loading="lazy"><div><b>Hi, I'm Reid.</b><span>Parent, and the one person behind FamSync</span></div></div>
+        <p class="hand">A family app from one parent, with no ads.</p>
+        <p>I design, build and support FamSync on my own. It has no ads and never will, and your family's data is never sold.</p>
+        <p>If something isn't right, or there's a thing your family needs, write to <a href="mailto:support@hotstreak.info">support@hotstreak.info</a>.</p>
+      </div></div>
     </div>
-    <div class="feature-media">
-      <div class="phone fade reveal" style="width: min(330px, 100%); margin-inline: auto;"><img src="img/map.webp" alt="Family map with member cards showing who is driving and who is home" loading="lazy" width="720" height="1565"></div>
-      <div class="drive" role="img" aria-label="Drive summary for Kara: 14 minutes, 9.7 miles, top speed 34, phone picked up 0 times">
-        <div class="t"><i>K</i>Kara parked at 4:52 PM</div>
-        <h4>School to home</h4>
-        <dl>
-          <div><dt>Time</dt><dd>14 min</dd></div>
-          <div><dt>Distance</dt><dd>9.7 mi</dd></div>
-          <div><dt>Top speed</dt><dd>34 mph</dd></div>
-          <div><dt>Pickups</dt><dd>0</dd></div>
-        </dl>
-      </div>
-    </div>
+    <div class="reels"><figure class="reel reveal" style="--i:0">
+  <div class="frame"><img src="/media/famsync-01-maker-tour-poster.webp" alt="" width="540" height="960" loading="lazy" decoding="async">
+    <video muted loop playsinline preload="none" poster="/media/famsync-01-maker-tour-poster.webp" data-src="/media/famsync-01-maker-tour.mp4" aria-label="The 20-second tour: a short screen recording of FamSync" width="720" height="1280"></video>
+    <button class="play" type="button" aria-label="Play video"><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></button></div>
+  <figcaption>The 20-second tour<span>Six real screens, start to finish</span></figcaption>
+</figure><figure class="reel reveal" style="--i:1">
+  <div class="frame"><img src="/media/famsync-02-grocery-aisles-poster.webp" alt="" width="540" height="960" loading="lazy" decoding="async">
+    <video muted loop playsinline preload="none" poster="/media/famsync-02-grocery-aisles-poster.webp" data-src="/media/famsync-02-grocery-aisles.mp4" aria-label="Groceries, sorted by aisle: a short screen recording of FamSync" width="720" height="1280"></video>
+    <button class="play" type="button" aria-label="Play video"><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></button></div>
+  <figcaption>Groceries, sorted by aisle<span>Doubles merged, buy again in a tap</span></figcaption>
+</figure><figure class="reel reveal" style="--i:2">
+  <div class="frame"><img src="/media/famsync-03-dinner-decided-poster.webp" alt="" width="540" height="960" loading="lazy" decoding="async">
+    <video muted loop playsinline preload="none" poster="/media/famsync-03-dinner-decided-poster.webp" data-src="/media/famsync-03-dinner-decided.mp4" aria-label="Dinner, decided: a short screen recording of FamSync" width="720" height="1280"></video>
+    <button class="play" type="button" aria-label="Play video"><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></button></div>
+  <figcaption>Dinner, decided<span>A week planned around the kids</span></figcaption>
+</figure></div>
   </div>
 </section>
 
-<!-- ============ CHORES + MEALS ============ -->
-<section class="section" id="more" style="padding-top: 0;">
-  <div class="wrap tiles">
-    <article class="tile">
-      <div>
-        <h3>Chores that get done.</h3>
-        <p>Assign <a href="chore-chart-app/" style="text-decoration: underline; text-underline-offset: 3px;">chores</a>, set due dates, and track completion. Kids earn rewards for finished tasks, and you approve with one tap. The whole family sees what's done and what's left.</p>
-      </div>
-      <div class="phone fade"><img src="img/lists.webp" alt="" loading="lazy" width="720" height="1565"></div>
-    </article>
-    <article class="tile">
-      <div>
-        <h3>Dinner, decided.</h3>
-        <p>The <a href="meal-planner-for-picky-eaters/" style="text-decoration: underline; text-underline-offset: 3px;">meal planner</a> builds a week of dinners around each person's tastes, right on your phone. Import recipes from photos, websites, or a picture of your fridge. The shared grocery list updates as you plan.</p>
-      </div>
-      <div class="phone fade"><img src="img/meals.webp" alt="" loading="lazy" width="720" height="1565"></div>
-    </article>
-  </div>
-</section>
-
-<!-- ============ PRICING ============ -->
-<section class="section" id="pricing">
+<section class="section" id="pricing" aria-labelledby="pricing-h">
   <div class="wrap">
-    <div class="section-head">
-      <h2 class="display">Free for four. Premium for the whole tree.</h2>
-      <p class="lede">Start free. Add grandparents, <a href="co-parenting-calendar-app/" style="text-decoration: underline; text-underline-offset: 3px;">co-parents</a>, and a blended family on one calendar when you're ready.</p>
+    <div class="section-head center reveal">
+      <h2 class="display" id="pricing-h">Free for four. <em>Room for eight.</em></h2>
+      <p class="lede">Start free with the calendar, chores and groceries. Add Premium when you want the extras or the whole crew, grandparents and co-parents included.</p>
     </div>
     <div class="plans">
-      <div class="plan plan-free">
-        <h3>Free</h3>
-        <p class="who">Up to 4 family members</p>
+      <div class="plan reveal"><div class="shell"><div class="core">
+        <h3>Free</h3><p class="who">For families of up to 4 people</p>
         <div class="price"><b>$0</b><span>forever</span></div>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Shared family calendar with a color per person</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Chores, to dos, and the shared grocery list</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Family board and event comments</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Phone-free profiles for little kids and grandparents</li>
+          <li>Shared family calendar with a color per person</li>
+          <li>Chores with allowance, streaks and parent OK</li>
+          <li>Grocery list sorted by aisle, with duplicate spotting, buy again and Siri</li>
+          <li>Phone-free profiles, family info and sitter notes</li>
         </ul>
-        <a class="btn btn-olive" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Download free</a>
-        <p class="no-ads">No ads. Ever. Not in Free, not in Premium.</p>
-      </div>
-      <div class="plan plan-premium">
-        <h3>Premium</h3>
-        <p class="who">Up to 8 family members</p>
+        <div class="foot"><a class="store" href="https://apps.apple.com/app/apple-store/id6760918495?pt=128668759&amp;ct=site-home&amp;mt=8"><img src="/img/site/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a></div>
+      </div></div></div>
+      <div class="plan plan-prem reveal" style="--i:1"><div class="shell"><div class="core">
+        <h3>Premium</h3><p class="who">For families of up to 8 people</p>
         <div class="price"><b>$5.99</b><span>a month</span></div>
-        <div class="price" style="margin-top: 8px;"><b>$49.99</b><span>a year. Saves 30%.</span></div>
-        <p class="who" style="margin-top: 8px;">Free trial for eligible new subscribers.</p>
+        <p class="price-alt">or <b>$49.99 a year</b><span class="save">Save 30%</span></p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Remind anyone, by banner or by call</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Reminder Calls for events</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Foxy, your family assistant, and the Morning Digest</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Repeating events</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Apple and Google Calendar sync, and calendar scanning from photos</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Family Map, drive summaries, and place alerts</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Meal planner and recipe import</li>
+          <li>Foxy, your family assistant</li>
+          <li>Remind by banner or by call, and Reminder Calls for events</li>
+          <li>Morning briefing</li>
+          <li>Apple and Google Calendar two-way sync</li>
+          <li>Calendar scanning from photos of flyers and schedules</li>
+          <li>Family map, drive summaries and place alerts</li>
+          <li>Meal planner and recipe import</li>
         </ul>
-        <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Start the free trial</a>
-        <p class="fine">Billed through your Apple ID. Cancel any time in Settings; you keep Premium until the period ends.</p>
+        <div class="foot"><a class="store" href="https://apps.apple.com/app/apple-store/id6760918495?pt=128668759&amp;ct=site-home&amp;mt=8"><img src="/img/site/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a><p class="fine">Free trial for eligible new subscribers. Billed through your Apple ID. Cancel any time in Settings and keep Premium until the period ends.</p></div>
+      </div></div></div>
+    </div>
+    <p class="no-ads reveal"><b>No ads. Ever.</b> Not in Free, not in Premium. Your data is never sold.</p>
+  </div>
+</section>
+
+<section class="section band" id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div class="section-head center reveal"><h2 class="display" id="faq-h">Questions parents ask first.</h2></div>
+    <div class="faq center">
+<details class="reveal"><summary>Is FamSync really free?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="a"><p>Yes. FamSync is free for families of up to 4 people, with the shared calendar, chores with allowance, the grocery list and phone-free profiles. Premium makes room for 8 and adds Foxy, Remind and Reminder Calls, the morning briefing, Apple and Google Calendar sync, calendar scanning, the family map and the meal planner. It's $5.99 a month or $49.99 a year, with a free trial for eligible new subscribers.</p></div></details>
+<details class="reveal"><summary>Are there ads?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="a"><p>No. There are no ads in the free version or in Premium, and there won't be. Your family's data is never sold.</p></div></details>
+<details class="reveal"><summary>Does it work with the calendars we already use?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="a"><p>Yes, with Premium. Connect Apple Calendar and Google Calendar and events flow both ways. Each connected calendar has its own switch, and disconnecting one removes everything it brought in.</p></div></details>
+<details class="reveal"><summary>Does everyone need an iPhone?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="a"><p>FamSync runs on iPhone and iPad with iOS 17 or later. Little kids and grandparents without a phone still get a profile and a color, so their chores, events and dinners show up for everyone else. FamSync isn't on Android yet.</p></div></details>
+<details class="reveal"><summary>How do reminders ring when the phone is on silent?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="a"><p>Remind can send a message as a banner that breaks through Focus, or as a call. Calls use the same alarm and call features iPhone keeps for things that can't be missed, so they ring from the lock screen even on silent. You choose who can call you and which events call.</p></div></details>
+<details class="reveal"><summary>Is location sharing required?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="a"><p>No. Location is optional and set per person. When it's on, it's only visible inside your family. Drive summaries are shown to the driver too, so a teen sees exactly what a parent sees.</p></div></details>
+<details class="reveal"><summary>Does the meal planner use AI?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="a"><p>No AI is needed. The planner works from what each person likes, dislikes and can't eat, and tells you why it picked each night. You can scan a recipe from a photo or paste a link, then send the missing ingredients to the grocery list.</p></div></details>
+<details class="reveal"><summary>What does Foxy do with our data?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="a"><p>Foxy reads your family's calendar, lists and locations to answer you, and sends the conversation to our AI provider for processing. That provider doesn't keep it. Nothing Foxy prepares is saved until you approve it. Details are in the <a href="/privacy.html">privacy policy</a>.</p></div></details>
+<details class="reveal"><summary>How do I cancel Premium?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="a"><p>Subscriptions are billed through Apple. Open Settings on your iPhone, tap your name, then Subscriptions, and cancel FamSync there. You keep Premium until the end of the period you paid for.</p></div></details>
+<details class="reveal"><summary>Who makes FamSync?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="a"><p>Reid, a parent and solo indie developer, under the name Pixel Drift Studios. There's no big company behind it.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="guides" aria-labelledby="guides-h">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 class="display" id="guides-h">Guides for busy families.</h2>
+      <p class="lede">Honest write-ups that work with any calendar, competitors included.</p>
+    </div>
+    <div class="cards"><a class="card-link reveal" href="/cozi-alternative/"><div class="thumb"><img src="/img/site/scene-fox.webp" alt="" width="640" height="640" loading="lazy" decoding="async"></div><div class="body"><b>A Cozi alternative with no ads</b><span class="d">What's the same, what's different, and when Cozi is still the better pick.</span></div></a><a class="card-link reveal" href="/co-parenting-calendar-app/"><div class="thumb"><img src="/img/site/scene-shoes.webp" alt="" width="640" height="640" loading="lazy" decoding="async"></div><div class="body"><b>A shared calendar for co-parents</b><span class="d">One schedule for two homes, and when you need a court-ready app instead.</span></div></a><a class="card-link reveal" href="/chore-chart-app/"><div class="thumb"><img src="/img/site/scene-fridge.webp" alt="" width="640" height="640" loading="lazy" decoding="async"></div><div class="body"><b>A chore chart app with allowance</b><span class="d">Kids tick it off, you give the OK, and the app keeps count of what you owe.</span></div></a><a class="card-link reveal" href="/meal-planner-for-picky-eaters/"><div class="thumb"><img src="/img/site/scene-market.webp" alt="" width="640" height="640" loading="lazy" decoding="async"></div><div class="body"><b>A meal planner app for picky kids</b><span class="d">A week of dinners planned around what each kid will actually eat.</span></div></a><a class="card-link reveal" href="/best-family-organizer-app/"><div class="thumb"><img src="/img/site/scene-lunchbox.webp" alt="" width="640" height="640" loading="lazy" decoding="async"></div><div class="body"><b>Best family organizer apps, 2026</b><span class="d">An honest roundup, competitors included, from the person who makes one.</span></div></a><a class="card-link plain reveal" href="/blog/"><div class="body" style="padding:0"><span class="kicker" style="color:rgba(255,253,247,.6)">All guides</span><b>Custody schedules, chores by age, picky-eater dinners and more.</b></div><span class="btn btn-paper btn-sm" style="align-self:flex-start">Read the guides<span class="nub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a></div>
+  </div>
+</section>
+
+<section class="closing" aria-labelledby="closing-h">
+  <div class="wrap">
+    <div class="closing-panel">
+      <picture><source media="(max-width: 700px)" srcset="/img/site/paint-street-sm.webp"><img src="/img/site/paint-street.webp" alt="" width="1800" height="772" loading="lazy" decoding="async"></picture>
+      <div class="inner reveal">
+        <h2 class="display" id="closing-h">Get everyone on <span class="mark">the same page.</span></h2>
+        <p>Free for families of up to 4. Set up in a few minutes.</p>
+        <a class="store" href="https://apps.apple.com/app/apple-store/id6760918495?pt=128668759&amp;ct=site-home&amp;mt=8"><img src="/img/site/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ============ FAQ ============ -->
-<section class="section band panel" id="faq">
-  <div class="wrap">
-    <div class="section-head">
-      <h2 class="display">Questions, answered.</h2>
-    </div>
-    <div class="faq">
-      <details>
-        <summary>How do I invite my family?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
-        <div class="a">Create your family and you get a short code. Send it, and whoever enters it joins with the shared calendar, lists, and map already set up. You can also show a QR code from the Home tab.</div>
-      </details>
-      <details>
-        <summary>Does it work with the calendars we already use?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
-        <div class="a">Yes. Connect Apple Calendar and Google Calendar and events flow both ways. Each connected calendar has its own switch, and disconnecting one removes everything it brought in.</div>
-      </details>
-      <details>
-        <summary>How do Reminder Calls ring on silent?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
-        <div class="a">FamSync uses the same alarm and call mechanisms iPhone reserves for things that can't be missed. You choose who can call you and which events call, and you can turn it off per person at any time.</div>
-      </details>
-      <details>
-        <summary>Is location sharing required?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
-        <div class="a">No. Location is optional and per person. When it's on, it's only visible to your family group. Turn it off from your profile and the map simply stops showing you.</div>
-      </details>
-      <details>
-        <summary>What does Foxy do with our data?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
-        <div class="a">Foxy reads your family's calendar, lists, and locations to answer you, and sends the conversation to our AI provider for processing. That provider doesn't keep it. Nothing Foxy prepares is saved until you approve it. Details are in the <a href="privacy.html" style="text-decoration: underline; text-underline-offset: 3px;">privacy policy</a>.</div>
-      </details>
-      <details>
-        <summary>How do I cancel Premium?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
-        <div class="a">Subscriptions are billed through Apple. Open Settings on your iPhone, tap your name, then Subscriptions, and cancel FamSync there. You keep Premium until the end of the period you paid for.</div>
-      </details>
-      <details>
-        <summary>Which devices are supported?<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i></summary>
-        <div class="a">iPhone running iOS 17 or later. Every family member needs the app for shared features, and the free plan covers four people.</div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CLOSING ============ -->
-<section class="dark closing panel" id="download">
-  <div class="wrap">
-    <img class="brand-mark" src="img/icon-180.png" alt="" width="84" height="84">
-    <h2 class="display">Get your household on the same page.</h2>
-    <p class="lede">Free for up to four people. Set up in a few minutes with Foxy.</p>
-    <a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.9zM14.1 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg>
-      Download free on the App Store
-    </a>
-  </div>
-</section>
-
-<!-- ============ GUIDES ============ -->
-<section class="related band">
-  <div class="wrap">
-    <h2 class="display">Guides for busy families</h2>
-    <div class="related-grid">
-      <a href="cozi-alternative/"><b>A Cozi alternative with no ads</b><span>What's the same, what's different, and when Cozi is still the better pick.</span></a>
-      <a href="co-parenting-calendar-app/"><b>A shared calendar for co-parents</b><span>One schedule for two homes, and when you need a court-ready app instead.</span></a>
-      <a href="chore-chart-app/"><b>A chore chart app with allowance</b><span>Kids tick it off, you give the OK, and the app keeps count of what you owe.</span></a>
-      <a href="meal-planner-for-picky-eaters/"><b>A meal planner app for picky kids</b><span>A week of dinners planned around what each kid will actually eat.</span></a>
-      <a href="best-family-organizer-app/"><b>Best family organizer apps, 2026</b><span>An honest roundup, competitors included, from the person who makes one.</span></a>
-      <a href="blog/"><b>All guides</b><span>Custody schedules, chores by age, picky-eater dinners, the Sunday family meeting and a new teen driver checklist.</span></a>
-    </div>
-  </div>
-</section>
-
-<div class="sticky-cta" id="sticky-cta"><a class="btn btn-amber" href="https://apps.apple.com/us/app/famsync-family-calendar/id6760918495">Download free on the App Store</a></div>
 
 </main>
-
 <footer class="footer">
-  <div class="wrap footer-in">
-    <a class="brand" href="index.html" style="font-size: 19px;"><img src="img/icon-180.png" alt="" width="28" height="28" style="width:28px;height:28px;">FamSync</a>
-    <nav class="footer-links" aria-label="Footer">
-      <a href="best-family-organizer-app/">Compare apps</a>
-      <a href="blog/">Guides</a>
-      <a href="support.html">Support</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="mailto:support@hotstreak.info">Contact</a>
-    </nav>
-    <span>© 2026 FamSync</span>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="/"><img src="/img/site/icon.webp" alt="" width="34" height="34" loading="lazy">FamSync</a>
+        <p class="blurb">The family calendar with chores, groceries and dinner built in. Made by Reid, a parent and solo indie developer.</p>
+      </div>
+      <div><h2>FamSync</h2><ul>
+        <li><a href="/#features">Features</a></li><li><a href="/#pricing">Pricing</a></li><li><a href="/#faq">FAQ</a></li><li><a href="/press/">Press kit</a></li></ul></div>
+      <div><h2>Guides</h2><ul><li><a href="/cozi-alternative/">A Cozi alternative with no ads</a></li><li><a href="/co-parenting-calendar-app/">A shared calendar for co-parents</a></li><li><a href="/chore-chart-app/">A chore chart app with allowance</a></li><li><a href="/meal-planner-for-picky-eaters/">A meal planner app for picky kids</a></li><li><a href="/best-family-organizer-app/">Best family organizer apps, 2026</a></li><li><a href="/blog/">All guides</a></li></ul></div>
+      <div><h2>Help</h2><ul>
+        <li><a href="/support">Support</a></li><li><a href="/privacy.html">Privacy</a></li><li><a href="/terms.html">Terms</a></li><li><a href="mailto:support@hotstreak.info">support@hotstreak.info</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>&copy; 2026 Pixel Drift Studios. No ads, ever. Your data is never sold.</span><span>iPhone and iPad, iOS 17 and up</span></div>
   </div>
 </footer>
-
+<div class="sticky-cta" id="sticky-cta" aria-hidden="true">
+  <img src="/img/site/icon.webp" alt="" width="40" height="40" loading="lazy">
+  <div class="t"><b>FamSync</b><span>Free on the App Store</span></div>
+  <a class="btn btn-ink btn-sm" href="https://apps.apple.com/app/apple-store/id6760918495?pt=128668759&amp;ct=site-home&amp;mt=8" tabindex="-1">Get</a>
+</div>
 <script>
 (function () {
-  var nav = document.getElementById('nav');
-  var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 8); };
-  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // Mobile menu
-  var menuBtn = document.getElementById('menu-btn'), menu = document.getElementById('menu');
-  var setMenu = function (open) { menu.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', String(open)); menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); };
-  menuBtn.addEventListener('click', function () { setMenu(!menu.classList.contains('open')); });
-  menu.addEventListener('click', function (e) { if (e.target.closest('a')) { setMenu(false); } });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setMenu(false); } });
-
-  // Shelf arrows
-  var shelf = document.getElementById('shelf');
-  var step = function (dir) { var w = shelf.firstElementChild.getBoundingClientRect().width + 28; shelf.scrollBy({ left: dir * w * 2, behavior: reduce ? 'auto' : 'smooth' }); };
-  document.getElementById('shelf-prev').addEventListener('click', function () { step(-1); });
-  document.getElementById('shelf-next').addEventListener('click', function () { step(1); });
-
-  // Reveal once
-  if ('IntersectionObserver' in window) {
-    var rio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } });
-    }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
-    document.querySelectorAll('.reveal').forEach(function (el) { rio.observe(el); });
-
-    // Sticky download bar on phones, once the hero button has scrolled away
-    var sticky = document.getElementById('sticky-cta'), heroCta = document.querySelector('.hero-cta');
-    var sio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { sticky.classList.toggle('show', !e.isIntersecting && e.boundingClientRect.top < 0); });
-    }, { threshold: 0 });
-    sio.observe(heroCta);
-    var closing = document.getElementById('download');
-    var cio = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) { sticky.classList.remove('show'); sio.disconnect(); } }); }, { threshold: 0.2 });
-    cio.observe(closing);
-  } else {
-    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+  var d = document, root = d.documentElement, reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var btn = d.getElementById('menu-btn'), menu = d.getElementById('menu');
+  function setMenu(open) { root.classList.toggle('menu-open', open); btn.setAttribute('aria-expanded', String(open)); btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); }
+  if (btn) {
+    btn.addEventListener('click', function () { setMenu(!root.classList.contains('menu-open')); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+    d.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+    window.matchMedia('(min-width: 901px)').addEventListener('change', function (m) { if (m.matches) setMenu(false); });
   }
-
-  // Hero phone follows the pointer a little (mouse only)
-  var stage = document.querySelector('.hero-stage'), phone = stage && stage.querySelector('.phone');
-  if (phone && !reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    phone.addEventListener('animationend', function () {
-      phone.style.animation = 'none'; phone.style.opacity = '1'; stage.classList.add('tilt');
-      var rect;
-      stage.addEventListener('pointermove', function (e) {
-        rect = rect || stage.getBoundingClientRect();
-        var x = (e.clientX - rect.left) / rect.width - 0.5, y = (e.clientY - rect.top) / rect.height - 0.5;
-        phone.style.transform = 'rotateY(' + (x * 9) + 'deg) rotateX(' + (-y * 7) + 'deg) translateY(' + (-y * 6) + 'px)';
-      });
-      stage.addEventListener('pointerleave', function () { phone.style.transform = ''; rect = null; });
-      window.addEventListener('resize', function () { rect = null; });
-    }, { once: true });
+  var hasIO = 'IntersectionObserver' in window;
+  var els = d.querySelectorAll('.reveal, .mark');
+  if (!hasIO || reduce) { els.forEach(function (el) { el.classList.add('in'); }); }
+  else {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    els.forEach(function (el) { io.observe(el); });
   }
-
-  // Foxy demo: types the request once the chat scrolls into view, then Foxy replies.
-  var chat = document.getElementById('chat');
-  if (!chat || !('IntersectionObserver' in window)) { return; }
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var me = document.getElementById('chat-me'), typed = document.getElementById('typed'), caret = document.getElementById('caret');
-  var fox = document.getElementById('chat-fox'), card = document.getElementById('chat-card');
-  var text = 'Soccer every Tuesday at 4 until June, for Mason.';
-  var played = false;
-  function play() {
-    if (played) { return; } played = true;
-    me.classList.add('in');
-    if (reduce) { typed.textContent = text; caret.remove(); fox.classList.add('in'); card.classList.add('in'); return; }
-    var i = 0;
-    var tick = function () {
-      typed.textContent = text.slice(0, ++i);
-      if (i < text.length) { setTimeout(tick, 28 + Math.random() * 40); }
-      else { setTimeout(function () { caret.remove(); fox.classList.add('in'); }, 500); setTimeout(function () { card.classList.add('in'); }, 1100); }
-    };
-    setTimeout(tick, 400);
+  var bar = d.getElementById('sticky-cta'), end = d.querySelector('.closing'), start = d.querySelector('[data-cta-start]');
+  if (bar) {
+    var pastStart = false, atEnd = false;
+    var upd = function () { var on = pastStart && !atEnd; bar.classList.toggle('show', on); bar.setAttribute('aria-hidden', String(!on)); bar.querySelector('a').tabIndex = on ? 0 : -1; };
+    if (hasIO) {
+      if (start) new IntersectionObserver(function (es) { es.forEach(function (e) { pastStart = !e.isIntersecting && e.boundingClientRect.top < 0; upd(); }); }).observe(start);
+      else { var onS = function () { pastStart = window.scrollY > 560; upd(); }; window.addEventListener('scroll', onS, { passive: true }); onS(); }
+      if (end) new IntersectionObserver(function (es) { es.forEach(function (e) { atEnd = e.isIntersecting; upd(); }); }).observe(end);
+    }
   }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { if (e.isIntersecting) { play(); io.disconnect(); } });
-  }, { threshold: 0.45 });
-  io.observe(chat);
+  d.querySelectorAll('.reel').forEach(function (r) {
+    var v = r.querySelector('video'), b = r.querySelector('.play'); if (!v) return;
+    var loaded = false, userPaused = false;
+    function load() { if (!loaded) { v.src = v.dataset.src; loaded = true; } }
+    function play() { load(); var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    v.addEventListener('play', function () { r.classList.add('playing'); b.setAttribute('aria-label', 'Pause video'); });
+    v.addEventListener('pause', function () { r.classList.remove('playing'); b.setAttribute('aria-label', 'Play video'); });
+    b.addEventListener('click', function () { if (v.paused) { userPaused = false; play(); } else { userPaused = true; v.pause(); } });
+    if (hasIO && !reduce) new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && e.intersectionRatio > 0.6) { if (!userPaused) play(); } else if (!v.paused) v.pause(); }); }, { threshold: [0, 0.6] }).observe(r);
+  });
+  d.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = d.getElementById(b.dataset.copy).innerText.trim();
+      (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () { b.textContent = 'Copied'; b.classList.add('done'); setTimeout(function () { b.textContent = 'Copy'; b.classList.remove('done'); }, 1800); }, function () {});
+    });
+  });
 })();
 </script>
 </body>

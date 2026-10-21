@@ -1,0 +1,59 @@
+FamSync press kit (October 2026)
+================================
+
+FACT SHEET
+App: FamSync: Family Calendar
+Subtitle: Organizer, Chores & Meal Plans
+Developer: Pixel Drift Studios (independent, one person: Reid). App Store seller name: Reid Patrick Coleman (the legal name on the Apple developer account).
+Platforms: iPhone and iPad, iOS / iPadOS 17 or later
+First released: April 2, 2026
+Current version: 19 (October 17, 2026)
+Category: Productivity, Lifestyle
+Age rating: 4+
+Language: English
+Price: Free for families of up to 4 people. Premium (up to 8 people) $5.99/month or $49.99/year, free trial for eligible new subscribers.
+Ads: none, in any version
+Privacy: family data is never sold; Sign in with Apple supported
+App Store: https://apps.apple.com/us/app/famsync-family-calendar/id6760918495
+Support: https://hotstreak.info/support
+Press contact: Reid, reidwcoleman@gmail.com
+
+ONE LINE
+FamSync is a shared family calendar for iPhone and iPad that also handles chores, groceries, dinner plans and a live family map, built by a solo developer, Reid, with no ads.
+
+SHORT (about 80 words)
+FamSync puts a family's week in one place. There's a shared calendar with a colour for each person, chores with allowance and streaks, a grocery list that sorts itself by aisle, and a meal planner that works around each kid's likes, dislikes and allergies. Apple and Google Calendar sync both ways, a photo of a paper school flyer becomes calendar events, and a live map shows who's home. It's free for families of up to four, and there are no ads in any version.
+
+LONG (about 350 words)
+Most families run their week across a wall calendar, three group chats, a sticky note on the fridge and one parent's memory. FamSync is an iPhone and iPad app that pulls those pieces into one place everyone in the house can see.
+
+At the centre is a shared family calendar with a colour for every person. You can see the whole family at once or just one kid. Apple Calendar and Google Calendar sync both ways, and you can snap a photo of a paper school flyer or a team schedule and have the dates land on the calendar instead of retyping a season of practices.
+
+Around the calendar sit the other things families juggle. Chores come with due dates and an allowance amount: kids tick them off, a parent gives the OK, and FamSync keeps the streaks and a running total of what's owed. The shared grocery list groups items by aisle, spots duplicates and remembers what you buy again, and you can add to it with Siri. The meal planner builds a week of dinners around what each person likes, dislikes and can't eat, explains why it picked each night, and doesn't need AI to do it. Recipes can be scanned from a photo or pulled from a link.
+
+For the moments that can't be missed, Remind sends a message as a banner that breaks through Focus, or as a call that rings even when the phone is on silent. A live family map shows ETAs and sends an alert when someone arrives at or leaves a place like school or practice. Each drive gets a summary with the route, top speed, hard brakes and how often the phone was picked up. The teen who drove sees the same summary, so it's a shared view rather than secret tracking, and it gives parents of new drivers something concrete to talk about. Little kids and grandparents without a phone still get a profile and a colour.
+
+FamSync is free for families of up to four people. Premium makes room for eight and adds Foxy, the in-app family assistant, along with calendar sync, scanning, the map, Remind and the meal planner, for $5.99 a month or $49.99 a year. There are no ads in either version, and family data is never sold.
+
+FREE
+- Shared family calendar with a colour per person
+- Chores with allowance, streaks and parent OK
+- Shared grocery list sorted by aisle, duplicate spotting, buy-again, Siri ("Hey Siri, add to groceries in FamSync")
+- Phone-free profiles for little kids and grandparents, family info and sitter notes
+
+PREMIUM
+- Foxy, the family assistant (adds and moves events, reminds people, asks before saving)
+- Remind by banner (breaks through Focus) or by call (rings on silent), and Reminder Calls for events
+- Morning briefing
+- Apple and Google Calendar two-way sync
+- Calendar scanning from photos of flyers and schedules
+- Family map with ETAs, place arrive/leave alerts, drive summaries (route, distance, top speed, hard brakes, phone pickups) that the driver sees too
+- Meal planner around each person's likes, dislikes and allergies (no AI needed), recipe import from photo or link
+
+FILES
+famsync-app-icon-1024-square.png, famsync-app-icon-512-rounded.png  App icon
+famsync-lockup-*.png, famsync-wordmark-*.png                    Icon + wordmark lockups and wordmark alone
+famsync-screen-01-home.jpg ... 10-family.jpg                      Plain iPhone screens, no captions, 1320x2868
+famsync-banner-3840x1646.jpg                                      Wide banner
+
+Names and families in screenshots are demo data. All images may be used in coverage of FamSync.
